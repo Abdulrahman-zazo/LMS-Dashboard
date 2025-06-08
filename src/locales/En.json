@@ -1,0 +1,329 @@
+{
+  "translation": {
+    "HeroHome": {
+      "Home_title": "Where Learning Meets Potential",
+      "text1": "Unlock your potential with H-Platform",
+      "text2": "In a rapidly changing world, learning alone is no longer enough—you need to stand out. H-Platform isn’t just a learning tool; it's the bridge that turns your dreams into reality.",
+      "text3": "Claim your free session now"
+    },
+    "Header": {
+      "Home": "Home",
+      "About": "About Us",
+      "Courses": "Courses",
+      "Curricula": "Curricula",
+      "offer": "Offers",
+      "users": "Users",
+      "complaints": "Feedback & Suggestions",
+      "login": "Login",
+      "Register": "Sign Up"
+    },
+    "why": {
+      "why_we": "Why Choose",
+      "Differenet": "Us?",
+      "subtitle": "We redefine online education with innovation and distinction.",
+      "key1": "Instant Support",
+      "value1": "Reach out to trainers directly via WhatsApp—no delays, no waiting.",
+      "key2": "Expert Instructors",
+      "value2": "They combine deep knowledge with engaging, interactive teaching styles.",
+      "key3": "Learn New Skills",
+      "value3": "With a team of professional trainers who break down complex ideas into fun and simple concepts."
+    },
+    "Courses": {
+      "slogan": "We’re always with you! 💡",
+      "description": "Whatever your role or goal, H-Platform is designed to fit your journey and support your success.",
+      "title": "Student or Educator?",
+      "button1": "All Courses",
+      "button2": "Recorded",
+      "button3": "Live Online",
+      "button4": "Offers",
+      "more": "Show More",
+      "Nocourse": "No courses available at the moment 😓",
+      "Course_info": "Course Information",
+      "comments": "Reviews & Opinions",
+      "what_we_learn": "What You’ll Learn",
+      "content_course": "Course Content",
+      "requairment": "Course Requirements",
+      "button_free": "Book a Free Session Now"
+    },
+    "how-work": {
+      "title": "How H-Platform Works",
+      "feature1": "Browse Training Courses",
+      "content1": "Explore trending and essential courses. Watch introductory videos to get a quick overview.",
+      "button1": "Find the Right Course",
+      "feature2": "Create Your Profile",
+      "content2": "Register easily using Google. A few simple steps are all it takes to set up your profile.",
+      "button2": "Get Started Now",
+      "feature3": "Reserve Your Spot",
+      "content3": "Contact our team directly to reserve your place and join the course of your choice.",
+      "button3": "Connect with Us"
+    },
+    "Courses_card": {
+      "description": "About the Course:",
+      "comments_placeholder": "Leave a comment to help others understand your experience...",
+      "send": "Send",
+      "add_comments": "Add Comment",
+      "showless": "Show Less",
+      "showAll": "Show More"
+    },
+    "FAQ": {
+      "title": "Frequently Asked Questions",
+      "questions1": "What is H-Platform?",
+      "content1": "H-Platform is an intelligent learning platform designed to develop skills and connect learners with real-world opportunities through interactive content and personalized training.",
+      "questions2": "Can I try H-Platform for free?",
+      "content2": "Yes! You can try free lessons from any course before subscribing.",
+      "questions3": "How can I register on H-Platform?",
+      "content3": "It’s simple! Visit our website, choose the course that suits you, and create your account in minutes. A free session awaits you to get started.",
+      "questions4": "Does the platform offer technical support or educational consultations?",
+      "content4": "Absolutely. Our support team is always available to assist you, and we offer guidance to help you choose the right path for your development.",
+      "questions5": "How do I choose the right level for my child?",
+      "content5": "Reach out to us, and we’ll provide a placement test for any course you need."
+    },
+    "footer": {
+      "name": "H-Platform",
+      "slogan": "Learn Smart, Start Your Journey Now",
+      "help_center": "Help Center",
+      "term": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "aboutus": "About Us",
+      "courses": "Courses",
+      "curricula": "Curricula"
+    },
+    "about-header": {
+      "title1": "With H-Platform, Learning Starts—and Never Stops",
+      "title2": "H-Platform is a community that leads you toward excellence, equipping you with the tools and knowledge to move forward confidently in a fast-changing world. We create a comprehensive digital learning experience that takes your ambition from idea to achievement.",
+      "title3": "Join us today and be part of the future of learning."
+    },
+    "offer-header": {
+      "title1": "Exclusive Educational Offers 🎁!",
+      "title2": "Take advantage of our carefully designed packages to help you reach your goals flexibly and affordably. Choose the offer that fits your interests and start learning today.",
+      "title3": "Explore the offers and pick what suits you best"
+    },
+    "offer": {
+      "title": "Available Offers 🎉",
+      "button": "Subscribe Now",
+      "lable": "This offer includes the following courses:",
+      "NoOffer": "No offers available at the moment. New offers will be added soon."
+    },
+    "about": {
+      "title1": "Our Mission",
+      "description1": "To deliver real-time education that fits your schedule, with engaging content that sparks curiosity and personalized learning paths designed just for you.",
+      "title2": "Our Goal",
+      "description2": "At H-Platform, we aim to make education a unique and impactful experience by offering innovative, enjoyable, and accessible solutions to everyone—regardless of age, background, or location.",
+      "title3": "Our Vision",
+      "description3": "We’re building a global community of learners connected through knowledge and growth, where cutting-edge technology becomes a life-changing educational experience and opens doors to the future."
+    },
+    "map": {
+      "title1": "Start Your Learning Journey Today",
+      "with": "with",
+      "title2": "The future is in your hands—learn, grow, and make your dreams come true."
+    },
+    "course-header": {
+      "title1": "Our Training Courses",
+      "title2": "H-Platform isn’t just a learning platform—it’s a smart and inspiring experience that combines cutting-edge technology with expert instructors to offer you truly valuable learning.",
+      "title3": "Browse the courses and find what matches your goals"
+    },
+    "curricula-header": {
+      "title1": "Curricula at H-Platform",
+      "title2": "H-Platform offers comprehensive educational programs in core subjects like Arabic, English, Math, and Mental Arithmetic—tailored for every level.",
+      "title3": "Join us today and be part of the future of education."
+    },
+    "curricula": {
+      "select": "Select your curriculum and academic level:",
+      "curricula_select": "Curriculum",
+      "curricula_select2": "Level",
+      "button": "Book a Session",
+      "empty": "Please choose a curriculum and level to view available subjects.",
+      "empty1": "No levels available for this curriculum.",
+      "empty2": "No subjects available for this level."
+    },
+    "complaints": {
+      "title1": "Feedback & Suggestions",
+      "title2": "We’re always happy to hear from you! Whether you have a question about our courses, need quick tech support, or want to explore partnership opportunities — our team is ready to help with professionalism and speed.",
+      "title3": "Send your feedback or suggestion now"
+    },
+    "Get_started": {
+      "title1": "Educational Content Delivered Anywhere!",
+      "title2": "Join now and never miss out on the latest courses, curricula, and exclusive offers designed just for you.",
+      "title3": "Learn smart—start your journey today"
+    },
+    "complaints_system": {
+      "title": "Feedback & Suggestions",
+      "description": "We take your input seriously. Our dedicated team will review your request and respond within 48 hours.",
+      "label1": "Full Name",
+      "label2": "Email Address",
+      "label3": "Phone Number",
+      "label5": "Share your feedback and help us improve your learning experience",
+      "label4": "Message Content"
+    },
+    "auth": {
+      "create_account": {
+        "Create_title": "Create Account",
+        "create_text": "Join us by filling in the details below.",
+        "Name": "Full Name",
+        "Password": "Password",
+        "phone": "Phone Number",
+        "email": "Email Address",
+        "Register": "Register",
+        "Already": "Already have an account?",
+        "Login": "Login here"
+      },
+      "Login_account": {
+        "Login_title": "Welcome Back!",
+        "create_text": "Enter your credentials to access your account.",
+        "Google": "Continue with Google",
+        "email": "Email Address",
+        "Password": "Password",
+        "forget": "Forgot Password?",
+        "Login": "Login",
+        "noAccount": "Don’t have an account?",
+        "Register": "Sign up here"
+      },
+      "forget_password": {
+        "forget_title": "Reset Password",
+        "forget_text": "Enter your email to reset your password.",
+        "email": "Email Address",
+        "next": "Next",
+        "Remembered": "Remembered your password?",
+        "Login": "Login here",
+        "code": "Enter the code sent to your email",
+        "Verification": "Verification Code",
+        "digit": "Enter the 6-digit code here",
+        "resend": "Didn't receive the code?",
+        "new_password_text": "Enter your new password below",
+        "new_password": "New Password",
+        "new_password2": "Confirm New Password",
+        "confirm": "Confirm",
+        "resending": "Sending..."
+      }
+    },
+    "buttons": {
+      "courses": {
+        "add": "Add New Courses 🚀"
+      }
+    },
+    "error": {
+      "back": "Back to Home",
+      "noInternet": " 😓 No Internet Connection",
+      "noInternet2": "An error occurred while loading data. Please check your connection and try again.",
+      "data": "An error occurred while loading data. Please try again later.",
+      "offline": "No Internet Connection",
+      "selectStage": "Please select an academic level",
+      "Nostage": "No levels available"
+    },
+    "Instructor": {
+      "title1": "Are You a Teacher or Trainer? 🎓",
+      "title2": "Share your knowledge with thousands of learners! If you're interested in offering courses or training content on our platform, we’d love to work with you.",
+      "title3": "Contact Us"
+    },
+    "userMenu": {
+      "join": "Join Us as a Trainer",
+      "complaints": "Feedback & Suggestions",
+      "settings": "Settings",
+      "logout": "Log Out"
+    },
+    "term": {
+      "title": "Terms of Use",
+      "text": "Introduction:",
+      "introduction": "Welcome to our educational platform. These terms define the rules and conditions governing the use of the platform and its educational services. Please read them carefully before using the platform. By using it, you agree to be bound by these terms.",
+      "definitions": "Definitions:",
+      "platform": "Platform: Refers to the website that provides access to courses and educational content.",
+      "user": "User: Anyone who registers or uses the platform's services, whether as a learner or instructor.",
+      "services": "Services: Includes all educational and interactive features offered by the platform.",
+      "content": "Content: All materials and information created, uploaded, or shared through the platform by users or the platform itself.",
+      "platform_use": "Using the Platform:",
+      "registration": "Registration: Users must provide accurate and truthful information when creating their accounts.",
+      "responsibility": "Responsibility: Users are responsible for keeping their account information confidential and not sharing it with others.",
+      "legal_use": "Legal Use: It is prohibited to use the platform for any illegal or harmful activities.",
+      "intellectual_property_rights": "Intellectual Property:",
+      "ownership": "Ownership: All rights related to the platform, its content, and services belong to us or our licensed partners.",
+      "personal_use": "Personal Use: The platform is for personal educational use only. Redistributing content for commercial purposes is not allowed.",
+      "liability": "Liability:",
+      "disclaimer": "Disclaimer: We are not liable for any direct or indirect damages resulting from the use of the platform.",
+      "edit": "Modifications:",
+      "modifications": "We reserve the right to modify these terms at any time. Changes will be posted here, and continued use of the platform implies acceptance.",
+      "contact": "Contact Us:",
+      "contact_us": "For any questions or comments regarding the terms of use, please contact us at"
+    },
+    "privacy": {
+      "text": "Privacy Policy",
+      "title": "Introduction:",
+      "introduction": "We are committed to protecting your privacy and ensuring the security of your personal information. This policy explains how we collect, use, and share data when you use our educational platform.",
+      "collected_information": "Information We Collect",
+      "personal_information": "When registering, we may ask for personal details like your name, email, phone number, and password.",
+      "usage_data": "We collect information about how you use the platform, such as the courses you join and the activities you complete.",
+      "usage_of_information": "How We Use the Information:",
+      "service_provision": "Providing Services: We use your data to create your account and offer technical support.",
+      "platform_improvement": "Improving the Platform: We analyze usage data to enhance your experience and develop our services.",
+      "communication": "Communication: We may contact you with platform updates or responses to your inquiries.",
+      "information_sharing": "Information Sharing:",
+      "service_providers": "Service Providers: We may share your data with trusted providers who help operate our platform, such as cloud hosting services.",
+      "security": "Data Security:",
+      "data_security": "We take appropriate measures to protect your personal information from unauthorized access, disclosure, modification, or deletion.",
+      "your_rights": "Your Rights:",
+      "title1": "Request access to your personal data.",
+      "title2": "Request correction of inaccurate information.",
+      "title3": "Request deletion of your data from our system.",
+      "title4": "Object to automated decisions based on your data.",
+      "policy_changes": "Changes to the Privacy Policy:",
+      "text1": "We reserve the right to update this policy from time to time. Any changes will be posted on this page.",
+      "contact_us": "Contact Us:",
+      "contact": "If you have any questions about this policy, feel free to reach out.",
+      "whats": "via WhatsApp"
+    },
+    "message": {
+      "comments": {
+        "add": "Your comment has been submitted! It will be reviewed and published shortly.",
+        "error": "Failed to submit comment",
+        "delete": "Comment deleted",
+        "error_delete": "Failed to delete comment"
+      },
+      "Complaints": {
+        "add": "Thank you! Our team will respond shortly.",
+        "error": "Failed to send your complaint. Please try again."
+      },
+      "registration": {
+        "error": "Please enter your personal information correctly",
+        "loading": "Creating account...",
+        "send": "A verification code has been sent to your email. Please enter it below.",
+        "code": "Verifying the entered code...",
+        "success": "Account created successfully!",
+        "error_register": "Failed to create account, please try again.",
+        "resend": "Resending code...",
+        "done_send": "Code has been resent"
+      },
+      "login_message": {
+        "error": "Please enter a valid email and password",
+        "loading": "Logging in...",
+        "send": "A verification code has been sent to your email. Please enter it below.",
+        "code": "Verifying the entered code...",
+        "success": "Login successful!",
+        "error_register": "Login failed",
+        "resend": "Resending code...",
+        "done_send": "Code has been resent"
+      },
+      "forget_message": {
+        "loading": "Sending verification code...",
+        "send": "A verification code has been sent to your email. Please enter it below.",
+        "error_code": "This email is not registered with us",
+        "code": "Verifying the entered code...",
+        "success": "Password changed successfully!"
+      }
+    },
+    "pages": {
+      "Home": "H-Platform - Home",
+      "About": "H-Platform - About Us",
+      "Courses": "H-Platform - Courses",
+      "Curriculum": "H-Platform - Curriculum",
+      "offer": "H-Platform - Offers",
+      "terms": "H-Platform - Terms of Use",
+      "privacy": "H-Platform - Privacy Policy",
+      "login": "H-Platform - Login",
+      "Register": "H-Platform - Create Account",
+      "Home_description": "In a rapidly changing world, learning alone is no longer enough—you need to stand out. H-Platform isn’t just a learning tool; it's the bridge that turns your dreams into reality.",
+      "About_description": "H-Platform is a community that leads you toward excellence, equipping you with the tools and knowledge to move forward confidently in a fast-changing world. We create a comprehensive digital learning experience that takes your ambition from idea to achievement.",
+      "Courses_description": "H-Platform isn’t just a learning platform—it’s a smart and inspiring experience that combines cutting-edge technology with expert instructors to offer you truly valuable learning.",
+      "Curriculum_description": "H-Platform offers comprehensive educational programs in core subjects like Arabic, English, Math, and Mental Arithmetic—tailored for every level.",
+      "offer_description": "Take advantage of our carefully designed packages to help you reach your goals flexibly and affordably. Choose the offer that fits your interests and start learning today."
+    }
+  }
+}
