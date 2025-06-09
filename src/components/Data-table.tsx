@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Tooltip,
   TooltipContent,
@@ -19,6 +20,7 @@ export function DataTable<T extends { id: string | number }>({
   columns,
   title = "البيانات",
   description = "",
+  isloading = false,
   buttonAdd = "إضافة",
   data,
   onAdd,
@@ -47,7 +49,11 @@ export function DataTable<T extends { id: string | number }>({
           <span className="text-sm text-neutral-400">{description}</span>
         </div>
         {onAdd && (
-          <Button onClick={onAdd} className="text-base" variant="default">
+          <Button
+            onClick={() => onAdd()}
+            className="text-base"
+            variant="default"
+          >
             {buttonAdd}
           </Button>
         )}
@@ -57,83 +63,110 @@ export function DataTable<T extends { id: string | number }>({
         <table className="min-w-full text-sm">
           <thead>
             <tr className="border-b">
-              {columns.map((col) => (
-                <th
-                  key={col.key as string}
-                  className="text-center p-4 font-semibold"
-                >
-                  {col.header}
-                </th>
-              ))}
+              {columns.map((col) =>
+                col.key === "image" ? (
+                  <th
+                    key={col.key as string}
+                    className="text-center w-1/6 font-semibold"
+                  >
+                    {col.header}
+                  </th>
+                ) : (
+                  <th
+                    key={col.key as string}
+                    className="text-center p-4 font-semibold"
+                  >
+                    {col.header}
+                  </th>
+                )
+              )}
               {onView && <th className="p-2">تفاصيل</th>}
               <th className="p-2">الإجراءات</th>
             </tr>
           </thead>
           <tbody>
-            {paginatedData?.map((row) => (
-              <tr key={row.id} className="border-b hover:bg-muted/50">
-                {columns.map((col) => (
-                  <td key={col.key as string} className="p-2">
-                    {col.key === "image" ? (
-                      <img
-                        src={row[col.key] as string}
-                        alt="صورة"
-                        className="w-20 object-cover h-12 rounded"
-                      />
-                    ) : col.render ? (
-                      col.render(row[col.key], row)
-                    ) : (
-                      (row[col.key] as React.ReactNode)
+            {isloading
+              ? Array.from({ length: rowsPerPage }).map((_, i) => (
+                  <tr key={i} className="border-b border-neutral-200">
+                    {columns.map((_, j) => (
+                      <td key={j} className="p-3">
+                        <Skeleton className="h-10 w-full" />
+                      </td>
+                    ))}
+                    {onView && (
+                      <td className="p-2 text-center">
+                        <Skeleton className="h-8 w-8 mx-auto" />
+                      </td>
                     )}
-                  </td>
+                    <td className="p-2">
+                      <Skeleton className="h-8 w-16 mx-auto" />
+                    </td>
+                  </tr>
+                ))
+              : paginatedData?.map((row) => (
+                  <tr key={row.id} className="border-b hover:bg-muted/50">
+                    {columns.map((col) => (
+                      <td key={col.key as string} className="p-2 ">
+                        {col.key === "image" ? (
+                          <img
+                            src={row[col.key] as string}
+                            alt="صورة"
+                            className="w-20 object-cover h-12 rounded mx-auto"
+                          />
+                        ) : col.render ? (
+                          col.render(row[col.key], row)
+                        ) : (
+                          (row[col.key] as React.ReactNode)
+                        )}
+                      </td>
+                    ))}
+                    {onView && (
+                      <td className="p-2 text-center">
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              size="icon"
+                              variant="ghost"
+                              onClick={() => onView(row)}
+                            >
+                              <Eye className="w-4 h-4" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>تفاصيل الكورس</TooltipContent>
+                        </Tooltip>
+                      </td>
+                    )}
+                    <td className="p-2 text-center">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon">
+                            <MoreVertical className="w-4 h-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent side="left">
+                          {onEdit && (
+                            <DropdownMenuItem onClick={() => onEdit(row)}>
+                              <Pencil className="w-4 h-4 mr-2" />
+                              تعديل
+                            </DropdownMenuItem>
+                          )}
+                          {onDelete && (
+                            <DropdownMenuItem onClick={() => onDelete(row)}>
+                              <Trash2 className="w-4 h-4 mr-2" />
+                              حذف
+                            </DropdownMenuItem>
+                          )}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </td>
+                  </tr>
                 ))}
-                {onView && (
-                  <td className="p-2 text-center">
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button
-                          size="icon"
-                          variant="ghost"
-                          onClick={() => onView(row)}
-                        >
-                          <Eye className="w-4 h-4" />
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>تفاصيل الكورس</TooltipContent>
-                    </Tooltip>
-                  </td>
-                )}
-                <td className="p-2">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon">
-                        <MoreVertical className="w-4 h-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      {onEdit && (
-                        <DropdownMenuItem onClick={() => onEdit(row)}>
-                          <Pencil className="w-4 h-4 mr-2" />
-                          تعديل
-                        </DropdownMenuItem>
-                      )}
-                      {onDelete && (
-                        <DropdownMenuItem onClick={() => onDelete(row)}>
-                          <Trash2 className="w-4 h-4 mr-2" />
-                          حذف
-                        </DropdownMenuItem>
-                      )}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </td>
-              </tr>
-            ))}
           </tbody>
         </table>
       </div>
 
       {/* Pagination Controls */}
-      {totalPages > 1 && (
+      {!isloading && totalPages > 1 && (
         <div className="flex justify-center items-center gap-4 mt-4">
           <Button
             variant="outline"

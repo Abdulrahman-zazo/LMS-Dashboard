@@ -30,6 +30,7 @@ export const CoursesApi = createApi({
         method: "POST",
         body: { course_id },
       }),
+      providesTags: ["Courses"],
     }),
     addcourse: builder.mutation({
       query: ({ course, token }: { course: Course; token: string }) => ({
@@ -40,7 +41,8 @@ export const CoursesApi = createApi({
           Authorization: `Bearer ${decryptToken(token)}`,
         },
       }),
-      invalidatesTags: ["Courses"],
+      invalidatesTags: (result) =>
+        result ? [{ type: "Courses", id: result.id }] : ["Courses"],
     }),
     deleteCourse: builder.mutation({
       query: ({ course_id, token }: { course_id: number; token: string }) => ({
@@ -53,7 +55,8 @@ export const CoursesApi = createApi({
           Authorization: `Bearer ${decryptToken(token)}`,
         },
       }),
-      invalidatesTags: ["Courses"],
+      invalidatesTags: (result) =>
+        result ? [{ type: "Courses", id: result.id }] : ["Courses"],
     }),
     activeCourse: builder.mutation({
       query: ({ course_id, token }: { course_id: number; token: string }) => ({
@@ -66,7 +69,8 @@ export const CoursesApi = createApi({
           Authorization: `Bearer ${decryptToken(token)}`,
         },
       }),
-      invalidatesTags: ["Courses"],
+      invalidatesTags: (result) =>
+        result ? [{ type: "Courses", id: result.id }] : ["Courses"],
     }),
     updateCourse: builder.mutation({
       query: ({ course, token }: { course: Course; token: string }) => ({
@@ -78,9 +82,17 @@ export const CoursesApi = createApi({
           Authorization: `Bearer ${decryptToken(token)}`,
         },
       }),
-      invalidatesTags: ["Courses"],
+      invalidatesTags: (result) =>
+        result ? [{ type: "Courses", id: result.id }] : ["Courses"],
     }),
   }),
 });
 
-export const { useGetCourseByIdQuery, useGetAllCoursesQuery } = CoursesApi;
+export const {
+  useGetCourseByIdQuery,
+  useGetAllCoursesQuery,
+  useActiveCourseMutation,
+  useAddcourseMutation,
+  useDeleteCourseMutation,
+  useUpdateCourseMutation,
+} = CoursesApi;

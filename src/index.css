@@ -68,7 +68,7 @@ html[lang="en"] {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
+  --color-error: rgba(255, 77, 79, 1);
   --radius: 0.625rem;
   --background: rgba(251, 248, 252, 1);
   --foreground: oklch(0.145 0 0);
@@ -177,10 +177,15 @@ html[lang="en"] {
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+
+  *:focus {
+    @apply outline-ring/50;
   }
 }
 @layer base {
@@ -204,5 +209,10 @@ html[lang="en"] {
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.439 0 0);
+  }
+}
+.sm\:max-w-lg {
+  @media (width >= 40rem) {
+    max-width: var(--container-3xl);
   }
 }

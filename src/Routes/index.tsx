@@ -15,6 +15,7 @@ import ComplaintsPage from "@/Pages/Dashboard/Complaints/ComplaintsPage";
 import StagePage from "@/Pages/Dashboard/Stage/StagePage";
 import SubjectPage from "@/Pages/Dashboard/Subject/SubjectPage";
 import HomePage from "@/Pages/Dashboard/Home";
+import CoursePage from "@/Pages/Dashboard/Courses/CourseDetails";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ export const router = createBrowserRouter([
         children: [
           { index: true, element: <HomePage /> },
           { path: "/courses", element: <CoursesPage /> },
+          { path: "/courses/:id", element: <CoursePage /> },
           { path: "/curricula", element: <CurriculaPage /> },
           { path: "/offer", element: <OffersPage /> },
           { path: "/users", element: <UsersPage /> },

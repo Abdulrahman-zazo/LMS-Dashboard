@@ -8,6 +8,7 @@ export type Column<T> = {
 export interface DataTableProps<T> {
   title?: string;
   buttonAdd?: string;
+  isloading: boolean;
   description?: string;
   columns: Column<T>[];
   data: T[];
@@ -19,7 +20,8 @@ export interface DataTableProps<T> {
 
 export interface Course {
   name: string;
-  image: File[];
+  image: string;
+  imageFile?: File;
   description: string;
   contents: string;
   type: string;
