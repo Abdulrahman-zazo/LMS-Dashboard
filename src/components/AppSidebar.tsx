@@ -39,7 +39,6 @@ export function AppSidebar() {
   const { t } = useTranslation("translation");
   const token = cookieService.get("auth_token") || "";
   const { data, isLoading } = useGetuserInformationQuery(token as string);
-  console.log(data);
   const items = [
     {
       title: t("Header.Home"),

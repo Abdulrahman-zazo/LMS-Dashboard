@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Reviews } from "./Reviews"; // Assuming you'll create this component
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { CourseInfo } from "./CourseInfo";
 import { useTranslation } from "react-i18next";
 import HandelError from "@/components/HandelError";
@@ -20,6 +20,10 @@ import {
 } from "@/components/ui/tooltip";
 import ActiveSwitch from "@/components/ActiveSwitch";
 import { cookieService } from "@/Cookies/CookiesServices";
+import { useCourseActions } from "../Hooks/useCourseActions ";
+import type { Course } from "@/types";
+import CourseDialog from "../CourseModel";
+import DeleteDialog from "../DeleteDialog";
 
 const CoursePage = () => {
   const [activeTab, setActiveTab] = useState<"info" | "reviews">("info");
@@ -31,7 +35,14 @@ const CoursePage = () => {
   });
   const [activeCourse, { isLoading: isLaodingActive }] =
     useActiveCourseMutation();
-  console.log(data?.course.is_active);
+  const Navigate = useNavigate();
+  const { handleUpdate, handleDelete } = useCourseActions(token);
+  const [open, setOpen] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+
+  const [currentCourse, setCurrentCourse] =
+    useState<Partial<Course | undefined>>();
+
   const { t } = useTranslation("translation");
   if (isLoading || isLaodingActive) {
     return (
@@ -90,6 +101,15 @@ const CoursePage = () => {
     return <HandelError />;
   }
 
+  const onEditClick = () => {
+    setCurrentCourse(data?.course);
+    setOpen(true);
+  };
+
+  const onDeleteClick = () => {
+    setCurrentCourse(data?.course);
+    setOpenDeleteDialog(true);
+  };
   return (
     <div className="bg-white rounded-2xl container mx-auto p-6">
       <div className="mx-6">
@@ -198,6 +218,7 @@ const CoursePage = () => {
               </div>
               <div className="flex items-center flex-2 gap-6 justify-between">
                 <button
+                  onClick={onEditClick}
                   title="تعديل كورس"
                   className="w-full bg-neutral-300 text-sm md:text-base text-neutral-700 py-3  rounded-md flex items-center mx-auto gap-4 justify-center hover:bg-neutral-600/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/50"
                 >
@@ -205,6 +226,7 @@ const CoursePage = () => {
                 </button>
                 <button
                   title="حذف كورس"
+                  onClick={onDeleteClick}
                   className="w-full border border-red-500 text-sm md:text-base text-red-500 py-3 rounded-md flex items-center mx-auto gap-4 justify-center hover:bg-red-200/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/50"
                 >
                   <Trash2 className="w-4 h-4 " />
@@ -212,6 +234,26 @@ const CoursePage = () => {
               </div>
             </div>
           </div>
+
+          <CourseDialog
+            key={currentCourse?.id}
+            open={open}
+            onClose={() => setOpen(false)}
+            onSubmit={handleUpdate}
+            initialData={currentCourse}
+          />
+
+          <DeleteDialog
+            key="delete-course"
+            open={openDeleteDialog}
+            onClose={() => setOpenDeleteDialog(false)}
+            onSubmit={() => {
+              if (currentCourse?.id) handleDelete(currentCourse.id);
+              setOpenDeleteDialog(false);
+              Navigate("/courses");
+            }}
+            initialData={currentCourse}
+          />
         </div>
       </div>
     </div>

@@ -1,25 +1,33 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { decryptToken } from "../../../Cookies/CryptoServices/crypto";
-import { DELETE_COMPLAINT } from "../../../api/api";
+import { ALL_COMPLAINT, DELETE_COMPLAINT } from "../../../api/api";
 
-export interface IComplaintsdata {
-  text: string;
-  phone: string;
-  email: string;
-  name: string;
-  token: string;
-}
 export const ComplaintsApi = createApi({
   reducerPath: "ComplaintsApi",
   tagTypes: ["Complaints"],
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
   endpoints: (builder) => ({
-    addComplaints: builder.mutation({
-      query: ({ text, name, phone, email, token }: IComplaintsdata) => ({
+    getAllComplaints: builder.query({
+      query: (token: string) => ({
+        url: ALL_COMPLAINT,
+        headers: {
+          Authorization: `Bearer ${decryptToken(token)}`,
+        },
+      }),
+      providesTags: ["Complaints"],
+    }),
+    deleteComplaints: builder.mutation({
+      query: ({
+        complaint_id,
+        token,
+      }: {
+        complaint_id: number;
+        token: string;
+      }) => ({
         url: DELETE_COMPLAINT,
         method: "POST",
-        body: { text, name, phone, email },
+        body: { complaint_id },
         headers: {
           Authorization: `Bearer ${decryptToken(token)}`,
         },
@@ -29,4 +37,5 @@ export const ComplaintsApi = createApi({
   }),
 });
 
-export const { useAddComplaintsMutation } = ComplaintsApi;
+export const { useDeleteComplaintsMutation, useGetAllComplaintsQuery } =
+  ComplaintsApi;

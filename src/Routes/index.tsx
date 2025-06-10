@@ -8,7 +8,6 @@ import ForgetPassword from "../Pages/Auth/Forget-Password";
 
 import Layout from "@/Pages/Dashboard";
 import CoursesPage from "@/Pages/Dashboard/Courses";
-import CurriculaPage from "@/Pages/Dashboard/Curricula";
 import OffersPage from "@/Pages/Dashboard/Offers/OffersPage";
 import UsersPage from "@/Pages/Dashboard/Users";
 import ComplaintsPage from "@/Pages/Dashboard/Complaints/ComplaintsPage";
@@ -16,6 +15,8 @@ import StagePage from "@/Pages/Dashboard/Stage/StagePage";
 import SubjectPage from "@/Pages/Dashboard/Subject/SubjectPage";
 import HomePage from "@/Pages/Dashboard/Home";
 import CoursePage from "@/Pages/Dashboard/Courses/CourseDetails";
+import CurriculasPage from "@/Pages/Dashboard/Curricula";
+import CurriculaDetails from "@/Pages/Dashboard/Curricula/curriculaDetails";
 
 export const router = createBrowserRouter([
   {
@@ -36,7 +37,8 @@ export const router = createBrowserRouter([
           { index: true, element: <HomePage /> },
           { path: "/courses", element: <CoursesPage /> },
           { path: "/courses/:id", element: <CoursePage /> },
-          { path: "/curricula", element: <CurriculaPage /> },
+          { path: "/curricula/:id", element: <CurriculaDetails /> },
+          { path: "/curricula", element: <CurriculasPage /> },
           { path: "/offer", element: <OffersPage /> },
           { path: "/users", element: <UsersPage /> },
           { path: "/complaints", element: <ComplaintsPage /> },

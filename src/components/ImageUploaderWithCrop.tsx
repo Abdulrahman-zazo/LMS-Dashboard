@@ -3,6 +3,7 @@ import Cropper, { type Area } from "react-easy-crop";
 import { getCroppedFile } from "../lib/cropImage";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Input } from "./ui/input";
 
 interface ImageCropperProps {
   imageSrc: string;
@@ -32,8 +33,8 @@ const ImageCropper: FC<ImageCropperProps> = ({
 
   return (
     <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className="max-w-lg h-[450px]">
-        <div className="relative w-full h-[300px] bg-black">
+      <DialogContent className="max-w-md h-[450px] py-8" title="Crop image">
+        <div className="relative w-full h-[250px] bg-neutral-800 mt-4">
           <Cropper
             image={imageSrc}
             crop={crop}
@@ -44,9 +45,9 @@ const ImageCropper: FC<ImageCropperProps> = ({
             onCropComplete={handleCropComplete}
           />
         </div>
-        <div className="mt-4">
+        <div className="mt-0">
           <label>Zoom:</label>
-          <input
+          <Input
             type="range"
             min={1}
             max={3}
@@ -55,11 +56,11 @@ const ImageCropper: FC<ImageCropperProps> = ({
             onChange={(e) => setZoom(Number(e.target.value))}
           />
         </div>
-        <div className="flex justify-end gap-2 mt-4">
+        <div className="flex justify-end gap-2 ">
           <Button variant="outline" onClick={onClose}>
             إلغاء
           </Button>
-          <Button onClick={onDone}>تم</Button>
+          <Button onClick={onDone}>حفظ</Button>
         </div>
       </DialogContent>
     </Dialog>

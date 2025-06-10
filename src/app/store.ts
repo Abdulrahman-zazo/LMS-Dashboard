@@ -9,6 +9,8 @@ import { CurriculumsApi } from "./features/Curriculum/CurriculumApi";
 import { CommentsApi } from "./features/Comments/CommentsApi";
 import { OfferApi } from "./features/Offer/OfferApi";
 import { ComplaintsApi } from "./features/Complaints/ComplaintsApi";
+import { SubjectsApi } from "./features/Curriculum/Subject/SubjectApi";
+import { StagesApi } from "./features/Curriculum/Stage/StageApi";
 export const store = configureStore({
   reducer: {
     user: userReduser,
@@ -21,6 +23,8 @@ export const store = configureStore({
     [CommentsApi.reducerPath]: CommentsApi.reducer,
     [OfferApi.reducerPath]: OfferApi.reducer,
     [ComplaintsApi.reducerPath]: ComplaintsApi.reducer,
+    [SubjectsApi.reducerPath]: SubjectsApi.reducer,
+    [StagesApi.reducerPath]: StagesApi.reducer,
   },
 
   // 1- Using Api middleware
@@ -32,7 +36,9 @@ export const store = configureStore({
       CurriculumsApi.middleware,
       CommentsApi.middleware,
       OfferApi.middleware,
-      ComplaintsApi.middleware
+      ComplaintsApi.middleware,
+      SubjectsApi.middleware,
+      StagesApi.middleware
     ), // إضافة middleware
 });
 

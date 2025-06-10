@@ -3,6 +3,7 @@ import { decryptToken } from "../../../Cookies/CryptoServices/crypto";
 import {
   CHANGE_IMAGE,
   CHANGE_PASSWORD,
+  GET_ALL_STATISTICS,
   LOGIN,
   NEW_PASSWORD,
   REGISTER,
@@ -47,6 +48,15 @@ export const userApi = createApi({
     getuserInformation: builder.query({
       query: (token: string) => ({
         url: USER_INFO,
+        headers: {
+          Authorization: `Bearer ${decryptToken(token)}`,
+        },
+      }),
+      providesTags: ["auth"],
+    }),
+    getStatistics: builder.query({
+      query: (token: string) => ({
+        url: GET_ALL_STATISTICS,
         headers: {
           Authorization: `Bearer ${decryptToken(token)}`,
         },
@@ -143,4 +153,5 @@ export const {
   useRegisterByGoogleMutation,
   useRegisterMutation,
   useVerifyEmailMutation,
+  useGetStatisticsQuery,
 } = userApi;

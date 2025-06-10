@@ -33,19 +33,42 @@ export const CoursesApi = createApi({
       providesTags: ["Courses"],
     }),
     addcourse: builder.mutation({
-      query: ({ course, token }: { course: Course; token: string }) => ({
-        url: ADD_COURSE,
-        method: "POST",
-        body: course,
-        headers: {
-          Authorization: `Bearer ${decryptToken(token)}`,
-        },
-      }),
+      query: ({
+        course,
+        token,
+      }: {
+        course: Partial<Course>;
+        token: string;
+      }) => {
+        const formData = new FormData();
+        if (course.imageFile) formData.append("image", course.imageFile);
+        if (course.name) formData.append("name", course.name);
+        if (course.description)
+          formData.append("description", course.description);
+        if (course.contents) formData.append("contents", course.contents);
+        if (course.type) formData.append("type", course.type);
+        if (course.material) formData.append("material", course.material);
+        if (course.cost) formData.append("cost", course.cost);
+        if (course.hours) formData.append("hours", course.hours);
+        if (course.requirements)
+          formData.append("requirements", course.requirements);
+        if (course.summary) formData.append("summary", course.summary);
+
+        return {
+          url: ADD_COURSE,
+          method: "POST",
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${decryptToken(token)}`,
+            // DON'T set content-type manually here! Let the browser handle it.
+          },
+        };
+      },
       invalidatesTags: (result) =>
         result ? [{ type: "Courses", id: result.id }] : ["Courses"],
     }),
     deleteCourse: builder.mutation({
-      query: ({ course_id, token }: { course_id: number; token: string }) => ({
+      query: ({ course_id, token }: { course_id?: number; token: string }) => ({
         url: DELETE_COURSE,
         method: "POST",
         body: {
@@ -73,15 +96,35 @@ export const CoursesApi = createApi({
         result ? [{ type: "Courses", id: result.id }] : ["Courses"],
     }),
     updateCourse: builder.mutation({
-      query: ({ course, token }: { course: Course; token: string }) => ({
-        url: UPDATE_COURSE,
-        method: "POST",
-        body: course,
-
-        headers: {
-          Authorization: `Bearer ${decryptToken(token)}`,
-        },
-      }),
+      query: ({
+        course,
+        token,
+      }: {
+        course: Partial<Course>;
+        token: string;
+      }) => {
+        const formData = new FormData();
+        if (course.imageFile) formData.append("image", course.imageFile);
+        if (course.id) formData.append("course_id", String(course.id));
+        if (course.name) formData.append("name", course.name);
+        if (course.description)
+          formData.append("description", course.description);
+        if (course.contents) formData.append("contents", course.contents);
+        if (course.type) formData.append("type", course.type);
+        if (course.material) formData.append("material", course.material);
+        if (course.hours) formData.append("hours", course.hours);
+        if (course.requirements)
+          formData.append("requirements", course.requirements);
+        if (course.summary) formData.append("summary", course.summary);
+        return {
+          url: UPDATE_COURSE,
+          method: "POST",
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${decryptToken(token)}`,
+          },
+        };
+      },
       invalidatesTags: (result) =>
         result ? [{ type: "Courses", id: result.id }] : ["Courses"],
     }),

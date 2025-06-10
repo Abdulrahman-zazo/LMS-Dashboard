@@ -7,16 +7,39 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import CourseDialog from "./CourseModel";
 import { useState } from "react";
+import DeleteDialog from "./DeleteDialog";
+import { useCourseActions } from "./Hooks/useCourseActions ";
 
 const CoursesPage = () => {
   const Navigate = useNavigate();
-  const [open, setOpen] = useState<boolean>(false);
-  const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [dataEdit, setdataEdit] = useState<Partial<Course> | undefined>({});
-
-  const token = cookieService.get("auth_token") || "";
-  const { data, isLoading, isError } = useGetAllCoursesQuery(token as string);
   const { t } = useTranslation("translation");
+  const token = cookieService.get("auth_token") || "";
+  const { handleAdd, handleUpdate, handleDelete } = useCourseActions(token);
+
+  const [open, setOpen] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [currentCourse, setCurrentCourse] =
+    useState<Partial<Course | undefined>>();
+
+  const { data, isLoading, isError } = useGetAllCoursesQuery(token as string);
+
+  const onAddClick = () => {
+    setCurrentCourse(undefined);
+    setIsEdit(false);
+    setOpen(true);
+  };
+
+  const onEditClick = (course: Course) => {
+    setCurrentCourse(course);
+    setIsEdit(true);
+    setOpen(true);
+  };
+
+  const onDeleteClick = (course: Course) => {
+    setCurrentCourse(course);
+    setOpenDeleteDialog(true);
+  };
   if (isError) {
     return <HandelError />;
   }
@@ -33,40 +56,31 @@ const CoursesPage = () => {
           { key: "name", header: t("buttons.courses.table.name") },
           { key: "summary", header: t("buttons.courses.table.summary") },
         ]}
-        onAdd={() => {
-          setdataEdit(undefined);
-          setIsEdit(false);
-          setOpen(true);
-        }}
-        onEdit={(row) => {
-          setdataEdit(row);
-          setIsEdit(true);
-          setOpen(true);
-        }}
-        onDelete={(row) => console.log("حذف", row)}
+        onAdd={onAddClick}
+        onEdit={onEditClick}
+        onDelete={onDeleteClick}
         onView={(row) =>
           Navigate(`/courses/${row.id}`, { state: { row }, replace: true })
         }
       />
 
       <CourseDialog
-        key={isEdit ? dataEdit?.id : "add-course"} // لإجبار إعادة الإنشاء عند التبديل بين الإضافة والتعديل
+        key={isEdit ? currentCourse?.id : "add-course"}
         open={open}
-        onClose={() => {
-          setOpen(false);
-          setdataEdit(undefined);
-          setIsEdit(false);
+        onClose={() => setOpen(false)}
+        onSubmit={isEdit ? handleUpdate : handleAdd}
+        initialData={currentCourse}
+      />
+
+      <DeleteDialog
+        key="delete-course"
+        open={openDeleteDialog}
+        onClose={() => setOpenDeleteDialog(false)}
+        onSubmit={() => {
+          if (currentCourse?.id) handleDelete(currentCourse.id);
+          setOpenDeleteDialog(false);
         }}
-        onSubmit={(data) => {
-          if (isEdit) {
-            console.log("تحديث", data);
-            // updateCourse(data);
-          } else {
-            console.log("إضافة", data);
-            // addCourse(data);
-          }
-        }}
-        initialData={isEdit ? dataEdit : undefined}
+        initialData={currentCourse}
       />
     </div>
   );

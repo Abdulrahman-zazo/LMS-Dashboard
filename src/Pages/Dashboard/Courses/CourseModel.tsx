@@ -64,7 +64,7 @@ export default function CourseDialog({
     const { name, value } = e.target;
 
     if (name === "name" && value.length > 100) return;
-    if (name === "description" && value.length > 300) return;
+    if (name === "description" && value.length > 250) return;
     if (name === "summary" && value.length > 200) return;
     if (name === "contents" && value.length > 200) return;
     if (name === "requirements" && value.length > 100) return;
@@ -95,6 +95,7 @@ export default function CourseDialog({
   return (
     <Dialog open={open} onOpenChange={handleDialogChange}>
       <DialogContent
+        title="add and edit course"
         className="p-6 sm:rounded-2xl space-y-0 max-w-3xl"
         lang="ar"
         dir="rtl"
@@ -154,9 +155,10 @@ export default function CourseDialog({
           </div>
           <div className="space-y-2 col-span-2">
             <Label htmlFor="image">الصورة</Label>
-            <input
+            <Input
               ref={fileInputRef}
               type="file"
+              className="cursor-pointer bg-neutral-200 shadow-sm"
               accept="image/*"
               onChange={handleFileChange}
             />
@@ -177,7 +179,9 @@ export default function CourseDialog({
           </div>
           <div className="space-y-3 col-span-2">
             <div>
-              <Label htmlFor="description">الوصف</Label>
+              <Label htmlFor="description" className="mb-2">
+                الوصف
+              </Label>
               <Textarea
                 id="description"
                 name="description"

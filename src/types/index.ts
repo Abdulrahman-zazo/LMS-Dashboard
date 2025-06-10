@@ -26,7 +26,7 @@ export interface Course {
   contents: string;
   type: string;
   material: string;
-  cost?: string;
+  cost: string;
   hours: string;
   requirements: string;
   summary: string;
@@ -34,18 +34,23 @@ export interface Course {
 }
 
 export interface Curriculum {
+  id: number;
   name: string;
   image: File[];
+  imageFile?: File;
   stage_id?: number[];
 }
 export interface Subject {
   name: string;
   image: File[];
+  imageFile?: File;
+
   stage_id: number;
   curricula_id: number;
 }
 export interface Stage {
   name: string;
+  stage_id?: number;
 }
 export interface Offers {
   name: string;

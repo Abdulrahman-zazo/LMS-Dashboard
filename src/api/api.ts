@@ -31,10 +31,10 @@ export const ACCEPT_COMMINTS = "/api/AcceptComment";
 export const DELETE_COMMINTS = "/api/AdminDeleteComment";
 
 /* -------------- Offers ------------*/
-export const GET_ALL_OFFERS = "/api/UserAllOffers";
-export const ADD_OFFERS = "/api/UserAllOffers";
-export const UPDATE_OFFERS = "/api/UserAllOffers";
-export const DELETE_OFFERS = "/api/UserAllOffers";
+export const GET_ALL_OFFERS = "/api/AdminAllOffers";
+export const ADD_OFFERS = "/api/AddOffer";
+export const UPDATE_OFFERS = "/api/updateOffer";
+export const DELETE_OFFERS = "/api/deleteOffer";
 
 /* -------------- Curriculums ------------*/
 export const GET_ALL_CURRICULUMS = "/api/AdminAllCurriculums";
