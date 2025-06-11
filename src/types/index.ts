@@ -54,10 +54,10 @@ export interface Curriculum {
   stage_id?: number[];
 }
 export interface Subject {
+  id: number;
   name: string;
-  image: File[];
+  image: string;
   imageFile?: File;
-
   stage_id: number;
   curricula_id: number;
 }
@@ -66,8 +66,20 @@ export interface Stage {
   id: number;
 }
 export interface Offers {
+  id: number;
   name: string;
   description: string;
-  cost?: string;
-  course_id?: number[];
+  cost: string;
+  courses?: Course[];
+  course_id: number[];
+}
+
+export interface Complaint {
+  id: number;
+  name: string;
+  image?: string;
+  text: string;
+  phone: string;
+  email: string;
+  time: string;
 }

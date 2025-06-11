@@ -34,7 +34,7 @@ export const SubjectsApi = createApi({
         if (Subject.stage_id)
           formData.append("stage_id", String(Subject.stage_id));
         if (Subject.curricula_id)
-          formData.append("stage_id", String(Subject.curricula_id));
+          formData.append("curricula_id", String(Subject.curricula_id));
 
         return {
           url: ADD_SUBJECT,
@@ -63,7 +63,7 @@ export const SubjectsApi = createApi({
         if (Subject.stage_id)
           formData.append("stage_id", String(Subject.stage_id));
         if (Subject.curricula_id)
-          formData.append("stage_id", String(Subject.curricula_id));
+          formData.append("curricula_id", String(Subject.curricula_id));
 
         return {
           url: UPDTAE_SUBJECT,
@@ -78,7 +78,7 @@ export const SubjectsApi = createApi({
       invalidatesTags: (result) =>
         result ? [{ type: "Subjects", id: result.id }] : ["Subjects"],
     }),
-    deleteCourse: builder.mutation({
+    deleteSubject: builder.mutation({
       query: ({
         subject_id,
         token,
@@ -104,6 +104,6 @@ export const SubjectsApi = createApi({
 export const {
   useGetAllSubjectsQuery,
   useAddSubjectMutation,
-  useDeleteCourseMutation,
+  useDeleteSubjectMutation,
   useUpdateSubjectMutation,
 } = SubjectsApi;

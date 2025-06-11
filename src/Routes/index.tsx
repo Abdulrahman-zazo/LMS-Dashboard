@@ -44,6 +44,7 @@ export const router = createBrowserRouter([
           { path: "/complaints", element: <ComplaintsPage /> },
           { path: "/stages", element: <StagePage /> },
           { path: "/subjects", element: <SubjectPage /> },
+          { path: "/offer/courses/:id", element: <CoursePage /> },
         ],
       },
     ],

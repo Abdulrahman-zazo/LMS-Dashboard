@@ -1,280 +1,15 @@
-// // src/components/CoursePage.tsx
-
-// import { useState } from "react";
-// import { Reviews } from "./Reviews"; // Assuming you'll create this component
-// import { useNavigate, useParams } from "react-router-dom";
-// import { CourseInfo } from "./CourseInfo";
-// import { useTranslation } from "react-i18next";
-// import HandelError from "@/components/HandelError";
-// import {
-//   useActiveCourseMutation,
-//   useGetCourseByIdQuery,
-// } from "@/app/features/Courses/CoursesApi";
-// import { Pencil, Trash2 } from "lucide-react";
-
-// import { Label } from "@/components/ui/label";
-// import {
-//   Tooltip,
-//   TooltipContent,
-//   TooltipTrigger,
-// } from "@/components/ui/tooltip";
-// import ActiveSwitch from "@/components/ActiveSwitch";
-// import { cookieService } from "@/Cookies/CookiesServices";
-// import { useCourseActions } from "../Hooks/useCourseActions ";
-// import type { Course } from "@/types";
-// import CourseDialog from "../CourseModel";
-// import DeleteDialog from "../DeleteDialog";
-
-// const CoursePage = () => {
-//   const [activeTab, setActiveTab] = useState<"info" | "reviews">("info");
-//   const token = cookieService.get("auth_token") || "";
-//   const path = useParams();
-//   const { id } = path;
-//   const { data, isLoading, isError } = useGetCourseByIdQuery(Number(id), {
-//     refetchOnMountOrArgChange: true,
-//   });
-//   const [activeCourse, { isLoading: isLaodingActive }] =
-//     useActiveCourseMutation();
-//   const Navigate = useNavigate();
-//   const { handleUpdate, handleDelete } = useCourseActions(token);
-//   const [open, setOpen] = useState(false);
-//   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-
-//   const [currentCourse, setCurrentCourse] =
-//     useState<Partial<Course | undefined>>();
-
-//   const { t } = useTranslation("translation");
-//   if (isLoading || isLaodingActive) {
-//     return (
-//       <div className="bg-white p-6 rounded-2xl animate-pulse space-y-4">
-//         {/* Header skeleton */}
-//         <div className="h-6 bg-gray-200 mx-6 rounded w-1/3"></div>
-//         <div className="h-4 bg-gray-200 mx-6  rounded w-1/2"></div>
-
-//         <div className="flex justify-center my-4">
-//           <div className=" rounded-lg overflow-hidden sm:w-[100%] lg:flex">
-//             {/* Left Section Skeleton */}
-//             <div className="lg:w-1/2 p-6 space-y-4">
-//               <div className="w-full h-56 bg-gray-200 rounded-md"></div>
-
-//               <div className="flex gap-4">
-//                 <div className="h-6 w-32 bg-gray-200 rounded"></div>
-//                 <div className="h-6 w-36 bg-gray-200 rounded"></div>
-//               </div>
-
-//               <div className="space-y-2 mt-4">
-//                 <div className="h-4 bg-gray-200 rounded w-full"></div>
-//                 <div className="h-4 bg-gray-200 rounded w-4/5"></div>
-//                 <div className="h-4 bg-gray-200 rounded w-2/3"></div>
-//               </div>
-//             </div>
-
-//             {/* Right Section Skeleton */}
-//             <div className="lg:w-1/2 sm:border border-gray-200 p-8 m-6 rounded-2xl space-y-4">
-//               <div className="h-5 bg-gray-300 rounded w-1/3"></div>
-
-//               <ul className="space-y-2">
-//                 <li className="h-4 bg-gray-200 rounded w-4/5"></li>
-//                 <li className="h-4 bg-gray-200 rounded w-3/4"></li>
-//                 <li className="h-4 bg-gray-200 rounded w-2/3"></li>
-//               </ul>
-
-//               <div className="h-5 bg-gray-300 rounded w-1/3 mt-4"></div>
-//               <ul className="space-y-2">
-//                 <li className="h-4 bg-gray-200 rounded w-1/2"></li>
-//                 <li className="h-4 bg-gray-200 rounded w-3/4"></li>
-//               </ul>
-
-//               <div className="h-5 bg-gray-300 rounded w-1/3 mt-4"></div>
-//               <ul className="space-y-2">
-//                 <li className="h-4 bg-gray-200 rounded w-3/5"></li>
-//               </ul>
-
-//               <div className="h-10 bg-gray-300 rounded w-full mt-4"></div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-//   if (isError) {
-//     return <HandelError />;
-//   }
-
-//   const onEditClick = () => {
-//     setCurrentCourse(data?.course);
-//     setOpen(true);
-//   };
-
-//   const onDeleteClick = () => {
-//     setCurrentCourse(data?.course);
-//     setOpenDeleteDialog(true);
-//   };
-//   return (
-//     <div className="bg-white rounded-2xl container mx-auto p-6">
-//       <div className="mx-6">
-//         <h1 className="text-lg sm:text-2xl text-neutral-800 font-semibold">
-//           {data?.course.name}
-//         </h1>
-//         <p className="text-sm sm:text-base text-neutral-500 font-medium">
-//           {data?.course.summary}
-//         </p>
-//       </div>
-//       <div className="flex justify-center my-4">
-//         {/* Main content area */}
-//         <div className=" rounded-lg overflow-hidden  sm:w-[100%] lg:flex">
-//           {/* Left Section (Image and Course Description) */}
-//           <div className="lg:w-1/2 p-6">
-//             <img
-//               loading="lazy"
-//               src={data?.course.image} // Replace with your actual image path
-//               alt="Boy learning web development"
-//               className="w-full h-auto object-cover rounded-md mb-2"
-//             />
-
-//             {/* Tab Navigation */}
-//             <div className="border-b border-gray-200">
-//               <nav className="-mb-px flex space-x-8" aria-label="Tabs">
-//                 <button
-//                   title="معلومات الكورس"
-//                   onClick={() => setActiveTab("info")}
-//                   className={`${
-//                     activeTab === "info"
-//                       ? "border-primary text-primary"
-//                       : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-//                   } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-xs sm:text-sm`}
-//                 >
-//                   {t("Courses.Course_info")}
-//                 </button>
-//                 <button
-//                   title="التعليقات والأراء"
-//                   onClick={() => setActiveTab("reviews")}
-//                   className={`${
-//                     activeTab === "reviews"
-//                       ? "border-primary text-primary"
-//                       : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-//                   } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-xs sm:text-sm`}
-//                 >
-//                   {t("Courses.comments")}({data?.course.comments.length})
-//                 </button>
-//               </nav>
-//             </div>
-
-//             {/* Tab Content */}
-//             <div className="mt-6">
-//               {activeTab === "info" ? (
-//                 <CourseInfo description={data?.course.description} />
-//               ) : (
-//                 <Reviews
-//                   comments={data?.course.comments}
-//                   course_id={data?.course.id}
-//                 />
-//               )}
-//             </div>
-//           </div>
-
-//           {/* Right Section (What You'll Learn, Material Includes, Requirements) */}
-//           <div className="lg:w-1/2 sm:border border-gray-200 p-0 sm:p-8 m-6 rounded-2xl">
-//             <h3 className="text-sm md:text-base  font-semibold text-text mb-4">
-//               {t("Courses.what_we_learn")}
-//             </h3>
-//             <ul className="list-disc list-inside text-paragraph text-sm md:text-base space-y-2 mb-6">
-//               <li>{data?.course.contents}</li>
-//             </ul>
-
-//             <h3 className="text-sm md:text-base  font-semibold text-text mb-4">
-//               {t("Courses.content_course")}
-//             </h3>
-//             <ul className="list-disc list-inside text-paragraph text-sm md:text-base space-y-2 mb-6">
-//               <li>{data?.course.hours} ساعة.</li>
-//               {data?.course.material && <li>{data?.course.material}</li>}
-//             </ul>
-
-//             <h3 className="text-sm md:text-base  font-semibold text-text mb-4">
-//               {t("Courses.requairment")}
-//             </h3>
-//             <ul className="list-disc list-inside text-paragraph text-sm md:text-base space-y-2 mb-6">
-//               <li>{data?.course.requirements}</li>
-//             </ul>
-//             <div className="flex items-center gap-6 justify-between">
-//               <div className="flex-2">
-//                 <div className="flex items-center space-x-2">
-//                   <Label htmlFor="active-course">تفعيل الدورة</Label>
-//                   <Tooltip>
-//                     <TooltipTrigger asChild>
-//                       <ActiveSwitch
-//                         isActive={data?.course.is_active}
-//                         onToggle={(newState) => {
-//                           console.log("الحالة الجديدة:", newState ? 1 : 0);
-//                           activeCourse({ course_id: data?.course.id, token });
-//                         }}
-//                       />
-//                     </TooltipTrigger>
-//                     <TooltipContent>
-//                       تفعيل الكورس ليظهر للمستخدمين
-//                     </TooltipContent>
-//                   </Tooltip>
-//                 </div>
-//               </div>
-//               <div className="flex items-center flex-2 gap-6 justify-between">
-//                 <button
-//                   onClick={onEditClick}
-//                   title="تعديل كورس"
-//                   className="w-full bg-neutral-300 text-sm md:text-base text-neutral-700 py-3  rounded-md flex items-center mx-auto gap-4 justify-center hover:bg-neutral-600/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/50"
-//                 >
-//                   <Pencil className="w-4 h-4 " />
-//                 </button>
-//                 <button
-//                   title="حذف كورس"
-//                   onClick={onDeleteClick}
-//                   className="w-full border border-red-500 text-sm md:text-base text-red-500 py-3 rounded-md flex items-center mx-auto gap-4 justify-center hover:bg-red-200/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/50"
-//                 >
-//                   <Trash2 className="w-4 h-4 " />
-//                 </button>
-//               </div>
-//             </div>
-//           </div>
-
-//           <CourseDialog
-//             key={currentCourse?.id}
-//             open={open}
-//             onClose={() => setOpen(false)}
-//             onSubmit={handleUpdate}
-//             initialData={currentCourse}
-//           />
-
-//           <DeleteDialog
-//             key="delete-course"
-//             open={openDeleteDialog}
-//             onClose={() => setOpenDeleteDialog(false)}
-//             onSubmit={() => {
-//               if (currentCourse?.id) handleDelete(currentCourse.id);
-//               setOpenDeleteDialog(false);
-//               Navigate("/courses");
-//             }}
-//             initialData={currentCourse}
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default CoursePage;
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Pencil, Trash2, Plus } from "lucide-react";
 
 import { useGetCurriculumsByIdQuery } from "@/app/features/Curriculum/CurriculumApi";
 import HandelError from "@/components/HandelError";
-
-interface Subject {
-  id: number;
-  name: string;
-  image: string;
-}
+import { useSubjectsActions } from "../Hooks/useSubjectActions";
+import { cookieService } from "@/Cookies/CookiesServices";
+import { DeleteDialog, SubjectDialog } from "./SubjectDialogs";
+import type { Subject } from "@/types";
 
 interface Stage {
   id: number;
@@ -286,28 +21,57 @@ interface Pivot {
   subject: Subject[];
 }
 
-interface CurriculumData {
-  Curriculum: {
-    pivot: Pivot[];
-  };
-}
-
 const CurriculaDetails = () => {
   const { id } = useParams<{ id: string }>();
-  const [selectStage, setSelectStage] = useState<number | null>(null);
+  const location = useLocation();
+
+  const [selectStage, setSelectStage] = useState<number>();
   const { data, isLoading, isError } = useGetCurriculumsByIdQuery(Number(id), {
     refetchOnMountOrArgChange: true,
   });
+  const [open, setOpen] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [currentSubject, setCurrentSubject] =
+    useState<Partial<Subject | undefined>>();
 
+  const token = cookieService.get("auth_token") || "";
+
+  const { handleAdd, handleUpdate, handleDelete } = useSubjectsActions(
+    token as string
+  );
+
+  const pivots = data?.Curriculum.pivot;
+  useEffect(() => {
+    if (!selectStage && pivots?.length) {
+      setSelectStage(pivots[0].stage.id);
+    }
+  }, [pivots]);
+  const onAddClick = () => {
+    setCurrentSubject({
+      curricula_id: Number(id),
+      stage_id: selectStage,
+    });
+    setIsEdit(false);
+    setOpen(true);
+  };
+
+  const onEditClick = (Subject: Subject) => {
+    setCurrentSubject({
+      ...Subject,
+      curricula_id: Number(id),
+      stage_id: selectStage,
+    });
+    setIsEdit(true);
+    setOpen(true);
+  };
+
+  const onDeleteClick = (Subject: Subject) => {
+    setCurrentSubject(Subject);
+    setOpenDeleteDialog(true);
+  };
   if (isLoading) return <h4>Loading...</h4>;
   if (isError || !data) return <HandelError />;
-
-  const pivots = data.Curriculum.pivot;
-
-  const selectedSubjects = pivots.find(
-    (p: Pivot) => p.stage.id === selectStage
-  )?.subject;
-
   return (
     <div className="p-4">
       <Tabs
@@ -317,9 +81,6 @@ const CurriculaDetails = () => {
         className="w-full"
       >
         <div className="flex items-center justify-between mb-6">
-          <Button variant="default" size="sm">
-            <Plus className="w-4 h-4 mr-2" /> إضافة مرحلة جديدة
-          </Button>
           <TabsList>
             {pivots.map((el: Pivot) => (
               <TabsTrigger
@@ -331,19 +92,32 @@ const CurriculaDetails = () => {
               </TabsTrigger>
             ))}
           </TabsList>
+          <div className="flex items-center gap-4">
+            <h2 className="text-lg font-semibold">
+              {location?.state.row.name}
+            </h2>
+            <img
+              src={location?.state.row.image}
+              alt={location.state.row.name}
+              className="w-8 h-8 rounded-full object-cover"
+            />
+          </div>
         </div>
 
         {pivots.map((pivot: Pivot) => (
           <TabsContent key={pivot.stage.id} value={String(pivot.stage.id)}>
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">{pivot.stage.name}</h2>
+              {/* <h2 className="text-xl font-semibold">{pivot.stage.name}</h2> */}
             </div>
             {pivot.subject.length > 0 && (
               <div
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
                 dir="rtl"
               >
-                <div className="border cursor-pointer hover:shadow-md hover:bg-primary/5 rounded-xl flex flex-col items-center justify-center p-4 bg-white text-primary shadow-sm relative">
+                <div
+                  onClick={onAddClick}
+                  className="border cursor-pointer hover:shadow-md hover:bg-primary/5 rounded-xl flex flex-col items-center justify-center p-4 bg-white text-primary shadow-sm relative"
+                >
                   <Plus size={40} />
 
                   <span className="font-medium text-primary"> إضافة مادة</span>
@@ -361,11 +135,21 @@ const CurriculaDetails = () => {
                     <div className="flex justify-between items-center mt-4">
                       <h3 className="text-lg font-medium">{subj.name}</h3>
                       <div className="flex gap-2">
-                        <Button variant="ghost" size="icon">
+                        <Button
+                          onClick={() => onEditClick(subj)}
+                          variant="ghost"
+                          size="icon"
+                          className="cursor-pointer"
+                        >
                           <Pencil className="w-4 h-4" />
                         </Button>
-                        <Button variant="ghost" size="icon">
-                          <Trash2 className="w-4 h-4" />
+                        <Button
+                          onClick={() => onDeleteClick(subj)}
+                          variant="ghost"
+                          size="icon"
+                          className="cursor-pointer   hover:bg-red-500/10 "
+                        >
+                          <Trash2 className="w-4 h-4 text-red-500/80" />
                         </Button>
                       </div>
                     </div>
@@ -379,13 +163,35 @@ const CurriculaDetails = () => {
 
                 <Button variant={"default"} className="mx-auto cursor-pointer">
                   <Plus size={40} />
-                  <span className="font-medium text-white"> إضافة مادة</span>
+                  <span className="font-medium text-white" onClick={onAddClick}>
+                    {" "}
+                    إضافة مادة
+                  </span>
                 </Button>
               </div>
             )}
           </TabsContent>
         ))}
       </Tabs>
+
+      <SubjectDialog
+        key={isEdit ? currentSubject?.id : "add-SubcurrentSubject"}
+        open={open}
+        onClose={() => setOpen(false)}
+        onSubmit={isEdit ? handleUpdate : handleAdd}
+        initialData={currentSubject}
+      />
+
+      <DeleteDialog
+        key="delete-Subject"
+        open={openDeleteDialog}
+        onClose={() => setOpenDeleteDialog(false)}
+        onSubmit={() => {
+          if (currentSubject?.id) handleDelete(currentSubject.id);
+          setOpenDeleteDialog(false);
+        }}
+        initialData={currentSubject}
+      />
     </div>
   );
 };

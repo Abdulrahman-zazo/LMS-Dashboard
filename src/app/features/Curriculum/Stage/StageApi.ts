@@ -62,7 +62,7 @@ export const StagesApi = createApi({
       invalidatesTags: (result) =>
         result ? [{ type: "Stages", id: result.id }] : ["Stages"],
     }),
-    deleteCourse: builder.mutation({
+    deleteStage: builder.mutation({
       query: ({ stage_id, token }: { stage_id?: number; token: string }) => ({
         url: DELETE_STAGE,
         method: "POST",
@@ -82,6 +82,6 @@ export const StagesApi = createApi({
 export const {
   useGetAllStagesQuery,
   useAddStageMutation,
-  useDeleteCourseMutation,
+  useDeleteStageMutation,
   useUpdateStageMutation,
 } = StagesApi;

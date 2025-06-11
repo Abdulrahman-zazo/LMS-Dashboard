@@ -4,7 +4,7 @@ import { cookieService } from "@/Cookies/CookiesServices";
 import type { Curriculum } from "@/types";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useCurriculumActions } from "./Hooks/useCourseActions ";
+import { useCurriculumActions } from "./Hooks/useCurriculumActions ";
 import CurriculumDialog from "./CurriculumDialog";
 import DeleteDialog from "./DeleteDialog";
 import { CurriculumCards } from "./CurriculumCards";
