@@ -96,7 +96,7 @@ export default function CourseDialog({
     <Dialog open={open} onOpenChange={handleDialogChange}>
       <DialogContent
         title="add and edit course"
-        className="p-6 sm:rounded-2xl space-y-0 max-w-3xl"
+        className="p-6 sm:rounded-2xl space-y-0 sm:max-w-3xl"
         lang="ar"
         dir="rtl"
       >
@@ -171,6 +171,7 @@ export default function CourseDialog({
             )}
             {showCropper && preview && (
               <ImageCropper
+                aspect={16 / 9}
                 imageSrc={preview}
                 onClose={() => setShowCropper(false)}
                 onCropComplete={handleCropComplete}

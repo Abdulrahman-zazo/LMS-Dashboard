@@ -3,6 +3,7 @@ import {
   ADD_CURRICULUMS,
   DELETE_CURRICULUMS,
   GET_ALL_CURRICULUMS,
+  GET_CURRICULUM_BY_ID,
   UPDTAE_CURRICULUMS,
 } from "../../../api/api";
 import type { Curriculum } from "@/types";
@@ -23,6 +24,16 @@ export const CurriculumsApi = createApi({
       }),
       providesTags: ["Curriculums"],
     }),
+    getCurriculumsById: builder.query({
+      query: (curriculum_id: number) => ({
+        url: GET_CURRICULUM_BY_ID,
+        method: "POST",
+        body: {
+          curriculum_id,
+        },
+      }),
+      providesTags: ["Curriculums"],
+    }),
     addCurriculum: builder.mutation({
       query: ({
         Curriculum,
@@ -35,6 +46,11 @@ export const CurriculumsApi = createApi({
         if (Curriculum.imageFile)
           formData.append("image", Curriculum.imageFile);
         if (Curriculum.name) formData.append("name", Curriculum.name);
+        if (Curriculum.stage_id && Array.isArray(Curriculum.stage_id)) {
+          Curriculum.stage_id.forEach((id, index) => {
+            formData.append(`stage_id[${index}]`, String(id));
+          });
+        }
         return {
           url: ADD_CURRICULUMS,
           method: "POST",
@@ -59,7 +75,14 @@ export const CurriculumsApi = createApi({
         const formData = new FormData();
         if (Curriculum.imageFile)
           formData.append("image", Curriculum.imageFile);
-        if (Curriculum.name) formData.append("name", Curriculum.name);
+        if (Curriculum.id)
+          formData.append("curriculum_id", String(Curriculum.id));
+
+        if (Curriculum.stage_id && Array.isArray(Curriculum.stage_id)) {
+          Curriculum.stage_id.forEach((id, index) => {
+            formData.append(`stage_id[${index}]`, String(id));
+          });
+        }
         return {
           url: UPDTAE_CURRICULUMS,
           method: "POST",
@@ -98,6 +121,7 @@ export const CurriculumsApi = createApi({
 
 export const {
   useGetAllCurriculumsQuery,
+  useGetCurriculumsByIdQuery,
   useAddCurriculumMutation,
   useUpdateCurriculumMutation,
   useDeleteCurriculumMutation,

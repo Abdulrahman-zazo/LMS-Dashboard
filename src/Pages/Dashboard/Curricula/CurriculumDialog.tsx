@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -7,18 +7,14 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-// import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import type { Curriculum } from "@/types";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
-// import ImageCropper from "@/components/ImageUploaderWithCrop";
+import type { Curriculum, Stage } from "@/types";
+import ImageCropper from "@/components/ImageUploaderWithCrop";
+import { useGetAllStagesQuery } from "@/app/features/Curriculum/Stage/StageApi";
+import { cookieService } from "@/Cookies/CookiesServices";
+import { MultiSelect } from "@/components/MultiSelect";
+import { Info } from "lucide-react";
 
 interface Props {
   open: boolean;
@@ -33,32 +29,46 @@ export default function CurriculumDialog({
   onSubmit,
   initialData,
 }: Props) {
-  const [formData, setFormData] = useState<Partial<Curriculum>>(
-    initialData || {}
-  );
+  const [formData, setFormData] = useState<Partial<Curriculum>>({
+    ...initialData,
+    stage_id: initialData?.stage_id ?? [],
+  });
+
+  useEffect(() => {
+    if (initialData?.pivot) {
+      const ids =
+        initialData.pivot.map((p: any) => p.stage?.id).filter(Boolean) ?? [];
+      setFormData({
+        ...initialData,
+        stage_id: ids,
+      });
+    }
+  }, [initialData]);
   const [imageFile, setImageFile] = useState<File | undefined>();
-  // const [preview, setPreview] = useState<string | undefined>(
-  //   initialData?.image
-  // );
-  // const [showCropper, setShowCropper] = useState(false);
-  // const fileInputRef = useRef<HTMLInputElement>(null);
+  const [preview, setPreview] = useState<string | undefined>(
+    initialData?.image
+  );
+  const [showCropper, setShowCropper] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const token = cookieService.get("auth_token") || "";
+  const { data: Stages } = useGetAllStagesQuery(token as string);
 
-  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files?.[0];
-  //   if (!file) return;
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //     setPreview(reader.result as string);
-  //     setShowCropper(true);
-  //   };
-  //   reader.readAsDataURL(file);
-  // };
+    const reader = new FileReader();
+    reader.onload = () => {
+      setPreview(reader.result as string);
+      setShowCropper(true);
+    };
+    reader.readAsDataURL(file);
+  };
 
-  // const handleCropComplete = (file: File) => {
-  //   setImageFile(file);
-  //   setPreview(URL.createObjectURL(file));
-  // };
+  const handleCropComplete = (file: File) => {
+    setImageFile(file);
+    setPreview(URL.createObjectURL(file));
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -66,22 +76,16 @@ export default function CurriculumDialog({
     const { name, value } = e.target;
 
     if (name === "name" && value.length > 100) return;
-    // if (name === "description" && value.length > 250) return;
-    // if (name === "summary" && value.length > 200) return;
-    // if (name === "contents" && value.length > 200) return;
-    // if (name === "requirements" && value.length > 100) return;
-    // if (["hours", "cost"].includes(name) && value && !/^\d*$/.test(value))
-    //   return;
-
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log({ ...formData, imageFile });
     onSubmit({ ...formData, imageFile });
     setFormData({});
     setImageFile(undefined);
-    // setPreview(undefined);
+    setPreview(undefined);
     onClose();
   };
 
@@ -89,7 +93,7 @@ export default function CurriculumDialog({
     if (!isOpen) {
       setFormData({});
       setImageFile(undefined);
-      // setPreview(undefined);
+      setPreview(undefined);
       onClose();
     }
   };
@@ -106,27 +110,87 @@ export default function CurriculumDialog({
           <DialogTitle className="text-xl font-bold text-primary">
             {initialData ? "تعديل Curriculum" : "إضافة Curriculum"}
           </DialogTitle>
-          <DialogDescription className="text-muted-foreground pb-4 border-b border-neutral-200">
+          <DialogDescription className="text-muted-foreground pb-4 border-b border-neutral-200 ">
             يرجى تعبئة جميع الحقول الخاصة Curriculum.
           </DialogDescription>
         </DialogHeader>
 
         <form
           onSubmit={handleSubmit}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-4"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-4"
         >
-          <div className="space-y-2 col-span-2">
-            <Label htmlFor="name">الاسم</Label>
+          <div className="space-y-2 col-span-2 ">
+            <Label htmlFor="name">
+              {initialData?.name ? (
+                <div className="flex items-center gap-2">
+                  <span>
+                    <Info
+                      className="text-sm text-neutral-400 my-2 font-light"
+                      size={14}
+                    />
+                  </span>
+                  <span className="text-sm text-neutral-400 my-2 font-light">
+                    لا تستطيع تعديل اسم المنهاج وإنما فقط الصورة والمراحل ويمكن
+                    أيضاً حذفه نهائياً
+                  </span>
+                </div>
+              ) : (
+                <span>الاسم</span>
+              )}
+            </Label>
+
             <Input
               id="name"
               name="name"
+              disabled={initialData?.name ? true : false}
               value={formData.name || ""}
               onChange={handleChange}
               required
             />
           </div>
 
-          <div className="flex justify-end col-span-4 gap-2 pt-4 border-t">
+          <div className="col-span-2">
+            <Label htmlFor="name" className="my-2">
+              المراحل
+            </Label>
+            <MultiSelect
+              options={
+                Stages?.Stages.map((s: Stage) => ({
+                  label: s.name,
+                  value: s.id,
+                })) || []
+              }
+              selected={formData.stage_id || []}
+              onChange={(selected) =>
+                setFormData((prev) => ({ ...prev, stage_id: selected }))
+              }
+            />
+          </div>
+          <div className="space-y-2 col-span-2">
+            <Label htmlFor="image">الصورة</Label>
+            <Input
+              ref={fileInputRef}
+              type="file"
+              className="cursor-pointer bg-neutral-200 shadow-sm"
+              accept="image/*"
+              onChange={handleFileChange}
+            />
+            {preview && (
+              <img src={preview} alt="Preview" className="w-1/4 mt-2 rounded" />
+            )}
+            {showCropper && preview && (
+              <div className="w-1/4">
+                <ImageCropper
+                  aspect={1 / 1}
+                  imageSrc={preview}
+                  onClose={() => setShowCropper(false)}
+                  onCropComplete={handleCropComplete}
+                />
+              </div>
+            )}
+          </div>
+
+          <div className="flex justify-end col-span-2 cols gap-2 pt-4 border-t">
             <Button type="button" variant="outline" onClick={onClose}>
               إلغاء
             </Button>

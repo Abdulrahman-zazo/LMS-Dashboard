@@ -15,8 +15,12 @@ export const StagesApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
   endpoints: (builder) => ({
     getAllStages: builder.query({
-      query: () => ({
+      query: (token: string) => ({
         url: GET_ALL_STAGE,
+        headers: {
+          Authorization: `Bearer ${decryptToken(token)}`,
+          // DON'T set content-type manually here! Let the browser handle it.
+        },
       }),
       providesTags: ["Stages"],
     }),
@@ -43,7 +47,7 @@ export const StagesApi = createApi({
       query: ({ Stage, token }: { Stage: Partial<Stage>; token: string }) => {
         const formData = new FormData();
         if (Stage.name) formData.append("image", Stage.name);
-        if (Stage.stage_id) formData.append("stage_id", String(Stage.stage_id));
+        if (Stage.id) formData.append("id", String(Stage.id));
 
         return {
           url: UPDTAE_STAGE,

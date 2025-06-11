@@ -261,9 +261,133 @@
 // };
 
 // export default CoursePage;
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Pencil, Trash2, Plus } from "lucide-react";
+
+import { useGetCurriculumsByIdQuery } from "@/app/features/Curriculum/CurriculumApi";
+import HandelError from "@/components/HandelError";
+
+interface Subject {
+  id: number;
+  name: string;
+  image: string;
+}
+
+interface Stage {
+  id: number;
+  name: string;
+}
+
+interface Pivot {
+  stage: Stage;
+  subject: Subject[];
+}
+
+interface CurriculumData {
+  Curriculum: {
+    pivot: Pivot[];
+  };
+}
 
 const CurriculaDetails = () => {
-  return <div>curriculaDetails</div>;
+  const { id } = useParams<{ id: string }>();
+  const [selectStage, setSelectStage] = useState<number | null>(null);
+  const { data, isLoading, isError } = useGetCurriculumsByIdQuery(Number(id), {
+    refetchOnMountOrArgChange: true,
+  });
+
+  if (isLoading) return <h4>Loading...</h4>;
+  if (isError || !data) return <HandelError />;
+
+  const pivots = data.Curriculum.pivot;
+
+  const selectedSubjects = pivots.find(
+    (p: Pivot) => p.stage.id === selectStage
+  )?.subject;
+
+  return (
+    <div className="p-4">
+      <Tabs
+        defaultValue={
+          selectStage ? String(selectStage) : String(pivots[0].stage.id)
+        }
+        className="w-full"
+      >
+        <div className="flex items-center justify-between mb-6">
+          <Button variant="default" size="sm">
+            <Plus className="w-4 h-4 mr-2" /> إضافة مرحلة جديدة
+          </Button>
+          <TabsList>
+            {pivots.map((el: Pivot) => (
+              <TabsTrigger
+                key={el.stage.id}
+                value={String(el.stage.id)}
+                onClick={() => setSelectStage(el.stage.id)}
+              >
+                {el.stage.name}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </div>
+
+        {pivots.map((pivot: Pivot) => (
+          <TabsContent key={pivot.stage.id} value={String(pivot.stage.id)}>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-semibold">{pivot.stage.name}</h2>
+            </div>
+            {pivot.subject.length > 0 && (
+              <div
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                dir="rtl"
+              >
+                <div className="border cursor-pointer hover:shadow-md hover:bg-primary/5 rounded-xl flex flex-col items-center justify-center p-4 bg-white text-primary shadow-sm relative">
+                  <Plus size={40} />
+
+                  <span className="font-medium text-primary"> إضافة مادة</span>
+                </div>
+                {pivot.subject.map((subj) => (
+                  <div
+                    key={subj.id}
+                    className="border rounded-xl p-4 bg-white shadow-sm relative"
+                  >
+                    <img
+                      src={subj.image}
+                      alt={subj.name}
+                      className="h-40 w-full object-cover rounded-md"
+                    />
+                    <div className="flex justify-between items-center mt-4">
+                      <h3 className="text-lg font-medium">{subj.name}</h3>
+                      <div className="flex gap-2">
+                        <Button variant="ghost" size="icon">
+                          <Pencil className="w-4 h-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon">
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            {pivot.subject.length === 0 && (
+              <div className="flex flex-col gap-6 justify-center my-24 ">
+                <p className="mx-auto">لا توجد مواد لعرضها في هذه المرحلة </p>
+
+                <Button variant={"default"} className="mx-auto cursor-pointer">
+                  <Plus size={40} />
+                  <span className="font-medium text-white"> إضافة مادة</span>
+                </Button>
+              </div>
+            )}
+          </TabsContent>
+        ))}
+      </Tabs>
+    </div>
+  );
 };
 
 export default CurriculaDetails;

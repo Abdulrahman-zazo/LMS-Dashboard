@@ -211,8 +211,14 @@ html[lang="en"] {
     --sidebar-ring: oklch(0.439 0 0);
   }
 }
-.sm\:max-w-lg {
+/* .courseDialog .sm\:max-w-lg {
   @media (width >= 40rem) {
     max-width: var(--container-3xl);
   }
 }
+
+ .sm\:max-w-lg {
+  @media (width >= 40rem) {
+    max-width: var(--container-3xl);
+  }
+} */

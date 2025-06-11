@@ -18,6 +18,18 @@ export interface DataTableProps<T> {
   onView?: (row: T) => void;
 }
 
+export interface DataCardsProps {
+  title?: string;
+  buttonAdd?: string;
+  isloading: boolean;
+  description?: string;
+  data: Curriculum[];
+  onAdd?: () => void;
+  onEdit?: (row: Curriculum) => void;
+  onDelete?: (row: Curriculum) => void;
+  onView?: (row: Curriculum) => void;
+}
+
 export interface Course {
   name: string;
   image: string;
@@ -36,7 +48,8 @@ export interface Course {
 export interface Curriculum {
   id: number;
   name: string;
-  image: File[];
+  image: string;
+  pivot?: [Stage[], Subject[]];
   imageFile?: File;
   stage_id?: number[];
 }
@@ -50,7 +63,7 @@ export interface Subject {
 }
 export interface Stage {
   name: string;
-  stage_id?: number;
+  id: number;
 }
 export interface Offers {
   name: string;

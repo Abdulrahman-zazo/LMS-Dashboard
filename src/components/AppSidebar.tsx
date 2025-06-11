@@ -3,6 +3,7 @@ import {
   ChevronUp,
   Home,
   Info,
+  Layers,
   LibraryBig,
   Search,
   Users,
@@ -56,6 +57,11 @@ export function AppSidebar() {
       icon: BookOpenCheck,
     },
     {
+      title: "المراحل الدراسية",
+      url: "/stages",
+      icon: Layers,
+    },
+    {
       title: t("Header.offer"),
       url: "/offer",
       icon: Search,
@@ -87,7 +93,7 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.title} className="py-2">
+                <SidebarMenuItem key={item.title} className="py-1">
                   <SidebarMenuButton asChild className="py-2">
                     <Link to={item.url} className="py-2">
                       <item.icon />

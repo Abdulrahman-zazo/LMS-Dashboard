@@ -7,12 +7,16 @@ import { Input } from "./ui/input";
 
 interface ImageCropperProps {
   imageSrc: string;
+  aspect: number;
+  width?: number;
   onClose: () => void;
   onCropComplete: (file: File) => void;
 }
 
 const ImageCropper: FC<ImageCropperProps> = ({
   imageSrc,
+  width,
+  aspect,
   onClose,
   onCropComplete,
 }) => {
@@ -34,12 +38,16 @@ const ImageCropper: FC<ImageCropperProps> = ({
   return (
     <Dialog open={true} onOpenChange={onClose}>
       <DialogContent className="max-w-md h-[450px] py-8" title="Crop image">
-        <div className="relative w-full h-[250px] bg-neutral-800 mt-4">
+        <div
+          className={`relative ${
+            width ? `w-${width}` : "w-full"
+          } h-[250px] bg-neutral-800 mt-4`}
+        >
           <Cropper
             image={imageSrc}
             crop={crop}
             zoom={zoom}
-            aspect={16 / 9}
+            aspect={aspect}
             onCropChange={setCrop}
             onZoomChange={setZoom}
             onCropComplete={handleCropComplete}

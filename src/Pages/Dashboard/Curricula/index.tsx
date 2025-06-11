@@ -1,5 +1,4 @@
 import { useGetAllCurriculumsQuery } from "@/app/features/Curriculum/CurriculumApi";
-import { DataTable } from "@/components/Data-table";
 import HandelError from "@/components/HandelError";
 import { cookieService } from "@/Cookies/CookiesServices";
 import type { Curriculum } from "@/types";
@@ -8,6 +7,8 @@ import { useTranslation } from "react-i18next";
 import { useCurriculumActions } from "./Hooks/useCourseActions ";
 import CurriculumDialog from "./CurriculumDialog";
 import DeleteDialog from "./DeleteDialog";
+import { CurriculumCards } from "./CurriculumCards";
+import { useNavigate } from "react-router-dom";
 
 const CurriculasPage = () => {
   const { t } = useTranslation("translation");
@@ -15,6 +16,7 @@ const CurriculasPage = () => {
   const { data, isLoading, isError } = useGetAllCurriculumsQuery(
     token as string
   );
+  const Navigate = useNavigate();
 
   const { handleAdd, handleUpdate, handleDelete } = useCurriculumActions(token);
 
@@ -31,6 +33,7 @@ const CurriculasPage = () => {
   };
 
   const onEditClick = (course: Curriculum) => {
+    console.log(course);
     setCurrentCourse(course);
     setIsEdit(true);
     setOpen(true);
@@ -45,22 +48,17 @@ const CurriculasPage = () => {
   }
   return (
     <div>
-      <DataTable<Curriculum>
+      <CurriculumCards
         data={data?.curriculums}
         isloading={isLoading}
-        buttonAdd={t("buttons.courses.add")}
-        title={t("buttons.courses.title")}
-        description={t("buttons.courses.text")}
-        columns={[
-          { key: "image", header: t("buttons.courses.table.image") },
-          { key: "name", header: "المنهاج" },
-        ]}
+        buttonAdd="إضافة منهاج جديد"
+        title="تفاصيل المناهج"
+        description="عند إضافة منهاج لأول مرة يجب تحديد المراحل والمواد فيه."
         onAdd={onAddClick}
         onEdit={onEditClick}
         onDelete={onDeleteClick}
-        onView={
-          (row) => console.log(row)
-          // Navigate(`/courses/${row.id}`, { state: { row }, replace: true })
+        onView={(row) =>
+          Navigate(`/curricula/${row.id}`, { state: { row }, replace: true })
         }
       />
 

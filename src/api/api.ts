@@ -38,6 +38,7 @@ export const DELETE_OFFERS = "/api/deleteOffer";
 
 /* -------------- Curriculums ------------*/
 export const GET_ALL_CURRICULUMS = "/api/AdminAllCurriculums";
+export const GET_CURRICULUM_BY_ID = "/api/getCurriculumById";
 export const ADD_CURRICULUMS = "/api/AddCurriculum";
 export const DELETE_CURRICULUMS = "/api/deleteCurriculum";
 export const UPDTAE_CURRICULUMS = "/api/updateCurriculum";
@@ -49,7 +50,7 @@ export const DELETE_SUBJECT = "/api/deleteSubject";
 export const UPDTAE_SUBJECT = "/api/updateSubject";
 
 /* -------------- Subjects ------------*/
-export const GET_ALL_STAGE = "/api/AdminAllStage"; // ??
+export const GET_ALL_STAGE = "/api/AdminAllStages"; // ??
 export const ADD_STAGE = "/api/AddStage";
 export const DELETE_STAGE = "/api/deleteStage";
 export const UPDTAE_STAGE = "/api/updateStage";
