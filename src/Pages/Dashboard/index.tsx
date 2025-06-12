@@ -1,10 +1,14 @@
 import { AppSidebar } from "@/components/AppSidebar";
 import { SidebarProvider, SidebarTrigger } from "../../components/ui/sidebar";
 import { Outlet } from "react-router-dom";
+import { useAppSelector } from "@/app/store";
+import { useDispatch } from "react-redux";
+import SettingsModal from "@/components/settings";
+import { closeModal } from "@/app/features/settings/settingsModalSlice";
 
 export default function Layout() {
-  // const [date, setDate] = React.useState<Date | undefined>(new Date());
-
+  const { isOpen, image } = useAppSelector((state) => state.settingsModal);
+  const dispatch = useDispatch();
   return (
     <SidebarProvider>
       {/* Sidebar ثابت يسار أو يمين */}
@@ -13,6 +17,11 @@ export default function Layout() {
       </div>
 
       <main className="w-full">
+        <SettingsModal
+          isOpen={isOpen}
+          ImageUser={image}
+          onClose={() => dispatch(closeModal())}
+        />
         <div className="bg-white p-4 w-full shadow-xs">
           <SidebarTrigger />
         </div>
@@ -22,15 +31,6 @@ export default function Layout() {
               <Outlet />
             </div>
           </div>
-          {/* <div className="p-4  flex-1  ">
-            <Calendar
-              mode="single"
-              selected={date}
-              onSelect={setDate}
-              className="rounded-2xl border mx-auto w-full bg-white"
-              captionLayout="dropdown"
-            />
-          </div> */}
         </div>
       </main>
     </SidebarProvider>

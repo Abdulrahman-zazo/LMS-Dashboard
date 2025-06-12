@@ -30,15 +30,19 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import Logo from "./ui/Logo";
-import { useGetuserInformationQuery } from "@/app/features/User/userApi";
+import { useGetuserInformationQuery } from "@/app/features/Admins/userApi";
 import { cookieService } from "@/Cookies/CookiesServices";
 import { LogoutHandler } from "./LogoutHandler";
+import { useDispatch } from "react-redux";
+import { openModal } from "@/app/features/settings/settingsModalSlice";
 
 // Menu items.
 
 export function AppSidebar() {
   const { t } = useTranslation("translation");
   const token = cookieService.get("auth_token") || "";
+
+  const dispatch = useDispatch();
   const { data, isLoading } = useGetuserInformationQuery(token as string);
   const items = [
     {
@@ -134,10 +138,14 @@ export function AppSidebar() {
                   className="w-[--radix-popper-anchor-width]"
                 >
                   <DropdownMenuItem>
-                    <span>Account</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <span>Billing</span>
+                    <span
+                      className="px-4 py-2 hover:bg-gray-100 w-full cursor-pointer text-xs  sm:text-sm"
+                      onClick={() => {
+                        dispatch(openModal(data?.user.image));
+                      }}
+                    >
+                      {t("userMenu.settings")}
+                    </span>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <span onClick={() => LogoutHandler()}>Sign out</span>

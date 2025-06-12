@@ -13,26 +13,34 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Eye, MoreVertical, Pencil, Trash2 } from "lucide-react";
+import { Eye, MoreVertical, Pencil, ShieldAlert, Trash2 } from "lucide-react";
 import type { DataTableProps } from "@/types";
+import { Input } from "./ui/input";
 
-export function DataTable<T extends { id: string | number }>({
+export function DataTable<T extends { id: string | number; name: string }>({
   columns,
   title = "البيانات",
   description = "",
+  ImageType = "rectangle", // Image type rectangle as default to courses
   isloading = false,
   buttonAdd = "إضافة",
   data,
   onAdd,
   onEdit,
+  onMakeAdmin,
   onDelete,
   onView,
 }: DataTableProps<T>) {
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 5;
+  const [searchTerm, setSearchTerm] = useState("");
+  const rowsPerPage = 6;
 
-  const totalPages = Math.ceil((data?.length || 0) / rowsPerPage);
-  const paginatedData = data?.slice(
+  const filteredData = data?.filter((item) =>
+    item.name?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const totalPages = Math.ceil((filteredData?.length || 0) / rowsPerPage);
+  const paginatedData = filteredData?.slice(
     (currentPage - 1) * rowsPerPage,
     currentPage * rowsPerPage
   );
@@ -43,38 +51,50 @@ export function DataTable<T extends { id: string | number }>({
 
   return (
     <Card className="p-4">
-      <div className="flex justify-between items-center mb-2 ">
+      <div className="flex justify-between items-center mb-2 flex-wrap gap-2">
         <div>
           <h2 className="text-xl font-bold">{title}</h2>
           <span className="text-sm text-neutral-400">{description}</span>
         </div>
-        {onAdd && (
-          <Button
-            onClick={() => onAdd()}
-            className="text-base"
-            variant="default"
-          >
-            {buttonAdd}
-          </Button>
-        )}
+        <div className="flex items-center gap-2">
+          <Input
+            type="text"
+            placeholder={`  بحث عن الاسم... 🔎`}
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setCurrentPage(1); // Reset to first page when searching
+            }}
+            className="w-48"
+          />
+          {onAdd && (
+            <Button
+              onClick={() => onAdd()}
+              className="text-base"
+              variant="default"
+            >
+              {buttonAdd}
+            </Button>
+          )}
+        </div>
       </div>
 
       <div className="overflow-auto">
         <table className="min-w-full text-sm">
-          <thead>
-            <tr className="border-b">
+          <thead className="text-start">
+            <tr className="border-b text-center">
               {columns.map((col) =>
                 col.key === "image" ? (
                   <th
                     key={col.key as string}
-                    className="text-center w-1/6 font-semibold"
+                    className="text-center w-1/6 p-4 font-semibold"
                   >
                     {col.header}
                   </th>
                 ) : (
                   <th
                     key={col.key as string}
-                    className="text-center p-4 font-semibold"
+                    className="text-start p-4 font-semibold"
                   >
                     {col.header}
                   </th>
@@ -104,14 +124,18 @@ export function DataTable<T extends { id: string | number }>({
                   </tr>
                 ))
               : paginatedData?.map((row) => (
-                  <tr key={row.id} className="border-b hover:bg-muted/50">
+                  <tr key={row.id} className="border-b  hover:bg-muted/50">
                     {columns.map((col) => (
                       <td key={col.key as string} className="p-2 ">
                         {col.key === "image" ? (
                           <img
                             src={row[col.key] as string}
                             alt="صورة"
-                            className="w-20 object-cover h-12 rounded mx-auto"
+                            className={` ${
+                              ImageType === "rectangle"
+                                ? "w-24 rounded-md"
+                                : "w-12 rounded-full"
+                            }  object-cover h-12  mx-auto`}
                           />
                         ) : col.render ? (
                           col.render(row[col.key], row)
@@ -154,6 +178,12 @@ export function DataTable<T extends { id: string | number }>({
                             <DropdownMenuItem onClick={() => onDelete(row)}>
                               <Trash2 className="w-4 h-4 mr-2" />
                               حذف
+                            </DropdownMenuItem>
+                          )}
+                          {onMakeAdmin && (
+                            <DropdownMenuItem onClick={() => onMakeAdmin(row)}>
+                              <ShieldAlert className="w-4 h-4 mr-2" />
+                              تعينه كمسؤول
                             </DropdownMenuItem>
                           )}
                         </DropdownMenuContent>

@@ -1,7 +1,10 @@
-import { BookOpenCheck, LibraryBig, Users } from "lucide-react";
-import { useGetStatisticsQuery } from "@/app/features/User/userApi";
+import { BookOpenCheck, Info, LibraryBig, Users } from "lucide-react";
+import { useGetStatisticsQuery } from "@/app/features/Admins/userApi";
 import { cookieService } from "@/Cookies/CookiesServices";
 import HandelError from "@/components/HandelError";
+import { useGetAllComplaintsQuery } from "@/app/features/Complaints/ComplaintsApi";
+import CoursesComponent from "@/components/Courses";
+import WhyDifferentSection from "@/components/WhyDifferent";
 interface StatCardProps {
   title: string;
   value: number | string;
@@ -16,7 +19,7 @@ const StatCard = ({
   color,
 }: StatCardProps) => {
   return (
-    <div className="flex flex-col  p-6 gap-6 border border-neutral-200 rounded-2xl hover:shadow-sm transition-all">
+    <div className="flex flex-col  p-4 gap-6 border border-neutral-200 rounded-xl hover:shadow-sm transition-all">
       <h1 className="text-xl font-semibold text-muted-foreground">{title}</h1>
 
       <div className="space-y-1 flex justify-between items-center">
@@ -29,13 +32,14 @@ const StatCard = ({
 const HomePage = () => {
   const token = cookieService.get("auth_token") || "";
   const { data, isLoading, isError } = useGetStatisticsQuery(token as string);
+  const { data: Complaints } = useGetAllComplaintsQuery(token);
   if (isError) {
     return <HandelError />;
   }
 
   return isLoading ? (
     <div>
-      <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Header skeleton */}
         <div className="h-32 w-full bg-gray-200 rounded "></div>
         <div className="h-32 w-full bg-gray-200  rounded "></div>
@@ -61,8 +65,8 @@ const HomePage = () => {
       </div>
     </div>
   ) : (
-    <div className="">
-      <div className="m-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className=" bg-white p-4 rounded-2xl">
+      <div className="m-4 grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-4">
         <StatCard
           title="Total Curriculums"
           value={data?.Curriculum}
@@ -81,7 +85,15 @@ const HomePage = () => {
           icon={<Users size={30} className=" text-blue-400" />}
           color="yellow-500"
         />
+        <StatCard
+          title="Total Complaints"
+          value={Complaints?.Complaint.length}
+          icon={<Info size={30} className=" text-primary" />}
+          color="yellow-500"
+        />
       </div>
+      <CoursesComponent max={3} />
+      <WhyDifferentSection />
     </div>
   );
 };

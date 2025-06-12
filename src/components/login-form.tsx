@@ -10,7 +10,7 @@ import Logo from "./ui/Logo";
 import {
   useLoginMutation,
   useRegisterByGoogleMutation,
-} from "@/app/features/User/userApi";
+} from "@/app/features/Admins/userApi";
 import { useTranslation } from "react-i18next";
 import { GoogleLogin } from "@react-oauth/google";
 import { toast } from "sonner";

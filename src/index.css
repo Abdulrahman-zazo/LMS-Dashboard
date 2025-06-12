@@ -51,9 +51,9 @@ html[lang="en"] {
   --color-bg-whait: rgba(255, 255, 255, 1);
   --color-primary-500: rgba(74, 116, 234, 0.5);
   --color-bg-icon: rgba(217, 217, 217, 0.3);
-  --color-bg-purple-light: rgba(133, 73, 151, 0.12);
-  --color-bg-green-light: rgba(188, 216, 137, 0.12);
-  --color-bg-beby-light: rgba(98, 197, 225, 0.12);
+  --color-purple-light: rgba(133, 73, 151, 0.12);
+  --color-green-light: rgba(188, 216, 137, 0.12);
+  --color-beby-light: rgba(98, 197, 225, 0.12);
   --color-error: rgba(255, 77, 79, 1);
   --color-primary: rgba(93, 76, 154, 1);
   --color-secondary: rgba(188, 216, 137, 1);
@@ -70,6 +70,9 @@ html[lang="en"] {
   -moz-osx-font-smoothing: grayscale;
   --color-error: rgba(255, 77, 79, 1);
   --radius: 0.625rem;
+  --color-purple-light: rgba(133, 73, 151, 0.12);
+  --color-green-light: rgba(188, 216, 137, 0.12);
+  --color-beby-light: rgba(98, 197, 225, 0.12);
   --background: rgba(251, 248, 252, 1);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -111,6 +114,9 @@ html[lang="en"] {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
+  --color-purple-light: rgba(133, 73, 151, 0.12);
+  --color-green-light: rgba(188, 216, 137, 0.12);
+  --color-beby-light: rgba(98, 197, 225, 0.12);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);

@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   useChangePasswordMutation,
   useForgetPasswordMutation,
-} from "../../../app/features/User/userApi";
+} from "../../../app/features/Admins/userApi";
 
 import { encryptToken } from "../../../Cookies/CryptoServices/crypto";
 import { toast } from "sonner";

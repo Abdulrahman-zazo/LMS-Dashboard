@@ -10,6 +10,7 @@ import type { Complaint } from "@/types";
 import ComplaintDetailPanel from "@/components/ComplaintCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
 export default function ComplaintsWithPanel() {
   const token = cookieService.get("auth_token") || "";
@@ -73,23 +74,33 @@ export default function ComplaintsWithPanel() {
             <div
               key={c.id}
               onClick={() => setSelected(c)}
-              className="relative group bg-white border border-neutral-200 rounded-md px-4 py-6  hover:shadow-xs transition-all cursor-pointer"
+              className="relative group bg-white border border-neutral-200 rounded-md px-4 pt-4 pb-4    hover:shadow-xs transition-all cursor-pointer"
             >
               <div className="flex justify-between items-center mb-6">
-                <h3 className="font-semibold text-gray-800 truncate max-w-[70%]">
-                  {c.name}
-                </h3>
+                <div className="w-full">
+                  <h3 className="font-semibold text-primary truncate max-w-[70%]">
+                    {c.name}
+                  </h3>
+
+                  <p className="text-neutral-400  text-xs line-clamp-2 ">
+                    {c.email}
+                  </p>
+                </div>
                 <span className="text-xs text-muted-foreground">
                   {new Date(c.time).toLocaleDateString()}
                 </span>
               </div>
-              <p className="text-gray-600 mt-2 text-sm line-clamp-2">
+
+              <p className="text-gray-600 mt-2 text-sm line-clamp-2 ">
                 {c.text}
               </p>
-
-              <span className="absolute bottom-3 left-4 text-xs text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                اضغط للتفاصيل →
-              </span>
+              <Button
+                variant={"default"}
+                className=" w-full text-xs mt-4 font-medium 
+     "
+              >
+                التفاصيل
+              </Button>
             </div>
           ))}
         {selected && (

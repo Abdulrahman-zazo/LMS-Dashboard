@@ -43,11 +43,15 @@ const CoursesPage = () => {
   if (isError) {
     return <HandelError />;
   }
+
+  const Courses = !isLoading && data ? [...data.course].reverse() : [];
+
   return (
     <div>
       <DataTable<Course>
-        data={data?.course}
+        data={Courses}
         isloading={isLoading}
+        ImageType="rectangle"
         buttonAdd={t("buttons.courses.add")}
         title={t("buttons.courses.title")}
         description={t("buttons.courses.text")}

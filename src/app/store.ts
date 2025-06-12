@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReduser from "./features/User/userSlice";
+import userReduser from "./features/Admins/userSlice";
 import langReducer from "./features/Language/LanguageSlice";
 import settingsModalReducer from "./features/settings/settingsModalSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { userApi } from "./features/User/userApi";
+import { userApi } from "./features/Admins/userApi";
 import { CoursesApi } from "./features/Courses/CoursesApi";
 import { CurriculumsApi } from "./features/Curriculum/CurriculumApi";
 import { CommentsApi } from "./features/Comments/CommentsApi";
@@ -11,6 +11,7 @@ import { OfferApi } from "./features/Offer/OfferApi";
 import { ComplaintsApi } from "./features/Complaints/ComplaintsApi";
 import { SubjectsApi } from "./features/Curriculum/Subject/SubjectApi";
 import { StagesApi } from "./features/Curriculum/Stage/StageApi";
+import { usersApi } from "./features/Users/usersApi";
 export const store = configureStore({
   reducer: {
     user: userReduser,
@@ -25,6 +26,7 @@ export const store = configureStore({
     [ComplaintsApi.reducerPath]: ComplaintsApi.reducer,
     [SubjectsApi.reducerPath]: SubjectsApi.reducer,
     [StagesApi.reducerPath]: StagesApi.reducer,
+    [usersApi.reducerPath]: usersApi.reducer,
   },
 
   // 1- Using Api middleware
@@ -38,7 +40,8 @@ export const store = configureStore({
       OfferApi.middleware,
       ComplaintsApi.middleware,
       SubjectsApi.middleware,
-      StagesApi.middleware
+      StagesApi.middleware,
+      usersApi.middleware
     ), // إضافة middleware
 });
 

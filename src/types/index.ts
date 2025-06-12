@@ -7,6 +7,7 @@ export type Column<T> = {
 
 export interface DataTableProps<T> {
   title?: string;
+  ImageType: "circle" | "rectangle";
   buttonAdd?: string;
   isloading: boolean;
   description?: string;
@@ -15,6 +16,7 @@ export interface DataTableProps<T> {
   onAdd?: () => void;
   onEdit?: (row: T) => void;
   onDelete?: (row: T) => void;
+  onMakeAdmin?: (row: T) => void;
   onView?: (row: T) => void;
 }
 
@@ -45,6 +47,14 @@ export interface Course {
   id: number;
 }
 
+export interface Users {
+  name: string;
+  image: string;
+
+  phone: string;
+  email: string;
+  id: number;
+}
 export interface Curriculum {
   id: number;
   name: string;

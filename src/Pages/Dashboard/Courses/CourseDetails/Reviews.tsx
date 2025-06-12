@@ -8,7 +8,7 @@ import {
   useAddCommentsMutation,
   useDeleteCommentsMutation,
 } from "@/app/features/Comments/CommentsApi";
-import { useGetuserInformationQuery } from "@/app/features/User/userApi";
+import { useGetuserInformationQuery } from "@/app/features/Admins/userApi";
 import { cookieService } from "@/Cookies/CookiesServices";
 
 // course interface
