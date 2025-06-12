@@ -5,25 +5,19 @@ import HandelError from "@/components/HandelError";
 import { useGetAllComplaintsQuery } from "@/app/features/Complaints/ComplaintsApi";
 import CoursesComponent from "@/components/Courses";
 import WhyDifferentSection from "@/components/WhyDifferent";
+import { useTranslation } from "react-i18next";
 interface StatCardProps {
   title: string;
   value: number | string;
   icon: React.ReactNode;
   color: string;
 }
-const StatCard = ({
-  title,
-
-  value,
-  icon,
-  color,
-}: StatCardProps) => {
+const StatCard = ({ title, value, icon, color }: StatCardProps) => {
   return (
-    <div className="flex flex-col  p-4 gap-6 border border-neutral-200 rounded-xl hover:shadow-sm transition-all">
-      <h1 className="text-xl font-semibold text-muted-foreground">{title}</h1>
-
-      <div className="space-y-1 flex justify-between items-center">
-        <p className="text-4xl font-semibold ">{value}</p>
+    <div className="flex flex-col  py-2 px-4 gap-6 border border-neutral-200 rounded-xl hover:shadow-sm transition-all">
+      <h1 className="text-sm  xl:text-base  text-neutral-400">{title}</h1>
+      <div className=" flex justify-between items-center">
+        <p className=" text-xl sm:text-2xl   ">{value}</p>
         <span className={`text-${color}`}> {icon}</span>
       </div>
     </div>
@@ -31,67 +25,51 @@ const StatCard = ({
 };
 const HomePage = () => {
   const token = cookieService.get("auth_token") || "";
+  const { t } = useTranslation("translation");
   const { data, isLoading, isError } = useGetStatisticsQuery(token as string);
   const { data: Complaints } = useGetAllComplaintsQuery(token);
   if (isError) {
     return <HandelError />;
   }
 
-  return isLoading ? (
-    <div>
-      <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* Header skeleton */}
-        <div className="h-32 w-full bg-gray-200 rounded "></div>
-        <div className="h-32 w-full bg-gray-200  rounded "></div>
-        <div className="h-32 w-full bg-gray-200  rounded "></div>
-      </div>
-
-      <div className=" rounded-lg overflow-hidden sm:w-[100%] lg:flex">
-        {/* Left Section Skeleton */}
-        <div className="lg:w-1/2 p-6 space-y-4">
-          <div className="w-full h-56 bg-gray-200 rounded-md"></div>
-
-          <div className="flex gap-4">
-            <div className="h-6 w-32 bg-gray-200 rounded"></div>
-            <div className="h-6 w-36 bg-gray-200 rounded"></div>
-          </div>
-
-          <div className="space-y-2 mt-4">
-            <div className="h-4 bg-gray-200 rounded w-full"></div>
-            <div className="h-4 bg-gray-200 rounded w-4/5"></div>
-            <div className="h-4 bg-gray-200 rounded w-2/3"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  ) : (
+  return (
     <div className=" bg-white p-4 rounded-2xl">
-      <div className="m-4 grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-4">
-        <StatCard
-          title="Total Curriculums"
-          value={data?.Curriculum}
-          icon={<BookOpenCheck size={30} className=" text-secondary" />}
-          color="blue-500"
-        />
-        <StatCard
-          title="Total Courses"
-          value={data?.Courses}
-          icon={<LibraryBig size={30} className=" text-primary" />}
-          color="green-500"
-        />
-        <StatCard
-          title="Total Students"
-          value={data?.Users}
-          icon={<Users size={30} className=" text-blue-400" />}
-          color="yellow-500"
-        />
-        <StatCard
-          title="Total Complaints"
-          value={Complaints?.Complaint.length}
-          icon={<Info size={30} className=" text-primary" />}
-          color="yellow-500"
-        />
-      </div>
+      {isLoading ? (
+        <div className=" m-4 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* Header skeleton */}
+          <div className="h-28 w-full bg-neutral-100 animate-pulse rounded "></div>
+          <div className="h-28 w-full bg-neutral-100 animate-pulse  rounded "></div>
+          <div className="h-28 w-full bg-neutral-100 animate-pulse  rounded "></div>
+          <div className="h-28 w-full bg-neutral-100 animate-pulse  rounded "></div>
+        </div>
+      ) : (
+        <div className="m-4 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <StatCard
+            title={t("Statistics.Curriculums")}
+            value={data?.Curriculum}
+            icon={<BookOpenCheck className=" text-secondary" />}
+            color="blue-500"
+          />
+          <StatCard
+            title={t("Statistics.Courses")}
+            value={data?.Courses}
+            icon={<LibraryBig className=" text-primary" />}
+            color="green-500"
+          />
+          <StatCard
+            title={t("Statistics.Students")}
+            value={data?.Users}
+            icon={<Users className=" text-blue-400" />}
+            color="yellow-500"
+          />
+          <StatCard
+            title={t("Statistics.Complaints")}
+            value={Complaints?.Complaint.length}
+            icon={<Info className=" text-primary" />}
+            color="yellow-500"
+          />
+        </div>
+      )}
       <CoursesComponent max={3} />
       <WhyDifferentSection />
     </div>

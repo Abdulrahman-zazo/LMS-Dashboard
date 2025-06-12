@@ -4,12 +4,19 @@ import { RouterProvider } from "react-router-dom";
 import { router } from "./Routes";
 import { Toaster } from "sonner";
 import OfflineAlert from "./components/Offline";
+import { useEffect } from "react";
+import { useAppSelector } from "./app/store";
 
 function App() {
-  // const dispatch = useAppDispatch();
+  const lang = useAppSelector((state) => state.language.lang);
+  console.log(lang);
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  }, [lang]);
 
   return (
-    <div dir="rtl" lang="ar">
+    <div>
       <OfflineAlert />
       <RouterProvider router={router} />
       <Toaster richColors position="top-center" />

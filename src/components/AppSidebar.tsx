@@ -35,14 +35,19 @@ import { cookieService } from "@/Cookies/CookiesServices";
 import { LogoutHandler } from "./LogoutHandler";
 import { useDispatch } from "react-redux";
 import { openModal } from "@/app/features/settings/settingsModalSlice";
+import { changeLangAction } from "@/app/features/Language/LanguageSlice";
 
 // Menu items.
 
 export function AppSidebar() {
-  const { t } = useTranslation("translation");
+  const { t, i18n } = useTranslation("translation");
   const token = cookieService.get("auth_token") || "";
-
   const dispatch = useDispatch();
+  const toggleLanguage = () => {
+    const newLang = i18n.language === "ar" ? "en" : "ar";
+
+    dispatch(changeLangAction(newLang));
+  };
   const { data, isLoading } = useGetuserInformationQuery(token as string);
   const items = [
     {
@@ -84,7 +89,11 @@ export function AppSidebar() {
   const { open } = useSidebar();
 
   return (
-    <Sidebar side="right" variant="sidebar" collapsible="icon">
+    <Sidebar
+      side={i18n.language === "ar" ? "right" : "left"}
+      variant="sidebar"
+      collapsible="icon"
+    >
       <SidebarContent>
         <SidebarGroup>
           <SidebarHeader className="mx-auto">
@@ -146,6 +155,14 @@ export function AppSidebar() {
                     >
                       {t("userMenu.settings")}
                     </span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <button
+                      onClick={toggleLanguage}
+                      className="hover:text-bg-icon underline mt-2 text-start"
+                    >
+                      {i18n.language === "ar" ? "English" : "العربية"}
+                    </button>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <span onClick={() => LogoutHandler()}>Sign out</span>

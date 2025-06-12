@@ -27,12 +27,10 @@
 }
 html[lang="ar"] {
   font-family: "Alexandria", sans-serif;
-  direction: rtl;
 }
 
 html[lang="en"] {
   font-family: "Inter", sans-serif;
-  direction: ltr;
 }
 
 @custom-variant dark (&:is(.dark *));
@@ -72,6 +70,7 @@ html[lang="en"] {
   --radius: 0.625rem;
   --color-purple-light: rgba(133, 73, 151, 0.12);
   --color-green-light: rgba(188, 216, 137, 0.12);
+  --color-bg-purple: rgba(251, 248, 252, 1);
   --color-beby-light: rgba(98, 197, 225, 0.12);
   --background: rgba(251, 248, 252, 1);
   --foreground: oklch(0.145 0 0);
@@ -116,6 +115,7 @@ html[lang="en"] {
   --color-card: var(--card);
   --color-purple-light: rgba(133, 73, 151, 0.12);
   --color-green-light: rgba(188, 216, 137, 0.12);
+  --color-bg-purple: rgba(251, 248, 252, 1);
   --color-beby-light: rgba(98, 197, 225, 0.12);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);

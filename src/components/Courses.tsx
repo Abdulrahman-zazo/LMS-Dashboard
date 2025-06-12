@@ -23,7 +23,7 @@ const CoursesComponent = ({ max }: IcourseMax) => {
 
   if (isLoading) {
     return (
-      <div className="mx-auto w-[90%] max-w-[1440px] my-20 px-4">
+      <div className="mx-auto w-[100%] max-w-[1440px] my-10 px-4">
         <div>
           <div className="w-[50%] h-4 bg-neutral-200 my-4 rounded " />
           <div className="w-[40%] h-4 bg-neutral-200 rounded my-4" />
@@ -51,16 +51,16 @@ const CoursesComponent = ({ max }: IcourseMax) => {
 
   const Courses = !isLoading && data ? [...data.course].reverse() : [];
   return (
-    <section className="bg-bg-purple  px-2 sm:px-6 py-6 sm:py-6 ">
+    <section className=" px-2 sm:px-6 py-6 sm:py-6 ">
       <div className=" mx-auto w-[100%] max-w-[1440px] ">
         {/* Header */}
-        <div className=" mb-4 sm:mb-10">
-          <h2 className=" text-2xl sm:text-2xl lg:text-4xl font-semibold sm:mb-4 leading-10 sm:leading-14">
+        <div className=" mb-4 sm:mb-5">
+          <h2 className=" text-xl sm:text-2xl lg:text-3xl font-semibold sm:mb-2 leading-10 sm:leading-12">
             {t("Courses.title")}
-            <br />
-            <span className="text-primary ">{t("Courses.slogan")} </span>
+
+            <span className="mx-2 text-primary">{t("Courses.slogan")} </span>
           </h2>
-          <p className="text-sm sm:text-base text-paragraph max-w-2xl ">
+          <p className="text-xs sm:text-sm text-neutral-700 max-w-2xl ">
             {t("Courses.description")}
           </p>
         </div>
@@ -87,7 +87,7 @@ const CoursesComponent = ({ max }: IcourseMax) => {
 
         {Courses?.length === 0 && (
           <div className="flex justify-center py-12">
-            <p className="text-xs sm:text-sm text-neutral-500">
+            <p className="text-xs sm:text-sm text-neutral-400">
               {t("Courses.Nocourse")}
             </p>
           </div>

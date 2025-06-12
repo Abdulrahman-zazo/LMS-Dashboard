@@ -110,10 +110,7 @@ const CurriculaDetails = () => {
               {/* <h2 className="text-xl font-semibold">{pivot.stage.name}</h2> */}
             </div>
             {pivot.subject.length > 0 && (
-              <div
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-                dir="rtl"
-              >
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div
                   onClick={onAddClick}
                   className="border cursor-pointer hover:shadow-md hover:bg-primary/5 rounded-xl flex flex-col items-center justify-center p-4 bg-white text-primary shadow-sm relative"

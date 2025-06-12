@@ -16,6 +16,7 @@ import {
 import { Eye, MoreVertical, Pencil, ShieldAlert, Trash2 } from "lucide-react";
 import type { DataTableProps } from "@/types";
 import { Input } from "./ui/input";
+import { useTranslation } from "react-i18next";
 
 export function DataTable<T extends { id: string | number; name: string }>({
   columns,
@@ -23,7 +24,7 @@ export function DataTable<T extends { id: string | number; name: string }>({
   description = "",
   ImageType = "rectangle", // Image type rectangle as default to courses
   isloading = false,
-  buttonAdd = "إضافة",
+  buttonAdd = "+ إضافة",
   data,
   onAdd,
   onEdit,
@@ -33,8 +34,8 @@ export function DataTable<T extends { id: string | number; name: string }>({
 }: DataTableProps<T>) {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const rowsPerPage = 6;
-
+  const rowsPerPage = 5;
+  const { t } = useTranslation("translation");
   const filteredData = data?.filter((item) =>
     item.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -51,26 +52,26 @@ export function DataTable<T extends { id: string | number; name: string }>({
 
   return (
     <Card className="p-4">
-      <div className="flex justify-between items-center mb-2 flex-wrap gap-2">
+      <div className="flex justify-between w-full  items-center mb-2 flex-wrap gap-4">
         <div>
-          <h2 className="text-xl font-bold">{title}</h2>
+          <h2 className="text-lg font-semibold text-neutral-800">{title}</h2>
           <span className="text-sm text-neutral-400">{description}</span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center justify-between gap-2">
           <Input
             type="text"
-            placeholder={`  بحث عن الاسم... 🔎`}
+            placeholder={t("data_table.search")}
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
               setCurrentPage(1); // Reset to first page when searching
             }}
-            className="w-48"
+            className="w-full placeholder:text-neutral-300 placeholder:text-xs"
           />
           {onAdd && (
             <Button
               onClick={() => onAdd()}
-              className="text-base"
+              className="text-sm"
               variant="default"
             >
               {buttonAdd}
@@ -82,32 +83,40 @@ export function DataTable<T extends { id: string | number; name: string }>({
       <div className="overflow-auto">
         <table className="min-w-full text-sm">
           <thead className="text-start">
-            <tr className="border-b text-center">
+            <tr className="border-b border-neutral-100 text-center">
               {columns.map((col) =>
                 col.key === "image" ? (
                   <th
                     key={col.key as string}
-                    className="text-center w-1/6 p-4 font-semibold"
+                    className="text-center w-1/6 text-neutral-800 p-4 font-semibold"
                   >
                     {col.header}
                   </th>
                 ) : (
                   <th
                     key={col.key as string}
-                    className="text-start p-4 font-semibold"
+                    className={`text-start p-4 text-neutral-800 font-semibold  ${
+                      col.key === "summary" ? "hidden sm:table-cell" : ""
+                    }`}
                   >
                     {col.header}
                   </th>
                 )
               )}
-              {onView && <th className="p-2">تفاصيل</th>}
-              <th className="p-2">الإجراءات</th>
+              {onView && (
+                <th className="p-2 hidden sm:table-cell text-sm font-semibold text-neutral-800">
+                  {t("data_table.details")}
+                </th>
+              )}
+              <th className="p-2 font-semibold text-neutral-800">
+                {t("data_table.Actions")}
+              </th>
             </tr>
           </thead>
           <tbody>
             {isloading
               ? Array.from({ length: rowsPerPage }).map((_, i) => (
-                  <tr key={i} className="border-b border-neutral-200">
+                  <tr key={i} className="border-b border-neutral-100">
                     {columns.map((_, j) => (
                       <td key={j} className="p-3">
                         <Skeleton className="h-10 w-full" />
@@ -124,18 +133,26 @@ export function DataTable<T extends { id: string | number; name: string }>({
                   </tr>
                 ))
               : paginatedData?.map((row) => (
-                  <tr key={row.id} className="border-b  hover:bg-muted/50">
+                  <tr
+                    key={row.id}
+                    className="border-b h-12 lg:h-26 border-neutral-200 hover:bg-muted/50"
+                  >
                     {columns.map((col) => (
-                      <td key={col.key as string} className="p-2 ">
+                      <td
+                        key={col.key as string}
+                        className={`p-2 text-neutral-700 text-xs ${
+                          col.key === "summary" ? "hidden sm:table-cell" : ""
+                        }`}
+                      >
                         {col.key === "image" ? (
                           <img
                             src={row[col.key] as string}
                             alt="صورة"
                             className={` ${
                               ImageType === "rectangle"
-                                ? "w-24 rounded-md"
-                                : "w-12 rounded-full"
-                            }  object-cover h-12  mx-auto`}
+                                ? " w-32 lg:h-auto rounded-md"
+                                : "w-12  h-12 rounded-full"
+                            }  object-cover  mx-auto`}
                           />
                         ) : col.render ? (
                           col.render(row[col.key], row)
@@ -145,7 +162,7 @@ export function DataTable<T extends { id: string | number; name: string }>({
                       </td>
                     ))}
                     {onView && (
-                      <td className="p-2 text-center">
+                      <td className="p-2 hidden sm:table-cell text-center">
                         <Tooltip>
                           <TooltipTrigger asChild>
                             <Button
@@ -156,7 +173,10 @@ export function DataTable<T extends { id: string | number; name: string }>({
                               <Eye className="w-4 h-4" />
                             </Button>
                           </TooltipTrigger>
-                          <TooltipContent>تفاصيل الكورس</TooltipContent>
+                          <TooltipContent>
+                            {" "}
+                            {t("data_table.details")}{" "}
+                          </TooltipContent>
                         </Tooltip>
                       </td>
                     )}
@@ -168,22 +188,49 @@ export function DataTable<T extends { id: string | number; name: string }>({
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent side="left">
+                          {onView && (
+                            <DropdownMenuItem
+                              className="flex items-center justify-between"
+                              onClick={() => onView(row)}
+                            >
+                              <Eye className="w-4 h-4 " />
+                              <span className="text-xs">
+                                {t("data_table.details")}
+                              </span>
+                            </DropdownMenuItem>
+                          )}
                           {onEdit && (
-                            <DropdownMenuItem onClick={() => onEdit(row)}>
-                              <Pencil className="w-4 h-4 mr-2" />
-                              تعديل
+                            <DropdownMenuItem
+                              className="flex items-center justify-between"
+                              onClick={() => onEdit(row)}
+                            >
+                              <Pencil className="w-4 h-4 " />
+                              <span className="text-xs">
+                                {t("data_table.edit")}
+                              </span>
                             </DropdownMenuItem>
                           )}
                           {onDelete && (
-                            <DropdownMenuItem onClick={() => onDelete(row)}>
-                              <Trash2 className="w-4 h-4 mr-2" />
-                              حذف
+                            <DropdownMenuItem
+                              className="flex items-center justify-between"
+                              onClick={() => onDelete(row)}
+                            >
+                              <Trash2 className="w-4 h-4 " />
+                              <span className="text-xs">
+                                {t("data_table.delete")}
+                              </span>
                             </DropdownMenuItem>
                           )}
+
                           {onMakeAdmin && (
-                            <DropdownMenuItem onClick={() => onMakeAdmin(row)}>
-                              <ShieldAlert className="w-4 h-4 mr-2" />
-                              تعينه كمسؤول
+                            <DropdownMenuItem
+                              className="flex items-center justify-between"
+                              onClick={() => onMakeAdmin(row)}
+                            >
+                              <ShieldAlert className="w-4 h-4 " />
+                              <span className="text-xs">
+                                {t("data_table.makeAdmin")}
+                              </span>
                             </DropdownMenuItem>
                           )}
                         </DropdownMenuContent>
@@ -204,10 +251,11 @@ export function DataTable<T extends { id: string | number; name: string }>({
             disabled={currentPage === 1}
             onClick={prevPage}
           >
-            السابق
+            {t("data_table.prev")}
           </Button>
           <span>
-            صفحة {currentPage} من {totalPages}
+            {t("data_table.page")} {currentPage} {t("data_table.of")}{" "}
+            {totalPages}
           </span>
           <Button
             variant="outline"
@@ -215,7 +263,7 @@ export function DataTable<T extends { id: string | number; name: string }>({
             disabled={currentPage === totalPages}
             onClick={nextPage}
           >
-            التالي
+            {t("data_table.next")}
           </Button>
         </div>
       )}

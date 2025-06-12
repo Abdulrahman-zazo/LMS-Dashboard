@@ -97,8 +97,6 @@ export default function CourseDialog({
       <DialogContent
         title="add and edit course"
         className="p-6 sm:rounded-2xl space-y-0 sm:max-w-3xl"
-        lang="ar"
-        dir="rtl"
       >
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-primary">
