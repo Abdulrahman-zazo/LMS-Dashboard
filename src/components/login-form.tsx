@@ -5,7 +5,8 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Link, useNavigate } from "react-router-dom";
 import { encryptToken } from "@/Cookies/CryptoServices/crypto";
-import ImageLoign from "../assets/medium-shot-girl-learning-with-tablet.webp";
+const ImageLoign =
+  "https://res.cloudinary.com/dmn6uzy82/image/upload/v1749857069/medium-shot-girl-learning-with-tablet_goejhr.webp";
 import Logo from "./ui/Logo";
 import {
   useLoginMutation,
@@ -50,7 +51,7 @@ export function LoginForm({
         encryptToken(result.authorization.token);
         navigate("/");
       } else if (result.user.is_admin === 0) {
-        toast.success(t("ليس لديك صلاحيات للدخول للوحة التحكم"), {
+        toast.success(t("message.login_message.NoAccess"), {
           id: toastId,
         });
       } else {
@@ -67,16 +68,16 @@ export function LoginForm({
   };
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="overflow-hidden p-8 ">
+      <Card className="overflow-hidden p-6   ">
         <CardContent className="grid p-0  md:grid-cols-2">
-          <form className="p-6 md:p-8" onSubmit={handleSubmit}>
+          <form className="px-6 md:px-8" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-4">
               <div className="flex flex-col items-center text-center">
                 <Logo type="h" width={150} />
-                <h1 className="text-xl text-neutral-700 font-semibold">
+                <h1 className="text-base text-neutral-700 font-semibold">
                   {t("auth.Login_account.Login_title")}
                 </h1>
-                <p className="text-muted-foreground text-balance text-sm">
+                <p className="text-muted-foreground text-balance text-xs">
                   {t("auth.Login_account.create_text")}
                 </p>
               </div>
@@ -109,12 +110,9 @@ export function LoginForm({
                         encryptToken(result.authorization.token);
                         navigate("/");
                       } else if (result.user.is_admin === 0) {
-                        toast.success(
-                          t("ليس لديك صلاحيات للدخول للوحة التحكم"),
-                          {
-                            id: toastId,
-                          }
-                        );
+                        toast.success(t("message.login_message.NoAccess"), {
+                          id: toastId,
+                        });
                       } else {
                         toast.success(t(result.msg), {
                           id: toastId,
@@ -140,7 +138,10 @@ export function LoginForm({
                 <hr className="flex-grow border-neutral-300" />
               </div>
               <div className="grid gap-3">
-                <Label htmlFor="email"> {t("auth.Login_account.email")}</Label>
+                <Label htmlFor="email" className="text-xs sm:text-sm">
+                  {" "}
+                  {t("auth.Login_account.email")}
+                </Label>
                 <Input
                   name="email"
                   type="email"
@@ -150,7 +151,7 @@ export function LoginForm({
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="password">
+                  <Label htmlFor="password" className="text-xs sm:text-sm">
                     {t("auth.Login_account.Password")}
                   </Label>
                   <Link
@@ -188,9 +189,9 @@ export function LoginForm({
               </Button>
 
               <div className="text-center text-sm">
-                Don&apos;t have an account?{" "}
+                {t("auth.Login_account.noAccount")}{" "}
                 <a href="#" className="underline underline-offset-4">
-                  Sign up
+                  {t("auth.Login_account.noAccount")}{" "}
                 </a>
               </div>
             </div>

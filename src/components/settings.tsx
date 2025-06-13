@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { cookieService } from "../Cookies/CookiesServices";
 import {
   useChangeImageMutation,
@@ -7,6 +6,7 @@ import {
 } from "@/app/features/Admins/userApi";
 import { toast } from "sonner";
 import { Lock, User2, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface Isetting {
   isOpen: boolean;
@@ -20,6 +20,7 @@ const SettingsModal = ({ isOpen, ImageUser, onClose }: Isetting) => {
   const [email, setEmail] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const { t } = useTranslation("translation");
 
   const token = cookieService.get("auth_token") || "";
 
@@ -35,17 +36,14 @@ const SettingsModal = ({ isOpen, ImageUser, onClose }: Isetting) => {
   };
 
   const submitImage = async () => {
-    if (!profileImage) return alert("يرجى اختيار صورة");
-    const formData = new FormData();
-    formData.append("image", profileImage);
-    const toastId = toast.loading("جاري تغيير الصورة الشخصية ..");
-    console.log(formData);
+    if (!profileImage) return toast.error(t("settings.messages.error"));
+    const toastId = toast.loading(t("settings.messages.loading1"));
 
     try {
       const result = await ChangeImage({ token, image: profileImage }).unwrap();
 
       if (result.status === true) {
-        toast.success("تم تغيير الصورة بنجاح ", {
+        toast.success(t("settings.messages.success1"), {
           id: toastId,
         });
         setProfileImage(null);
@@ -54,16 +52,16 @@ const SettingsModal = ({ isOpen, ImageUser, onClose }: Isetting) => {
       }
     } catch (err) {
       console.log(err);
-      toast.error("حدث خطأ أثناء تغير الصورة الشخصية", {
+      toast.error(t("settings.messages.error1"), {
         id: toastId,
       });
     }
   };
 
   const handlePasswordChange = async (e: React.FormEvent) => {
-    const toastId = toast.loading("جاري تغيير كلمة المرور ..");
-
     e.preventDefault();
+    const toastId = toast.loading(t("settings.messages.loading2"));
+
     try {
       const result = await changeMypassword({
         email,
@@ -73,10 +71,7 @@ const SettingsModal = ({ isOpen, ImageUser, onClose }: Isetting) => {
       }).unwrap();
 
       if (result.status === true) {
-        toast.success("تم تغيير كلمة المرور بنجاح ", {
-          id: toastId,
-        });
-
+        toast.success(t("settings.messages.success2"), { id: toastId });
         setEmail("");
         setOldPassword("");
         setNewPassword("");
@@ -85,69 +80,63 @@ const SettingsModal = ({ isOpen, ImageUser, onClose }: Isetting) => {
       }
     } catch (err) {
       const error = err as { data?: { msg?: string } };
-
-      toast.error(error.data?.msg || "حدث خطأ أثناء تغير كلمة المرور");
+      toast.error(error.data?.msg || t("settings.messages.error2"));
     }
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-neutral-600/40 backdrop-blur-xs bg-opacity-10 z-50 flex items-center justify-center">
-      <div className="bg-white w-full max-w-xl mx-auto rounded-lg shadow-lg relative p-6">
+    <div className="fixed inset-0 z-50 bg-black/30 flex items-center justify-center">
+      <div className="bg-white w-[95%] max-w-md rounded-xl shadow-2xl relative p-6">
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-gray-500 hover:text-red-700"
+          className="absolute top-3 right-3 text-neutral-400 hover:text-neutral-600 transition"
         >
           <X className="w-6 h-6" />
         </button>
 
         {/* Tabs */}
-        <div className="flex border-b border-gray-200 mb-6">
+        <div className="flex justify-center gap-4 mb-6 border-b pb-2">
           <button
             onClick={() => setActiveTab("profile")}
-            className={`flex items-center px-4 py-2 text-xs sm:text-sm font-medium ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-full transition text-sm ${
               activeTab === "profile"
-                ? "text-primary border-b-2 border-primary"
-                : "text-gray-500 hover:text-gray-700"
+                ? "bg-primary/10  text-primary font-semibold"
+                : "text-gray-500 hover:text-primary"
             }`}
           >
-            <User2 className="w-5 h-5 mr-2" size={12} />
-            الصورة الشخصية
+            <User2 size={16} />
+            {t("settings.image")}
           </button>
           <button
             onClick={() => setActiveTab("password")}
-            className={`flex items-center px-4 py-2 text-xs sm:text-sm font-medium ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-full transition text-sm ${
               activeTab === "password"
-                ? "text-primary border-b-2 border-primary"
-                : "text-gray-500 hover:text-gray-700"
+                ? "bg-primary/10 text-primary font-semibold"
+                : "text-gray-500 hover:text-primary"
             }`}
           >
-            <Lock className="w-5 h-5 mr-2" size={12} />
-            تغيير كلمة المرور
+            <Lock size={16} />
+            {t("settings.change")}
           </button>
         </div>
 
         {/* Content */}
         {activeTab === "profile" && (
-          <div className="flex flex-col items-center my-6">
-            <div className="mb-4">
-              {profileImage ? (
-                <img
-                  src={URL.createObjectURL(profileImage)}
-                  alt="preview"
-                  className="w-32 h-32 rounded-full object-cover border-2 border-primary"
-                />
-              ) : (
-                <img
-                  src={ImageUser}
-                  alt="الصورة الشخصية"
-                  className="w-32 h-32 rounded-full object-cover border-2 border-primary"
-                />
-              )}
+          <div className="flex flex-col items-center gap-4 py-8">
+            <div className="w-28 h-28 rounded-full overflow-hidden border border-primary">
+              <img
+                src={
+                  profileImage ? URL.createObjectURL(profileImage) : ImageUser
+                }
+                alt="User"
+                className="w-full h-full object-cover"
+              />
             </div>
-            <label className="cursor-pointer bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/80 mb-3">
-              تحميل صورة جديدة
+            <label className="cursor-pointer border border-neutral-500 text-xs sm:text-sm   text-neutral-500 px-4 py-1.5 rounded-md  transition">
+              {t("settings.new_image")}
+
               <input
                 type="file"
                 accept="image/*"
@@ -155,60 +144,62 @@ const SettingsModal = ({ isOpen, ImageUser, onClose }: Isetting) => {
                 className="hidden"
               />
             </label>
-            <button
-              onClick={submitImage}
-              disabled={isLoading}
-              className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/80"
-            >
-              {isLoading ? "جاري الرفع..." : "تأكيد التغيير"}
-            </button>
+            <div className="flex items-center   gap-4">
+              <button
+                onClick={submitImage}
+                disabled={isLoading}
+                className="bg-primary text-white  text-xs sm:text-sm px-4 py-1.5 rounded-md hover:bg-primary/80 transition"
+              >
+                {t("settings.save")}
+              </button>
+            </div>
           </div>
         )}
 
         {activeTab === "password" && (
-          <form onSubmit={handlePasswordChange} className="space-y-4">
+          <form onSubmit={handlePasswordChange} className="space-y-4 mt-2">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                بريدك الإلكتروني
+              <label className=" text-xs sm:text-sm block mb-1">
+                {t("settings.email")}
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full px-3 py-2 border rounded-md text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                كلمة المرور الحالية
+              <label className="text-xs sm:text-sm block mb-1">
+                {t("settings.old_password")}
               </label>
               <input
                 type="password"
                 value={oldPassword}
                 onChange={(e) => setOldPassword(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full px-3 py-2 border rounded-md text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                كلمة المرور الجديدة
+              <label className="text-xs sm:text-sm block mb-1">
+                {t("settings.new_password")}
               </label>
               <input
                 type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full px-3 py-2 border rounded-md text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                 required
               />
             </div>
             <button
               type="submit"
               disabled={isloadingMypassword}
-              className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/80"
+              className="bg-primary text-white text-xs sm:text-sm px-4 py-2 mt-1 rounded-md hover:bg-primary/80 transition w-full"
             >
-              {isloadingMypassword ? "جاري التحديث..." : "تحديث كلمة المرور"}
+              {t("settings.update")}
             </button>
           </form>
         )}

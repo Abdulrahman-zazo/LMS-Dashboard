@@ -36,7 +36,6 @@ const OffersPage = () => {
   };
 
   const onEditClick = (Offers: Offers) => {
-    console.log(Offers);
     setCurrentOffers(Offers);
     setIsEdit(true);
     setOpen(true);

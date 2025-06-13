@@ -34,6 +34,7 @@ export interface DataCardsProps {
 
 export interface Course {
   name: string;
+  CommentUnRead: number;
   image: string;
   imageFile?: File;
   description: string;

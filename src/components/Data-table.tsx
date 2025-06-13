@@ -18,7 +18,14 @@ import type { DataTableProps } from "@/types";
 import { Input } from "./ui/input";
 import { useTranslation } from "react-i18next";
 
-export function DataTable<T extends { id: string | number; name: string }>({
+export function DataTable<
+  T extends {
+    id: string | number;
+    name: string;
+    CommentUnRead?: number;
+    is_admin?: number;
+  }
+>({
   columns,
   title = "البيانات",
   description = "",
@@ -33,12 +40,24 @@ export function DataTable<T extends { id: string | number; name: string }>({
   onView,
 }: DataTableProps<T>) {
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [filterType, setFilterType] = useState<"all" | "admin" | "users">(
+    "all"
+  );
   const [searchTerm, setSearchTerm] = useState("");
   const rowsPerPage = 5;
-  const { t } = useTranslation("translation");
-  const filteredData = data?.filter((item) =>
-    item.name?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const { t, i18n } = useTranslation("translation");
+  const filteredData = data
+    ?.filter((item) => {
+      if (typeof item.is_admin !== "undefined") {
+        if (filterType === "admin") return item.is_admin === 1;
+        if (filterType === "users") return item.is_admin === 0;
+      }
+      return true;
+    })
+    ?.filter((item) =>
+      item.name?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
   const totalPages = Math.ceil((filteredData?.length || 0) / rowsPerPage);
   const paginatedData = filteredData?.slice(
@@ -62,6 +81,34 @@ export function DataTable<T extends { id: string | number; name: string }>({
           </span>
         </div>
         <div className="flex items-center justify-between gap-2">
+          {typeof data?.[0]?.is_admin !== "undefined" && (
+            <div className="flex gap-1">
+              <Button
+                size="sm"
+                variant={filterType === "all" ? "default" : "outline"}
+                onClick={() => setFilterType("all")}
+                className="text-xs"
+              >
+                {t("pages.users.all") || "الكل"}
+              </Button>
+              <Button
+                size="sm"
+                variant={filterType === "admin" ? "default" : "outline"}
+                onClick={() => setFilterType("admin")}
+                className="text-xs"
+              >
+                {t("pages.users.admins") || "المسؤولين"}
+              </Button>
+              <Button
+                size="sm"
+                variant={filterType === "users" ? "default" : "outline"}
+                onClick={() => setFilterType("users")}
+                className="text-xs"
+              >
+                {t("pages.users.users") || "المستخدمين"}
+              </Button>
+            </div>
+          )}
           <Input
             type="text"
             placeholder={t("data_table.search")}
@@ -150,7 +197,7 @@ export function DataTable<T extends { id: string | number; name: string }>({
                     {columns.map((col) => (
                       <td
                         key={col.key as string}
-                        className={`p-2 text-neutral-700 text-xs ${
+                        className={`p-2 text-neutral-700 text-xs sm:text-sm${
                           col.key === "summary" ||
                           col.key === "email" ||
                           col.key === "phone"
@@ -169,7 +216,9 @@ export function DataTable<T extends { id: string | number; name: string }>({
                             }  object-cover  mx-auto`}
                           />
                         ) : col.render ? (
-                          col.render(row[col.key], row)
+                          <p className="text-sm">
+                            {col.render(row[col.key], row)}
+                          </p>
                         ) : (
                           (row[col.key] as React.ReactNode)
                         )}
@@ -184,7 +233,22 @@ export function DataTable<T extends { id: string | number; name: string }>({
                               variant="ghost"
                               onClick={() => onView(row)}
                             >
-                              <Eye className="w-4 h-4" />
+                              {row.CommentUnRead ? (
+                                <div className="relative">
+                                  <Eye className="w-4 h-4" />
+                                  <span
+                                    className={`absolute -top-2 ${
+                                      i18n.language === "ar"
+                                        ? "-right-2"
+                                        : "-left-2"
+                                    } bg-red-500 text-white text-[8px] font-light rounded-full z-20 w-4 h-4 flex items-center justify-center`}
+                                  >
+                                    {row?.CommentUnRead}
+                                  </span>
+                                </div>
+                              ) : (
+                                <Eye className="w-4 h-4" />
+                              )}
                             </Button>
                           </TooltipTrigger>
                           <TooltipContent>
@@ -207,10 +271,34 @@ export function DataTable<T extends { id: string | number; name: string }>({
                               className="flex items-center justify-between"
                               onClick={() => onView(row)}
                             >
-                              <Eye className="w-4 h-4 " />
-                              <span className="text-xs">
-                                {t("data_table.details")}
-                              </span>
+                              {row.CommentUnRead ? (
+                                <div className="flex items-center w-full justify-between">
+                                  <div className="relative">
+                                    <Eye className="w-4 h-4 " />
+                                    <span
+                                      className={`absolute -top-2 ${
+                                        i18n.language === "ar"
+                                          ? "-right-2"
+                                          : "-left-2"
+                                      } bg-red-500 text-white text-[8px] font-light rounded-full z-20 w-4 h-4 flex items-center justify-center`}
+                                    >
+                                      {row?.CommentUnRead}
+                                    </span>
+                                  </div>
+                                  <div>
+                                    <span className="text-xs">
+                                      {t("data_table.details")}
+                                    </span>
+                                  </div>
+                                </div>
+                              ) : (
+                                <>
+                                  <Eye className="w-4 h-4 " />
+                                  <span className="text-xs">
+                                    {t("data_table.details")}
+                                  </span>
+                                </>
+                              )}
                             </DropdownMenuItem>
                           )}
                           {onEdit && (

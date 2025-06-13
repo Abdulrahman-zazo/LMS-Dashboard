@@ -67,7 +67,6 @@ export function CurriculumCards({
               </div>
             ))
           : paginatedData?.map((row: Curriculum) => {
-              console.log(row);
               return (
                 <div
                   key={row.id}

@@ -4,52 +4,54 @@ import {
   useUpdateSubjectMutation,
 } from "@/app/features/Curriculum/Subject/SubjectApi";
 import type { Subject } from "@/types";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 export const useSubjectsActions = (token: string) => {
   const [addSubject] = useAddSubjectMutation();
   const [updateSubject] = useUpdateSubjectMutation();
   const [deleteSubject] = useDeleteSubjectMutation();
+  const { t } = useTranslation("translation");
 
   const handleAdd = async (Subject: Partial<Subject>) => {
-    const toastId = toast.loading("جاري إضافة الدورة");
+    const toastId = toast.loading(t("pages.subject.messages.loading1"));
 
     try {
       const result = await addSubject({ Subject, token }).unwrap();
       if (result.status) {
-        toast.success("تمت الإضافة بنجاح", { id: toastId });
+        toast.success(t("pages.subject.messages.success1"), { id: toastId });
       }
     } catch (e) {
-      toast.error("فشل في الإضافة", { id: toastId });
+      toast.error(t("pages.subject.messages.error1"), { id: toastId });
       console.error(e);
     }
   };
 
   const handleUpdate = async (Subject: Partial<Subject>) => {
-    const toastId = toast.loading("جاري تعديل الدورة");
+    const toastId = toast.loading(t("pages.subject.messages.loading2"));
     try {
       const result = await updateSubject({ Subject, token }).unwrap();
       if (result.status) {
-        toast.success("تم التعديل بنجاح", { id: toastId });
+        toast.success(t("pages.subject.messages.success2"), { id: toastId });
       }
     } catch (e) {
-      toast.error("فشل في التعديل", { id: toastId });
+      toast.error(t("pages.subject.messages.error2"), { id: toastId });
       console.error(e);
     }
   };
 
   const handleDelete = async (SubjectID: number) => {
-    const toastId = toast.loading("جاري حذف الدورة");
+    const toastId = toast.loading(t("pages.subject.messages.loading3"));
     try {
       const result = await deleteSubject({
         subject_id: SubjectID,
         token,
       });
       if (result.data.status) {
-        toast.success("تم الحذف بنجاح", { id: toastId });
+        toast.success(t("pages.subject.messages.success3"), { id: toastId });
       }
     } catch (e) {
-      toast.error("فشل في الحذف", { id: toastId });
+      toast.error(t("pages.subject.messages.error3"), { id: toastId });
       console.error(e);
     }
   };

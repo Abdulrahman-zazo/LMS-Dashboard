@@ -39,6 +39,7 @@ import { LogoutHandler } from "./LogoutHandler";
 import { useDispatch } from "react-redux";
 import { openModal } from "@/app/features/settings/settingsModalSlice";
 import { changeLangAction } from "@/app/features/Language/LanguageSlice";
+import { useGetAllCoursesQuery } from "@/app/features/Courses/CoursesApi";
 
 // Menu items.
 
@@ -52,6 +53,8 @@ export function AppSidebar() {
     dispatch(changeLangAction(newLang));
   };
   const { data, isLoading } = useGetuserInformationQuery(token as string);
+  const { data: courses } = useGetAllCoursesQuery(token as string);
+
   const items = [
     {
       title: t("Header.Home"),
@@ -61,15 +64,29 @@ export function AppSidebar() {
     {
       title: t("Header.Courses"),
       url: "/courses",
-      icon: LibraryBig,
+      icon: () => (
+        <div className="relative">
+          <LibraryBig />
+          {courses?.AllCommentUnRead > 0 && (
+            <span
+              className={`absolute -top-1 ${
+                i18n.language === "ar" ? "-right-0.5" : "-left-0.5"
+              } bg-red-500 text-white text-[8px] font-light rounded-full w-3 h-3 flex items-center justify-center`}
+            >
+              {courses?.AllCommentUnRead}
+            </span>
+          )}
+        </div>
+      ),
     },
     {
       title: t("Header.Curricula"),
       url: "/curricula",
       icon: BookOpenCheck,
     },
+
     {
-      title: "المراحل الدراسية",
+      title: t("Header.stages"),
       url: "/stages",
       icon: Layers,
     },
@@ -109,8 +126,8 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.title} className="py-1 px-2 ">
-                  <SidebarMenuButton asChild className="py-2">
+                <SidebarMenuItem key={item.title} className="py-1 ">
+                  <SidebarMenuButton asChild className="py-2  px-2">
                     <Link to={item.url} className="py-2 text-xs sm:text-sm ">
                       <item.icon />
                       <span>{item.title}</span>

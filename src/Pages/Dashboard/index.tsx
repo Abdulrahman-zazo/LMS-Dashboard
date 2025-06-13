@@ -11,7 +11,6 @@ export default function Layout() {
   const dispatch = useDispatch();
   return (
     <SidebarProvider>
-      {/* Sidebar ثابت يسار أو يمين */}
       <div className="z-0 ">
         <AppSidebar />
       </div>

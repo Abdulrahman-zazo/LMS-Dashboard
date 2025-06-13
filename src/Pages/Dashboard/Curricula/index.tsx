@@ -33,7 +33,6 @@ const CurriculasPage = () => {
   };
 
   const onEditClick = (course: Curriculum) => {
-    console.log(course);
     setCurrentCourse(course);
     setIsEdit(true);
     setOpen(true);

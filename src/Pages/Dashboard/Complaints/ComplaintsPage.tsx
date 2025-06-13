@@ -44,18 +44,18 @@ export default function ComplaintsWithPanel() {
   if (isError) return <HandelError />;
 
   const handleDelete = async (complaintId: number) => {
-    const toastId = toast.loading("جاري حذف الدورة");
+    const toastId = toast.loading(t("complaints.messages.loading1"));
     try {
       const result = await deleteComplainats({
         complaint_id: complaintId,
         token,
       });
       if (result.data.status) {
-        toast.success("تم الحذف بنجاح", { id: toastId });
+        toast.success(t("complaints.messages.success1"), { id: toastId });
         setSelected(null);
       }
     } catch (e) {
-      toast.error("فشل في الحذف", { id: toastId });
+      toast.error(t("complaints.messages.error1"), { id: toastId });
       console.error(e);
     }
   };

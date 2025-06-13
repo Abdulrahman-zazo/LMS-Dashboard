@@ -1,159 +1,108 @@
 {
   "translation": {
-    "HeroHome": {
-      "Home_title": "Where Learning Meets Potential",
-      "text1": "Unlock your potential with H-Platform",
-      "text2": "In a rapidly changing world, learning alone is no longer enough—you need to stand out. H-Platform isn’t just a learning tool; it's the bridge that turns your dreams into reality.",
-      "text3": "Claim your free session now"
-    },
     "Header": {
       "Home": "Home",
       "About": "About Us",
       "Courses": "Courses",
       "Curricula": "Curricula",
       "offer": "Offers",
+      "stages": "Study Stages",
       "users": "Users",
-      "complaints": "Feedback & Suggestions",
-      "login": "Login",
-      "Register": "Sign Up"
+      "complaints": "Feedback & Suggestions"
+    },
+    "Statistics": {
+      "Curriculums": "Curricula",
+      "Courses": "Courses",
+      "Students": "Students",
+      "Complaints": "Feedback & Suggestions"
     },
     "why": {
-      "why_we": "Why Choose",
-      "Differenet": "Us?",
-      "subtitle": "We redefine online education with innovation and distinction.",
-      "key1": "Instant Support",
-      "value1": "Reach out to trainers directly via WhatsApp—no delays, no waiting.",
-      "key2": "Expert Instructors",
-      "value2": "They combine deep knowledge with engaging, interactive teaching styles.",
+      "why_we": "Why Choose Us?",
+      "Differenet": "What Makes Us Unique?",
+      "subtitle": "We’re redefining e-learning with a creative and innovative approach.",
+      "key1": "Instant Support, No Waiting",
+      "value1": "Reach out directly to trainers via WhatsApp—no delays, just answers.",
+      "key2": "Expert Trainers",
+      "value2": "A blend of deep knowledge and engaging delivery that brings lessons to life.",
       "key3": "Learn New Skills",
-      "value3": "With a team of professional trainers who break down complex ideas into fun and simple concepts."
+      "value3": "Master essential skills with top-tier trainers who simplify complex ideas."
     },
     "Courses": {
-      "slogan": "We’re always with you! 💡",
-      "description": "Whatever your role or goal, H-Platform is designed to fit your journey and support your success.",
-      "title": "Student or Educator?",
+      "slogan": "We're always here for you! 💡",
+      "description": "No matter your role or goal, H-Platform is designed to support and empower your journey.",
+      "title": "Are you a student or a teacher?",
       "button1": "All Courses",
       "button2": "Recorded",
-      "button3": "Live Online",
+      "button3": "Online",
       "button4": "Offers",
       "more": "Show More",
-      "Nocourse": "No courses available at the moment 😓",
-      "Course_info": "Course Information",
-      "comments": "Reviews & Opinions",
-      "what_we_learn": "What You’ll Learn",
+      "Nocourse": "No courses added yet 😓",
+      "Course_info": "Course Details",
+      "comments": "Reviews & Feedback",
+      "what_we_learn": "What You'll Learn",
       "content_course": "Course Content",
       "requairment": "Course Requirements",
       "button_free": "Book a Free Session Now"
     },
-    "how-work": {
-      "title": "How H-Platform Works",
-      "feature1": "Browse Training Courses",
-      "content1": "Explore trending and essential courses. Watch introductory videos to get a quick overview.",
-      "button1": "Find the Right Course",
-      "feature2": "Create Your Profile",
-      "content2": "Register easily using Google. A few simple steps are all it takes to set up your profile.",
-      "button2": "Get Started Now",
-      "feature3": "Reserve Your Spot",
-      "content3": "Contact our team directly to reserve your place and join the course of your choice.",
-      "button3": "Connect with Us"
+    "data_table": {
+      "search": "Search...",
+      "details": "Details",
+      "Actions": "Actions",
+      "next": "Next",
+      "prev": "Previous",
+      "page": "Page",
+      "of": "of",
+      "edit": "Edit",
+      "delete": "Delete",
+      "makeAdmin": "Assign as Admin"
     },
     "Courses_card": {
-      "description": "About the Course:",
-      "comments_placeholder": "Leave a comment to help others understand your experience...",
+      "description": "About this course:",
+      "comments_placeholder": "Leave a comment to help others know what you think...",
       "send": "Send",
       "add_comments": "Add Comment",
       "showless": "Show Less",
-      "showAll": "Show More"
-    },
-    "FAQ": {
-      "title": "Frequently Asked Questions",
-      "questions1": "What is H-Platform?",
-      "content1": "H-Platform is an intelligent learning platform designed to develop skills and connect learners with real-world opportunities through interactive content and personalized training.",
-      "questions2": "Can I try H-Platform for free?",
-      "content2": "Yes! You can try free lessons from any course before subscribing.",
-      "questions3": "How can I register on H-Platform?",
-      "content3": "It’s simple! Visit our website, choose the course that suits you, and create your account in minutes. A free session awaits you to get started.",
-      "questions4": "Does the platform offer technical support or educational consultations?",
-      "content4": "Absolutely. Our support team is always available to assist you, and we offer guidance to help you choose the right path for your development.",
-      "questions5": "How do I choose the right level for my child?",
-      "content5": "Reach out to us, and we’ll provide a placement test for any course you need."
-    },
-    "footer": {
-      "name": "H-Platform",
-      "slogan": "Learn Smart, Start Your Journey Now",
-      "help_center": "Help Center",
-      "term": "Terms of Service",
-      "privacy": "Privacy Policy",
-      "aboutus": "About Us",
-      "courses": "Courses",
-      "curricula": "Curricula"
-    },
-    "about-header": {
-      "title1": "With H-Platform, Learning Starts—and Never Stops",
-      "title2": "H-Platform is a community that leads you toward excellence, equipping you with the tools and knowledge to move forward confidently in a fast-changing world. We create a comprehensive digital learning experience that takes your ambition from idea to achievement.",
-      "title3": "Join us today and be part of the future of learning."
-    },
-    "offer-header": {
-      "title1": "Exclusive Educational Offers 🎁!",
-      "title2": "Take advantage of our carefully designed packages to help you reach your goals flexibly and affordably. Choose the offer that fits your interests and start learning today.",
-      "title3": "Explore the offers and pick what suits you best"
+      "showAll": "Show More",
+      "btn-details": "View Details"
     },
     "offer": {
       "title": "Available Offers 🎉",
       "button": "Subscribe Now",
       "lable": "This offer includes the following courses:",
-      "NoOffer": "No offers available at the moment. New offers will be added soon."
-    },
-    "about": {
-      "title1": "Our Mission",
-      "description1": "To deliver real-time education that fits your schedule, with engaging content that sparks curiosity and personalized learning paths designed just for you.",
-      "title2": "Our Goal",
-      "description2": "At H-Platform, we aim to make education a unique and impactful experience by offering innovative, enjoyable, and accessible solutions to everyone—regardless of age, background, or location.",
-      "title3": "Our Vision",
-      "description3": "We’re building a global community of learners connected through knowledge and growth, where cutting-edge technology becomes a life-changing educational experience and opens doors to the future."
-    },
-    "map": {
-      "title1": "Start Your Learning Journey Today",
-      "with": "with",
-      "title2": "The future is in your hands—learn, grow, and make your dreams come true."
-    },
-    "course-header": {
-      "title1": "Our Training Courses",
-      "title2": "H-Platform isn’t just a learning platform—it’s a smart and inspiring experience that combines cutting-edge technology with expert instructors to offer you truly valuable learning.",
-      "title3": "Browse the courses and find what matches your goals"
-    },
-    "curricula-header": {
-      "title1": "Curricula at H-Platform",
-      "title2": "H-Platform offers comprehensive educational programs in core subjects like Arabic, English, Math, and Mental Arithmetic—tailored for every level.",
-      "title3": "Join us today and be part of the future of education."
-    },
-    "curricula": {
-      "select": "Select your curriculum and academic level:",
-      "curricula_select": "Curriculum",
-      "curricula_select2": "Level",
-      "button": "Book a Session",
-      "empty": "Please choose a curriculum and level to view available subjects.",
-      "empty1": "No levels available for this curriculum.",
-      "empty2": "No subjects available for this level."
+      "NoOffer": "No offers available at the moment"
     },
     "complaints": {
-      "title1": "Feedback & Suggestions",
-      "title2": "We’re always happy to hear from you! Whether you have a question about our courses, need quick tech support, or want to explore partnership opportunities — our team is ready to help with professionalism and speed.",
-      "title3": "Send your feedback or suggestion now"
+      "title1": "Feedback & Suggestions 📩",
+      "text": "Click to view complaint details. You can respond via email to improve the learning experience.",
+      "details": "View Details",
+      "Nocomplaints": "No complaints to display",
+      "title2": "Your complaint or suggestion:",
+      "replay": "Reply to this message",
+      "delete": "Delete this message",
+      "messages": {
+        "loading1": "Deleting user...",
+        "success1": "Deleted successfully ✅",
+        "error1": "Deletion failed, please try again 😓"
+      }
     },
-    "Get_started": {
-      "title1": "Educational Content Delivered Anywhere!",
-      "title2": "Join now and never miss out on the latest courses, curricula, and exclusive offers designed just for you.",
-      "title3": "Learn smart—start your journey today"
-    },
-    "complaints_system": {
-      "title": "Feedback & Suggestions",
-      "description": "We take your input seriously. Our dedicated team will review your request and respond within 48 hours.",
-      "label1": "Full Name",
-      "label2": "Email Address",
-      "label3": "Phone Number",
-      "label5": "Share your feedback and help us improve your learning experience",
-      "label4": "Message Content"
+    "settings": {
+      "image": "Profile Picture",
+      "new_image": "Upload New Image",
+      "save": "Save Changes",
+      "change": "Change Password",
+      "email": "Email Address",
+      "old_password": "Current Password",
+      "new_password": "New Password",
+      "update": "Update Password",
+      "messages": {
+        "loading1": "Updating profile picture...",
+        "success1": "Profile picture updated successfully ✅",
+        "error": "Please choose an image first 😓",
+        "error1": "Something went wrong while updating your picture 😓",
+        "loading2": "Updating your password...",
+        "success2": "Password updated successfully ✅",
+        "error2": "Password update failed, please try again 😓"
+      }
     },
     "auth": {
       "create_account": {
@@ -165,18 +114,18 @@
         "email": "Email Address",
         "Register": "Register",
         "Already": "Already have an account?",
-        "Login": "Login here"
+        "Login": "Log in here"
       },
       "Login_account": {
-        "Login_title": "Welcome Back!",
+        "Login_title": "Log In",
         "create_text": "Enter your credentials to access your account.",
         "Google": "Continue with Google",
         "email": "Email Address",
         "Password": "Password",
-        "forget": "Forgot Password?",
-        "Login": "Login",
-        "noAccount": "Don’t have an account?",
-        "Register": "Sign up here"
+        "forget": "Forgot your password?",
+        "Login": "Log In",
+        "noAccount": "Don't have an account?",
+        "Register": "Register here"
       },
       "forget_password": {
         "forget_title": "Reset Password",
@@ -184,128 +133,282 @@
         "email": "Email Address",
         "next": "Next",
         "Remembered": "Remembered your password?",
-        "Login": "Login here",
+        "Login": "Log in here",
         "code": "Enter the code sent to your email",
         "Verification": "Verification Code",
         "digit": "Enter the 6-digit code here",
         "resend": "Didn't receive the code?",
-        "new_password_text": "Enter your new password below",
+        "new_password_text": "Set your new password below",
         "new_password": "New Password",
         "new_password2": "Confirm New Password",
         "confirm": "Confirm",
         "resending": "Sending..."
       }
     },
-    "buttons": {
+    "pages": {
       "courses": {
-        "add": "Add New Courses 🚀"
+        "new_comments": "New Comment",
+        "title": "Course Details",
+        "text": "View detailed info about each course, and enable or disable its visibility for users.",
+        "add": "Add New Course 🚀",
+        "table": {
+          "name": "Course Name",
+          "summary": "About the Course",
+          "image": "Thumbnail",
+          "type": "Course Type"
+        },
+        "dialogs": {
+          "add": "Add New Course 🚀",
+          "edit": "Update Course Info 🚀",
+          "note": "Please fill in all course fields clearly and concisely.",
+          "name": "Course Name",
+          "type": "Course Type",
+          "online": "Online",
+          "Recorded": "Recorded",
+          "hours": "Number of Hours",
+          "image": "Thumbnail",
+          "description": "Description",
+          "summary": "Summary",
+          "requirements": "Requirements",
+          "contents": "What You'll Learn",
+          "add_button": "Add",
+          "edit_button": "Edit",
+          "cancel": "Cancel",
+          "delete_title": "Confirm Course Deletion",
+          "delete_text1": "Are you sure you want to delete:",
+          "delete_title2": "This action cannot be undone and will remove all course data.",
+          "delete_button": "Delete",
+          "save": "Save & Use"
+        },
+        "messages": {
+          "loading1": "Adding new course...",
+          "success1": "Course added successfully ✅",
+          "error1": "Failed to add course. Please try again 😓",
+          "loading2": "Updating course details...",
+          "success2": "Course updated successfully ✅",
+          "error2": "Failed to update course. Please try again 😓",
+          "loading3": "Deleting course...",
+          "success3": "Course deleted successfully ✅",
+          "error3": "Failed to delete course. Please try again 😓"
+        }
+      },
+      "curriculums": {
+        "title": "Curriculum Details",
+        "text": "View details of all curricula, stages, and subjects available to users.",
+        "add": "Add New Curriculum 🚀",
+        "curriculum": "Curriculum:",
+        "dialogs": {
+          "add": "Add New Curriculum 🚀",
+          "edit": "Update Curriculum Info 🚀",
+          "note": "Please fill in required fields and pick an appropriate thumbnail.",
+          "name": "Curriculum Name",
+          "error": "You cannot change the curriculum name—only its image or stages. You may also delete it.",
+          "stages": "Study Stages",
+          "image": "Thumbnail",
+          "add_button": "Add",
+          "edit_button": "Edit",
+          "cancel": "Cancel",
+          "delete_title": "Confirm Curriculum Deletion",
+          "delete_text1": "Are you sure you want to delete curriculum:",
+          "delete_text2": "This action cannot be undone and will remove all associated data.",
+          "delete_button": "Delete",
+          "save": "Save & Use"
+        },
+        "messages": {
+          "loading1": "Adding new curriculum...",
+          "success1": "Curriculum added successfully ✅",
+          "error1": "Failed to add curriculum. Please try again 😓",
+          "loading2": "Updating curriculum details...",
+          "success2": "Curriculum updated successfully ✅",
+          "error2": "Failed to update curriculum. Please try again 😓",
+          "loading3": "Deleting curriculum...",
+          "success3": "Curriculum deleted successfully ✅",
+          "error3": "Failed to delete curriculum. Please try again 😓"
+        },
+        "add_subject": "Add Subject 📝",
+        "noSubject": "No subjects available for this stage."
+      },
+      "subject": {
+        "dialogs": {
+          "add": "Add New Subject 🚀",
+          "edit": "Update Subject Info 🚀",
+          "note": "Please fill in all required fields and choose an appropriate thumbnail.",
+          "name": "Subject Name",
+          "error": "You cannot change the subject name—only update the image or stages. You may delete it.",
+          "image": "Thumbnail",
+          "add_button": "Add",
+          "edit_button": "Edit",
+          "cancel": "Cancel",
+          "delete_title": "Confirm Subject Deletion",
+          "delete_text1": "Are you sure you want to delete subject:",
+          "delete_text2": "This action cannot be undone and will remove all subject data.",
+          "delete_button": "Delete",
+          "save": "Save & Use"
+        },
+        "messages": {
+          "loading1": "Adding subject...",
+          "success1": "Subject added successfully ✅",
+          "error1": "Failed to add subject. Please try again 😓",
+          "loading2": "Updating subject...",
+          "success2": "Subject updated successfully ✅",
+          "error2": "Failed to update subject. Please try again 😓",
+          "loading3": "Deleting subject...",
+          "success3": "Subject deleted successfully ✅",
+          "error3": "Failed to delete subject. Please try again 😓"
+        }
+      },
+      "Stages": {
+        "title": "Study Stages Details",
+        "text": "Use these stages when creating curricula.",
+        "add": "Add New Stage 👨‍🏫",
+        "table": {
+          "name": "Stage"
+        },
+        "dialogs": {
+          "add": "Add New Stage 👨‍🏫",
+          "edit": "Update Stage Info 👨‍🏫",
+          "note": "Please fill in all stage details clearly.",
+          "name": "Stage Name",
+          "add_button": "Add",
+          "edit_button": "Edit",
+          "cancel": "Cancel",
+          "delete_title": "Confirm Stage Deletion",
+          "delete_text1": "Are you sure you want to delete:",
+          "delete_text2": "This action cannot be undone and will remove all stage data.",
+          "delete_button": "Delete",
+          "save": "Save & Use"
+        },
+        "messages": {
+          "loading1": "Adding new stage...",
+          "success1": "Stage added successfully ✅",
+          "error1": "Failed to add stage. Please try again 😓",
+          "loading2": "Updating stage...",
+          "success2": "Stage updated successfully ✅",
+          "error2": "Failed to update stage. Please try again 😓",
+          "loading3": "Deleting stage...",
+          "success3": "Stage deleted successfully ✅",
+          "error3": "Failed to delete stage. Please try again 😓"
+        }
+      },
+      "offer": {
+        "title": "Current Offers 🎉",
+        "text": "Details of the offers currently available on the platform.",
+        "add": "Add New Offer",
+        "table": {
+          "name": "Course Name",
+          "summary": "About the Course",
+          "image": "Thumbnail",
+          "type": "Course Type"
+        },
+        "dialogs": {
+          "add": "Add New Offer 🚀",
+          "edit": "Update Offer Info 🚀",
+          "note": "Please fill in all course-related fields clearly.",
+          "name": "Offer Name",
+          "description": "Description",
+          "courses": "Includes the course(s):",
+          "contents": "What You'll Learn",
+          "add_button": "Add",
+          "edit_button": "Edit",
+          "cancel": "Cancel",
+          "delete_title": "Confirm Offer Deletion",
+          "delete_text1": "Are you sure you want to delete:",
+          "delete_title2": "This action cannot be undone and will remove all offer data.",
+          "delete_button": "Delete",
+          "save": "Save & Use"
+        },
+        "messages": {
+          "loading1": "Adding new offer...",
+          "success1": "Offer added successfully ✅",
+          "error1": "Failed to add offer. Please try again 😓",
+          "loading2": "Updating offer details...",
+          "success2": "Offer updated successfully ✅",
+          "error2": "Failed to update offer. Please try again 😓",
+          "loading3": "Deleting offer...",
+          "success3": "Offer deleted successfully ✅",
+          "error3": "Failed to delete offer. Please try again 😓"
+        }
+      },
+      "users": {
+        "title": "User & Admin Records",
+        "text": "Assign new admins or permanently delete user accounts.",
+        "add": "Add New User",
+        "admins": "Admins",
+        "users": "Users & Students",
+        "all": "All",
+        "table": {
+          "name": "Name",
+          "email": "Email",
+          "image": "Picture",
+          "phone": "Phone"
+        },
+        "dialogs": {
+          "cancel": "Cancel",
+          "delete_title": "Confirm User Deletion",
+          "delete_text1": "Are you sure you want to delete:",
+          "delete_title2": "This action cannot be undone and will remove all user data.",
+          "delete_button": "Delete",
+          "save": "Assign as Admin",
+          "Make_admin_title": "Confirm Assigning Admin Role",
+          "Make_admin_text1": "Do you want to assign",
+          "Make_admin_text2": "as an admin? They will gain full platform access."
+        },
+        "messages": {
+          "loading1": "Deleting user...",
+          "success1": "User deleted successfully ✅",
+          "error1": "Failed to delete. Please try again 😓",
+          "loading2": "Assigning user as admin...",
+          "success2": "User assigned successfully and notified via email ✅",
+          "error2": "Failed to assign. Please try again 😓"
+        }
       }
     },
     "error": {
       "back": "Back to Home",
-      "noInternet": " 😓 No Internet Connection",
-      "noInternet2": "An error occurred while loading data. Please check your connection and try again.",
-      "data": "An error occurred while loading data. Please try again later.",
-      "offline": "No Internet Connection",
-      "selectStage": "Please select an academic level",
-      "Nostage": "No levels available"
-    },
-    "Instructor": {
-      "title1": "Are You a Teacher or Trainer? 🎓",
-      "title2": "Share your knowledge with thousands of learners! If you're interested in offering courses or training content on our platform, we’d love to work with you.",
-      "title3": "Contact Us"
+      "noInternet": "😓 No Internet Connection",
+      "noInternet2": "Something went wrong while loading. Please check your network and try again.",
+      "data": "An error occurred while fetching the data. Please try again later.",
+      "offline": "You're offline",
+      "selectStage": "Please select a study stage",
+      "Nostage": "No stages available"
     },
     "userMenu": {
-      "join": "Join Us as a Trainer",
-      "complaints": "Feedback & Suggestions",
       "settings": "Settings",
       "logout": "Log Out"
     },
-    "term": {
-      "title": "Terms of Use",
-      "text": "Introduction:",
-      "introduction": "Welcome to our educational platform. These terms define the rules and conditions governing the use of the platform and its educational services. Please read them carefully before using the platform. By using it, you agree to be bound by these terms.",
-      "definitions": "Definitions:",
-      "platform": "Platform: Refers to the website that provides access to courses and educational content.",
-      "user": "User: Anyone who registers or uses the platform's services, whether as a learner or instructor.",
-      "services": "Services: Includes all educational and interactive features offered by the platform.",
-      "content": "Content: All materials and information created, uploaded, or shared through the platform by users or the platform itself.",
-      "platform_use": "Using the Platform:",
-      "registration": "Registration: Users must provide accurate and truthful information when creating their accounts.",
-      "responsibility": "Responsibility: Users are responsible for keeping their account information confidential and not sharing it with others.",
-      "legal_use": "Legal Use: It is prohibited to use the platform for any illegal or harmful activities.",
-      "intellectual_property_rights": "Intellectual Property:",
-      "ownership": "Ownership: All rights related to the platform, its content, and services belong to us or our licensed partners.",
-      "personal_use": "Personal Use: The platform is for personal educational use only. Redistributing content for commercial purposes is not allowed.",
-      "liability": "Liability:",
-      "disclaimer": "Disclaimer: We are not liable for any direct or indirect damages resulting from the use of the platform.",
-      "edit": "Modifications:",
-      "modifications": "We reserve the right to modify these terms at any time. Changes will be posted here, and continued use of the platform implies acceptance.",
-      "contact": "Contact Us:",
-      "contact_us": "For any questions or comments regarding the terms of use, please contact us at"
-    },
-    "privacy": {
-      "text": "Privacy Policy",
-      "title": "Introduction:",
-      "introduction": "We are committed to protecting your privacy and ensuring the security of your personal information. This policy explains how we collect, use, and share data when you use our educational platform.",
-      "collected_information": "Information We Collect",
-      "personal_information": "When registering, we may ask for personal details like your name, email, phone number, and password.",
-      "usage_data": "We collect information about how you use the platform, such as the courses you join and the activities you complete.",
-      "usage_of_information": "How We Use the Information:",
-      "service_provision": "Providing Services: We use your data to create your account and offer technical support.",
-      "platform_improvement": "Improving the Platform: We analyze usage data to enhance your experience and develop our services.",
-      "communication": "Communication: We may contact you with platform updates or responses to your inquiries.",
-      "information_sharing": "Information Sharing:",
-      "service_providers": "Service Providers: We may share your data with trusted providers who help operate our platform, such as cloud hosting services.",
-      "security": "Data Security:",
-      "data_security": "We take appropriate measures to protect your personal information from unauthorized access, disclosure, modification, or deletion.",
-      "your_rights": "Your Rights:",
-      "title1": "Request access to your personal data.",
-      "title2": "Request correction of inaccurate information.",
-      "title3": "Request deletion of your data from our system.",
-      "title4": "Object to automated decisions based on your data.",
-      "policy_changes": "Changes to the Privacy Policy:",
-      "text1": "We reserve the right to update this policy from time to time. Any changes will be posted on this page.",
-      "contact_us": "Contact Us:",
-      "contact": "If you have any questions about this policy, feel free to reach out.",
-      "whats": "via WhatsApp"
-    },
     "message": {
       "comments": {
-        "add": "Your comment has been submitted! It will be reviewed and published shortly.",
-        "error": "Failed to submit comment",
-        "delete": "Comment deleted",
-        "error_delete": "Failed to delete comment"
-      },
-      "Complaints": {
-        "add": "Thank you! Our team will respond shortly.",
-        "error": "Failed to send your complaint. Please try again."
+        "add": "Your comment was submitted successfully! It will be reviewed and published soon.",
+        "error": "Failed to send the comment",
+        "delete": "Comment deleted successfully",
+        "error_delete": "Failed to delete the comment"
       },
       "registration": {
         "error": "Please enter your personal information correctly",
         "loading": "Creating account...",
         "send": "A verification code has been sent to your email. Please enter it below.",
-        "code": "Verifying the entered code...",
-        "success": "Account created successfully!",
-        "error_register": "Failed to create account, please try again.",
-        "resend": "Resending code...",
-        "done_send": "Code has been resent"
+        "code": "Verifying the code...",
+        "success": "Your account was created successfully!",
+        "error_register": "Account creation failed. Please try again.",
+        "resend": "Resending the code...",
+        "done_send": "The verification code has been resent"
       },
       "login_message": {
         "error": "Please enter a valid email and password",
         "loading": "Logging in...",
         "send": "A verification code has been sent to your email. Please enter it below.",
-        "code": "Verifying the entered code...",
-        "success": "Login successful!",
+        "code": "Verifying the code...",
+        "success": "Logged in successfully!",
         "error_register": "Login failed",
-        "resend": "Resending code...",
-        "done_send": "Code has been resent"
+        "resend": "Resending the code...",
+        "done_send": "Verification code resent",
+        "NoAccess": "You do not have permission to access the dashboard"
       },
       "forget_message": {
         "loading": "Sending verification code...",
         "send": "A verification code has been sent to your email. Please enter it below.",
-        "error_code": "This email is not registered with us",
-        "code": "Verifying the entered code...",
+        "error_code": "This email address was not found",
+        "code": "Verifying the code...",
         "success": "Password changed successfully!"
       }
     }

@@ -46,7 +46,6 @@ const CoursesPage = () => {
   }
 
   const Courses = !isLoading && data ? [...data.course].reverse() : [];
-  console.log(data);
   return (
     <div>
       <DataTable<Course>

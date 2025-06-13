@@ -9,7 +9,6 @@ import { useAppSelector } from "./app/store";
 
 function App() {
   const lang = useAppSelector((state) => state.language.lang);
-  console.log(lang);
   useEffect(() => {
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
@@ -19,7 +18,7 @@ function App() {
     <div>
       <OfflineAlert />
       <RouterProvider router={router} />
-      <Toaster richColors position="top-center" />
+      <Toaster icons={{ success: "-" }} position="top-center" />
     </div>
   );
 }

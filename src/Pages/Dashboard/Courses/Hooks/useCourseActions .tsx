@@ -4,48 +4,54 @@ import {
   useUpdateCourseMutation,
 } from "@/app/features/Courses/CoursesApi";
 import type { Course } from "@/types";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 export const useCourseActions = (token: string) => {
   const [addcourse] = useAddcourseMutation();
   const [updateCourse] = useUpdateCourseMutation();
   const [deleteCourse] = useDeleteCourseMutation();
+  const { t } = useTranslation("translation");
 
   const handleAdd = async (course: Partial<Course>) => {
-    const toastId = toast.loading("جاري إضافة الدورة");
+    const toastId = toast.loading(t("pages.courses.messages.loading1"));
     try {
       const result = await addcourse({ course, token }).unwrap();
       if (result.status) {
-        toast.success("تمت الإضافة بنجاح", { id: toastId });
+        toast.success(t("pages.courses.messages.success1"), { id: toastId });
+      } else {
+        toast.error(result.msg, { id: toastId });
       }
     } catch (e) {
-      toast.error("فشل في الإضافة", { id: toastId });
+      toast.error(t("pages.courses.messages.error1"), { id: toastId });
       console.error(e);
     }
   };
 
   const handleUpdate = async (course: Partial<Course>) => {
-    const toastId = toast.loading("جاري تعديل الدورة");
+    const toastId = toast.loading(t("pages.courses.messages.loading2"));
     try {
       const result = await updateCourse({ course, token }).unwrap();
       if (result.status) {
-        toast.success("تم التعديل بنجاح", { id: toastId });
+        toast.success(t("pages.courses.messages.success2"), { id: toastId });
+      } else {
+        toast.error(result.msg, { id: toastId });
       }
     } catch (e) {
-      toast.error("فشل في التعديل", { id: toastId });
+      toast.error(t("pages.courses.messages.error2"), { id: toastId });
       console.error(e);
     }
   };
 
   const handleDelete = async (courseId: number) => {
-    const toastId = toast.loading("جاري حذف الدورة");
+    const toastId = toast.loading(t("pages.courses.messages.loading3"));
     try {
       const result = await deleteCourse({ course_id: courseId, token });
       if (result.data.status) {
-        toast.success("تم الحذف بنجاح", { id: toastId });
+        toast.success(t("pages.courses.messages.success3"), { id: toastId });
       }
     } catch (e) {
-      toast.error("فشل في الحذف", { id: toastId });
+      toast.error(t("pages.courses.messages.error2"), { id: toastId });
       console.error(e);
     }
   };

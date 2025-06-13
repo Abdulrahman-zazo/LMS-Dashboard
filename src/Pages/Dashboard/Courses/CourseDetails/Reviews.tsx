@@ -32,7 +32,7 @@ export const Reviews = ({ comments }: ReviewsProps) => {
   const Authtoken: string = cookieService.get("auth_token") || "";
   const [comment, setComment] = useState<string>("");
   const [showAllComments, setShowAllComments] = useState(false);
-  console.log(comments);
+
   const [acceptComments, { isLoading: isloadingAddComment }] =
     useAcceptCommentsMutation();
   const [deleteComments, { isLoading: isloadingDeleteComment }] =
