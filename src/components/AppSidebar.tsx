@@ -3,9 +3,12 @@ import {
   ChevronUp,
   Home,
   Info,
+  Languages,
   Layers,
   LibraryBig,
+  LogOut,
   Search,
+  Settings,
   Users,
 } from "lucide-react";
 
@@ -106,9 +109,9 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.title} className="py-1">
+                <SidebarMenuItem key={item.title} className="py-1 px-2 ">
                   <SidebarMenuButton asChild className="py-2">
-                    <Link to={item.url} className="py-2">
+                    <Link to={item.url} className="py-2 text-xs sm:text-sm ">
                       <item.icon />
                       <span>{item.title}</span>
                     </Link>
@@ -146,9 +149,13 @@ export function AppSidebar() {
                   side="top"
                   className="w-[--radix-popper-anchor-width]"
                 >
-                  <DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="text-xs flex gap-4"
+                    dir={i18n.language === "ar" ? "rtl" : "ltr"}
+                  >
+                    <Settings />
                     <span
-                      className="px-4 py-2 hover:bg-gray-100 w-full cursor-pointer text-xs  sm:text-sm"
+                      className=" hover:bg-gray-100 w-full cursor-pointer "
                       onClick={() => {
                         dispatch(openModal(data?.user.image));
                       }}
@@ -156,16 +163,28 @@ export function AppSidebar() {
                       {t("userMenu.settings")}
                     </span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="text-xs flex gap-4  cursor-pointer "
+                    dir={i18n.language === "ar" ? "rtl" : "ltr"}
+                  >
+                    <Languages />
                     <button
                       onClick={toggleLanguage}
                       className="hover:text-bg-icon underline mt-2 text-start"
                     >
-                      {i18n.language === "ar" ? "English" : "العربية"}
+                      {i18n.language === "ar"
+                        ? "تغير اللغة"
+                        : "Change Language"}
                     </button>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <span onClick={() => LogoutHandler()}>Sign out</span>
+                  <DropdownMenuItem
+                    className="text-xs flex gap-4  cursor-pointer "
+                    dir={i18n.language === "ar" ? "rtl" : "ltr"}
+                  >
+                    <LogOut />
+                    <span onClick={() => LogoutHandler()}>
+                      {t("userMenu.logout")}
+                    </span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

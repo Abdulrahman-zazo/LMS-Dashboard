@@ -7,7 +7,7 @@ export type Column<T> = {
 
 export interface DataTableProps<T> {
   title?: string;
-  ImageType: "circle" | "rectangle";
+  ImageType?: "circle" | "rectangle";
   buttonAdd?: string;
   isloading: boolean;
   description?: string;
@@ -50,19 +50,11 @@ export interface Course {
 export interface Users {
   name: string;
   image: string;
-
   phone: string;
   email: string;
   id: number;
 }
-export interface Curriculum {
-  id: number;
-  name: string;
-  image: string;
-  pivot?: [Stage[], Subject[]];
-  imageFile?: File;
-  stage_id?: number[];
-}
+
 export interface Subject {
   id: number;
   name: string;
@@ -75,12 +67,25 @@ export interface Stage {
   name: string;
   id: number;
 }
+export interface PivotItem {
+  stages: Stage[];
+  subjects: Subject[];
+}
+export interface Curriculum {
+  id: number;
+  name: string;
+  image: string;
+  pivot: PivotItem;
+  imageFile?: File;
+  stage_id?: number[];
+}
+
 export interface Offers {
   id: number;
   name: string;
   description: string;
   cost: string;
-  courses?: Course[];
+  courses: Course[];
   course_id: number[];
 }
 

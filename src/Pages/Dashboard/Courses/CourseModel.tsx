@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import ImageCropper from "@/components/ImageUploaderWithCrop";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   open: boolean;
@@ -27,13 +28,9 @@ interface Props {
   initialData?: Partial<Course>;
 }
 
-export default function CourseDialog({
-  open,
-  onClose,
-  onSubmit,
-  initialData,
-}: Props) {
+export function CourseDialog({ open, onClose, onSubmit, initialData }: Props) {
   const [formData, setFormData] = useState<Partial<Course>>(initialData || {});
+  const { t } = useTranslation("translation");
   const [imageFile, setImageFile] = useState<File | undefined>();
   const [preview, setPreview] = useState<string | undefined>(
     initialData?.image
@@ -96,25 +93,30 @@ export default function CourseDialog({
     <Dialog open={open} onOpenChange={handleDialogChange}>
       <DialogContent
         title="add and edit course"
-        className="p-6 sm:rounded-2xl space-y-0 sm:max-w-3xl"
+        className="p-6 sm:rounded-2xl space-y-0 sm:max-w-3xl max-h-screen overflow-y-auto"
       >
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-primary">
-            {initialData ? "تعديل الكورس" : "إضافة كورس"}
+          <DialogTitle className="text-base font-semibold text-primary">
+            {initialData
+              ? t("pages.courses.dialogs.edit")
+              : t("pages.courses.dialogs.add")}
           </DialogTitle>
-          <DialogDescription className="text-muted-foreground pb-4 border-b border-neutral-200">
-            يرجى تعبئة جميع الحقول الخاصة بالكورس.
+          <DialogDescription className="text-muted-foreground text-xs pb-4 border-b border-neutral-200">
+            {t("pages.courses.dialogs.note")}
           </DialogDescription>
         </DialogHeader>
 
         <form
           onSubmit={handleSubmit}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-4"
+          className="grid grid-cols-2 sm:grid-cols-4 gap-2 "
         >
-          <div className="space-y-2 col-span-2">
-            <Label htmlFor="name">الاسم</Label>
+          <div className="space-y-2 col-span-4  sm:col-span-2">
+            <Label htmlFor="name" className="text-xs">
+              {t("pages.courses.dialogs.name")}
+            </Label>
             <Input
               id="name"
+              className="text-xs sm:text-sm"
               name="name"
               value={formData.name || ""}
               onChange={handleChange}
@@ -122,8 +124,10 @@ export default function CourseDialog({
             />
           </div>
 
-          <div className="space-y-2 col-span-1">
-            <Label htmlFor="type">نوع الكورس</Label>
+          <div className="space-y-2 col-span-2 sm:col-span-1">
+            <Label htmlFor="type" className="text-xs">
+              {t("pages.courses.dialogs.type")}
+            </Label>
             <Select
               value={formData.type || ""}
               onValueChange={(val) =>
@@ -131,32 +135,41 @@ export default function CourseDialog({
               }
               required
             >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="اختر نوع الكورس" />
+              <SelectTrigger className="w-full text-xs sm:text-sm ">
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="online">أونلاين</SelectItem>
-                <SelectItem value="Recorded">مسجل</SelectItem>
+                <SelectItem value="online" className="text-xs">
+                  {t("pages.courses.dialogs.online")}
+                </SelectItem>
+                <SelectItem value="recorded" className="text-xs">
+                  {t("pages.courses.dialogs.Recorded")}
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
 
-          <div className="space-y-2 col-span-1">
-            <Label htmlFor="hours">عدد الساعات</Label>
+          <div className="space-y-2 col-span-2 sm:col-span-1">
+            <Label htmlFor="hours" className="text-xs">
+              {t("pages.courses.dialogs.hours")}
+            </Label>
             <Input
               id="hours"
               name="hours"
+              className="text-xs sm:text-sm"
               value={formData.hours || ""}
               onChange={handleChange}
               required
             />
           </div>
-          <div className="space-y-2 col-span-2">
-            <Label htmlFor="image">الصورة</Label>
+          <div className="space-y-2 col-span-4 sm:col-span-2">
+            <Label htmlFor="image" className="text-xs">
+              {t("pages.courses.dialogs.image")}
+            </Label>
             <Input
               ref={fileInputRef}
               type="file"
-              className="cursor-pointer bg-neutral-200 shadow-sm"
+              className="cursor-pointer bg-neutral-200 shadow-sm  text-xs sm:text-sm"
               accept="image/*"
               onChange={handleFileChange}
             />
@@ -176,12 +189,13 @@ export default function CourseDialog({
               />
             )}
           </div>
-          <div className="space-y-3 col-span-2">
+          <div className="space-y-3 col-span-4 sm:col-span-2">
             <div>
-              <Label htmlFor="description" className="mb-2">
-                الوصف
+              <Label htmlFor="description" className="mb-2 text-xs">
+                {t("pages.courses.dialogs.description")}
               </Label>
               <Textarea
+                className="text-xs sm:text-sm"
                 id="description"
                 name="description"
                 rows={4}
@@ -192,10 +206,13 @@ export default function CourseDialog({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="summary">الملخص</Label>
+              <Label htmlFor="summary" className="text-xs">
+                {t("pages.courses.dialogs.summary")}
+              </Label>
               <Textarea
                 id="summary"
                 name="summary"
+                className="text-xs sm:text-sm"
                 rows={2}
                 style={{ resize: "none" }}
                 value={formData.summary || ""}
@@ -204,8 +221,11 @@ export default function CourseDialog({
               />
             </div>
             <div className="space-y-2 col-span-2">
-              <Label htmlFor="requirements">المتطلبات</Label>
+              <Label htmlFor="requirements" className="text-xs">
+                {t("pages.courses.dialogs.requirements")}
+              </Label>
               <Input
+                className="text-xs sm:text-sm"
                 id="requirements"
                 name="requirements"
                 value={formData.requirements || ""}
@@ -216,10 +236,15 @@ export default function CourseDialog({
           </div>
 
           <div className="space-y-2 col-span-4">
-            <Label htmlFor="contents">المحتوى</Label>
+            <Label htmlFor="contents" className="text-xs">
+              {" "}
+              {t("pages.courses.dialogs.contents")}
+            </Label>
             <Textarea
               id="contents"
+              style={{ resize: "none" }}
               name="contents"
+              className="text-xs sm:text-sm"
               rows={3}
               value={formData.contents || ""}
               onChange={handleChange}
@@ -227,14 +252,94 @@ export default function CourseDialog({
             />
           </div>
 
-          <div className="flex justify-end col-span-4 gap-2 pt-4 border-t">
-            <Button type="button" variant="outline" onClick={onClose}>
-              إلغاء
+          <div className="flex justify-end col-span-4  gap-2 pt-4 border-t">
+            <Button
+              type="button"
+              className="text-xs sm:text-sm"
+              variant="outline"
+              onClick={onClose}
+            >
+              {t("pages.courses.dialogs.cancel")}
             </Button>
-            <Button type="submit">{initialData ? "تحديث" : "إضافة"}</Button>
+            <Button className="text-xs sm:text-sm" type="submit">
+              {initialData
+                ? t("pages.courses.dialogs.edit_button")
+                : t("pages.courses.dialogs.add_button")}
+            </Button>
           </div>
         </form>
       </DialogContent>
     </Dialog>
   );
 }
+
+interface Props {
+  open: boolean;
+  onClose: () => void;
+  onSubmit: (course: Partial<Course>) => void;
+  initialData?: Partial<Course>;
+}
+
+export const DeleteDialog = ({
+  open,
+  onClose,
+  onSubmit,
+  initialData,
+}: Props) => {
+  const { t, i18n } = useTranslation("translation");
+
+  const handleDialogChange = (isOpen: boolean) => {
+    if (!isOpen) {
+      onClose();
+    }
+  };
+
+  const handleDelete = () => {
+    if (initialData) {
+      onSubmit(initialData);
+    }
+  };
+
+  return (
+    <div dir="rtl">
+      <Dialog open={open} onOpenChange={handleDialogChange}>
+        <DialogContent
+          title="Delete-course"
+          dir={i18n.language === "ar" ? "rtl" : "ltr"}
+        >
+          <DialogHeader>
+            <DialogTitle className="text-base text-neutral-800">
+              {t("pages.courses.dialogs.delete_title")}
+            </DialogTitle>
+            <DialogDescription className="text-sm text-neutral-600">
+              {t("pages.courses.dialogs.delete_text1")}
+              <span className="mx-2 underline font-semibold">
+                {initialData?.name}
+              </span>
+              <br />
+              <span className="text-xs">
+                {t("pages.courses.dialogs.delete_title2")}
+              </span>
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-end gap-2 pt-4">
+            <Button
+              variant="outline"
+              onClick={onClose}
+              className="text-xs sm:text-sm cursor-pointer"
+            >
+              {t("pages.courses.dialogs.cancel")}
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleDelete}
+              className="text-xs sm:text-sm cursor-pointer"
+            >
+              {t("pages.courses.dialogs.delete_button")}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+};

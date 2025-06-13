@@ -5,10 +5,11 @@ import { cookieService } from "@/Cookies/CookiesServices";
 import type { Course } from "@/types";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import CourseDialog from "./CourseModel";
+
 import { useState } from "react";
-import DeleteDialog from "./DeleteDialog";
+
 import { useCourseActions } from "./Hooks/useCourseActions ";
+import { CourseDialog, DeleteDialog } from "./CourseModel";
 
 const CoursesPage = () => {
   const Navigate = useNavigate();
@@ -45,20 +46,20 @@ const CoursesPage = () => {
   }
 
   const Courses = !isLoading && data ? [...data.course].reverse() : [];
-
+  console.log(data);
   return (
     <div>
       <DataTable<Course>
         data={Courses}
         isloading={isLoading}
         ImageType="rectangle"
-        buttonAdd={t("buttons.courses.add")}
-        title={t("buttons.courses.title")}
-        description={t("buttons.courses.text")}
+        buttonAdd={t("pages.courses.add")}
+        title={t("pages.courses.title")}
+        description={t("pages.courses.text")}
         columns={[
-          { key: "image", header: t("buttons.courses.table.image") },
-          { key: "name", header: t("buttons.courses.table.name") },
-          { key: "summary", header: t("buttons.courses.table.summary") },
+          { key: "image", header: t("pages.courses.table.image") },
+          { key: "name", header: t("pages.courses.table.name") },
+          { key: "summary", header: t("pages.courses.table.summary") },
         ]}
         onAdd={onAddClick}
         onEdit={onEditClick}

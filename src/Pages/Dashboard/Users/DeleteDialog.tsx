@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import type { Users } from "@/types";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   open: boolean;
@@ -35,36 +36,61 @@ const DeleteDialog = ({
     }
   };
 
+  const { t, i18n } = useTranslation("translation");
+
   const isDelete = type === "Delete";
 
   const titleText = isDelete
-    ? "تأكيد حذف الكورس"
-    : "تأكيد تعيين المستخدم كأدمن";
+    ? t("pages.users.dialogs.delete_title")
+    : t("pages.users.dialogs.Make_admin_title");
 
   const descriptionText = isDelete
-    ? `هل أنت متأكد أنك تريد حذف الكورس "${initialData?.name}"؟ هذا الإجراء لا يمكن التراجع عنه.`
-    : `هل تريد تعيين المستخدم "${initialData?.name}" كأدمن؟ سيتمكن من الوصول إلى جميع صلاحيات النظام.`;
+    ? `${t("pages.users.dialogs.delete_text1")}"${initialData?.name}"${t(
+        "pages.users.dialogs.delete_title2"
+      )}`
+    : `${t("pages.users.dialogs.Make_admin_text1")}"${initialData?.name}"${t(
+        "pages.users.dialogs.Make_admin_text2"
+      )}`;
 
-  const confirmButtonText = isDelete ? "حذف الكورس" : "تعيين كأدمن";
+  const confirmButtonText = isDelete
+    ? t("pages.users.dialogs.delete_button")
+    : t("pages.users.dialogs.save");
   const confirmButtonVariant = isDelete ? "destructive" : "secondary";
 
   return (
-    <Dialog open={open} onOpenChange={handleDialogChange}>
-      <DialogContent title={type === "Delete" ? "Delete-course" : "Make-admin"}>
-        <DialogHeader>
-          <DialogTitle>{titleText}</DialogTitle>
-          <DialogDescription>{descriptionText}</DialogDescription>
-        </DialogHeader>
-        <div className="flex justify-end gap-2 pt-4">
-          <Button variant="outline" onClick={onClose}>
-            إلغاء
-          </Button>
-          <Button variant={confirmButtonVariant} onClick={handleAction}>
-            {confirmButtonText}
-          </Button>
-        </div>
-      </DialogContent>
-    </Dialog>
+    <div dir="rtl">
+      <Dialog open={open} onOpenChange={handleDialogChange}>
+        <DialogContent
+          title={type === "Delete" ? "Delete-course" : "Make-admin"}
+          dir={i18n.language === "ar" ? "rtl" : "ltr"}
+        >
+          <DialogHeader>
+            <DialogTitle className="text-base text-neutral-800">
+              {titleText}
+            </DialogTitle>
+            <DialogDescription className="text-sm text-neutral-600">
+              {descriptionText}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-end gap-2 pt-4">
+            <Button
+              variant="outline"
+              className="text-xs sm:text-sm cursor-pointer"
+              onClick={onClose}
+            >
+              {t("pages.users.dialogs.cancel")}
+            </Button>
+            <Button
+              variant={confirmButtonVariant}
+              className="text-xs sm:text-sm cursor-pointer"
+              onClick={handleAction}
+            >
+              {confirmButtonText}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 };
 

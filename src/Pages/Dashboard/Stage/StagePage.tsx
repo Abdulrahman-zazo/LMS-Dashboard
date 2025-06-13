@@ -46,10 +46,10 @@ const StagePage = () => {
       <DataTable<Stage>
         data={data?.Stages}
         isloading={isLoading}
-        buttonAdd={t("buttons.Stages.add")}
-        title={t("buttons.Stages.title")}
-        description={t("buttons.Stages.text")}
-        columns={[{ key: "name", header: "المراحل" }]}
+        buttonAdd={t("pages.Stages.add")}
+        title={t("pages.Stages.title")}
+        description={t("pages.Stages.text")}
+        columns={[{ key: "name", header: t("pages.Stages.table.name") }]}
         onAdd={onAddClick}
         onEdit={onEditClick}
         onDelete={onDeleteClick}

@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import type { Offers } from "@/types";
 import OffersDialog, { DeleteDialog } from "./OfferDialogs";
 import { useOfferActions } from "./Hooks/useOfferActions";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const OffersPage = () => {
   const [openIndex, setOpenIndex] = useState<number>(0);
@@ -46,32 +47,47 @@ const OffersPage = () => {
     setOpenDeleteDialog(true);
   };
   if (isLoading) {
-    return <h2>loading ...</h2>;
+    return (
+      <div>
+        <div className="m-2 h-8 w-1/2 bg-neutral-100 animate-pulse"></div>
+        <div className="m-2 h-8 w-1/3 bg-neutral-100 animate-pulse"></div>
+        <div className="grid grid-cols-1  gap-6">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="border-b animate-pulse border-neutral-200">
+              <div className="p-2">
+                <Skeleton className="h-42 w-full mx-auto" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
   if (isError) {
     return <HandelError />;
   }
 
   return (
-    <div className=" rounded-2xl">
+    <div className="bg-white  rounded-2xl">
       <section>
         <div className="max-w-[100%] sm:max-w-[100%]  mx-auto px-4 sm:px-6 py-4">
           <div className="pb-6 border-b mb-4 flex items-center justify-between">
             <div className="">
-              <h2 className="text-xl sm:text-2xl text-neutral-800 font-semibold mb-2 ">
-                العروض المتوفرة 🎉
+              <h2 className="text-base sm:text-lg font-semibold text-neutral-800">
+                {t("pages.offer.title")}
               </h2>
-              <p className="text-neutral-500 text-sm">
-                يمكنك إضافة عروض واختيار الدورات ضمن هذا العرض
-              </p>
+              <span className="text-xs sm:text-sm text-neutral-400">
+                {t("pages.offer.text")}
+              </span>
             </div>
             <Button
               variant={"default"}
               title="offer button"
               onClick={onAddClick}
-              className="cursor-pointer"
+              className="cursor-pointer text-xs sm:text-sm"
             >
-              إضافة عرض جديد <Plus />
+              {t("pages.offer.add")}
+              <Plus />
             </Button>
           </div>
 
@@ -80,17 +96,17 @@ const OffersPage = () => {
               data?.Offers.map((offer: Offers, index: number) => (
                 <div
                   key={offer.id}
-                  className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:border  hover:border-paragraph/50  "
+                  className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:border  hover:border-neutext-neutral-800/50  "
                 >
                   <div
                     onClick={() => toggle(offer.id)}
-                    className="w-full  flex justify-between items-center px-4 py-4 text-sm sm:text-base font-medium cursor-pointer text-neutral-800 hover:bg-bg-purple transition"
+                    className="w-full  flex justify-between items-center px-4 py-4 text-sm sm:text-base font-medium cursor-pointer text-neutral-800  transition"
                   >
                     <div className="">
-                      <h3 className="text-base sm:text-lg font-semibold my-2">
-                        {offer.name}
+                      <h3 className="text-base sm:text-base text-primary font-semibold my-2">
+                        {index + 1} - {offer.name}
                       </h3>
-                      <p className="text-sm sm:text-base">
+                      <p className="text-xs sm:text-sm text-neutral-800">
                         {offer.description}
                       </p>
                     </div>
@@ -118,22 +134,23 @@ const OffersPage = () => {
                     {openIndex === index && (
                       <motion.div
                         key="content"
+                        onClick={() => toggle(offer.id)}
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3, ease: "easeInOut" }}
                         className="overflow-hidden"
                       >
-                        {offer?.courses?.length > 0 && (
-                          <div className="px-4 pb-4 text-sm sm:text-base text-paragraph leading-relaxed">
-                            <p className="mx-2 my-4 text-paragraph/80 text-sm sm:text-base">
+                        {offer?.courses.length > 0 && (
+                          <div className="px-4 pb-4 text-sm sm:text-base text-neutral-800 leading-relaxed">
+                            <p className="mx-2 my-2 text-neutral-800/80 text-xs sm:text-sm">
                               {t("offer.lable")}
                             </p>
                             <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-6 mb-4 sm:mb-8">
                               {offer?.courses?.map((course) => (
                                 <div
                                   key={course.id}
-                                  className=" mt-4 sm:mt-8 border border-neutral-300 rounded-xl"
+                                  className=" mt-4 sm:mt-4 border border-neutral-300 rounded-xl"
                                 >
                                   <CourseCard
                                     summary={course.summary}
@@ -162,8 +179,8 @@ const OffersPage = () => {
                 </div>
               ))
             ) : (
-              <div>
-                <p className="text-sm  sm:text-base text-neutral-500 text-center">
+              <div className="flex items-center justify-center h-80">
+                <p className="text-xs   sm:text-sm text-neutral-400 text-center">
                   {t("offer.NoOffer")}
                 </p>
               </div>

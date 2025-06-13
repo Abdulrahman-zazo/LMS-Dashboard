@@ -11,12 +11,14 @@ import ComplaintDetailPanel from "@/components/ComplaintCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 
 export default function ComplaintsWithPanel() {
   const token = cookieService.get("auth_token") || "";
   const { data, isError, isLoading } = useGetAllComplaintsQuery(token);
   const [deleteComplainats] = useDeleteComplaintsMutation();
   const [selected, setSelected] = useState<Complaint | null>(null);
+  const { t } = useTranslation("translation");
   if (isLoading)
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 max-w-7xl mx-auto">
@@ -60,12 +62,11 @@ export default function ComplaintsWithPanel() {
   return (
     <>
       <div className=" m-4">
-        <h1 className="text-lg font-semibold text-neutral-800 ">
-          الشكاوي والاقتراحات 📩
+        <h1 className="text-base sm:text-lg font-semibold text-neutral-800 ">
+          {t("complaints.title1")}
         </h1>
-        <p className="text-sm text-neutral-600 pb-4 border-b">
-          اضغط لعرض تفاصيل الشكوى ويمكنك الرد عن طريق البريد الالكتروني لتحسين
-          التجربة التعليمية
+        <p className="text-xs sm:text-sm text-neutral-400 pb-4 border-b">
+          {t("complaints.text")}
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 max-w-7xl mx-auto">
@@ -91,15 +92,15 @@ export default function ComplaintsWithPanel() {
                 </span>
               </div>
 
-              <p className="text-gray-600 mt-2 text-sm line-clamp-2 ">
-                {c.text}
+              <p className="text-gray-600 mt-2 text-xs sm:text-sm  line-clamp-2 ">
+                {c.text.slice(0, 100)}..
               </p>
               <Button
                 variant={"default"}
                 className=" w-full text-xs mt-4 font-medium 
      "
               >
-                التفاصيل
+                {t("complaints.details")}
               </Button>
             </div>
           ))}
@@ -116,8 +117,8 @@ export default function ComplaintsWithPanel() {
 
       {data?.Complaint.length === 0 && (
         <div className="flex items-center justify-center ">
-          <p className="text-sm text-neutral-500 font-medium p-12  mx-auto ">
-            لا توجد شكاوي لعرضها
+          <p className="text-xs sm:text-sm  text-neutral-500 font-medium p-12  mx-auto ">
+            {t("complaints.Nocomplaints")}
           </p>
         </div>
       )}

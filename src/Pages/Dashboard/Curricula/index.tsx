@@ -51,9 +51,9 @@ const CurriculasPage = () => {
       <CurriculumCards
         data={data?.curriculums}
         isloading={isLoading}
-        buttonAdd="إضافة منهاج جديد"
-        title="تفاصيل المناهج"
-        description="عند إضافة منهاج لأول مرة يجب تحديد المراحل والمواد فيه."
+        buttonAdd={t("pages.curriculums.add")}
+        title={t("pages.curriculums.title")}
+        description={t("pages.curriculums.text")}
         onAdd={onAddClick}
         onEdit={onEditClick}
         onDelete={onDeleteClick}

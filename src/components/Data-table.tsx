@@ -54,8 +54,12 @@ export function DataTable<T extends { id: string | number; name: string }>({
     <Card className="p-4">
       <div className="flex justify-between w-full  items-center mb-2 flex-wrap gap-4">
         <div>
-          <h2 className="text-lg font-semibold text-neutral-800">{title}</h2>
-          <span className="text-sm text-neutral-400">{description}</span>
+          <h2 className="text-base sm:text-lg font-semibold text-neutral-800">
+            {title}
+          </h2>
+          <span className="text-xs sm:text-sm text-neutral-400">
+            {description}
+          </span>
         </div>
         <div className="flex items-center justify-between gap-2">
           <Input
@@ -71,7 +75,7 @@ export function DataTable<T extends { id: string | number; name: string }>({
           {onAdd && (
             <Button
               onClick={() => onAdd()}
-              className="text-sm"
+              className="text-xs sm:text-sm"
               variant="default"
             >
               {buttonAdd}
@@ -88,15 +92,19 @@ export function DataTable<T extends { id: string | number; name: string }>({
                 col.key === "image" ? (
                   <th
                     key={col.key as string}
-                    className="text-center w-1/6 text-neutral-800 p-4 font-semibold"
+                    className="text-center text-xs sm:text-sm w-1/6 text-neutral-800 p-4 font-semibold"
                   >
                     {col.header}
                   </th>
                 ) : (
                   <th
                     key={col.key as string}
-                    className={`text-start p-4 text-neutral-800 font-semibold  ${
-                      col.key === "summary" ? "hidden sm:table-cell" : ""
+                    className={`text-start p-4 text-xs sm:text-sm text-neutral-800 font-semibold  ${
+                      col.key === "summary" ||
+                      col.key === "email" ||
+                      col.key === "phone"
+                        ? "hidden sm:table-cell"
+                        : ""
                     }`}
                   >
                     {col.header}
@@ -135,13 +143,19 @@ export function DataTable<T extends { id: string | number; name: string }>({
               : paginatedData?.map((row) => (
                   <tr
                     key={row.id}
-                    className="border-b h-12 lg:h-26 border-neutral-200 hover:bg-muted/50"
+                    className={`border-b h-12 ${
+                      ImageType === "rectangle" ? "lg:h-26" : "lg:h-14"
+                    } border-neutral-200 hover:bg-muted/50`}
                   >
                     {columns.map((col) => (
                       <td
                         key={col.key as string}
                         className={`p-2 text-neutral-700 text-xs ${
-                          col.key === "summary" ? "hidden sm:table-cell" : ""
+                          col.key === "summary" ||
+                          col.key === "email" ||
+                          col.key === "phone"
+                            ? "hidden sm:table-cell"
+                            : ""
                         }`}
                       >
                         {col.key === "image" ? (
@@ -221,7 +235,6 @@ export function DataTable<T extends { id: string | number; name: string }>({
                               </span>
                             </DropdownMenuItem>
                           )}
-
                           {onMakeAdmin && (
                             <DropdownMenuItem
                               className="flex items-center justify-between"
@@ -244,10 +257,11 @@ export function DataTable<T extends { id: string | number; name: string }>({
 
       {/* Pagination Controls */}
       {!isloading && totalPages > 1 && (
-        <div className="flex justify-center items-center gap-4 mt-4">
+        <div className="flex justify-center items-center gap-4 mt-4 text-xs">
           <Button
             variant="outline"
             size="sm"
+            className="text-xs"
             disabled={currentPage === 1}
             onClick={prevPage}
           >
@@ -258,6 +272,7 @@ export function DataTable<T extends { id: string | number; name: string }>({
             {totalPages}
           </span>
           <Button
+            className="text-xs"
             variant="outline"
             size="sm"
             disabled={currentPage === totalPages}

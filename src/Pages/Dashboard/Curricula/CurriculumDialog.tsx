@@ -15,6 +15,7 @@ import { useGetAllStagesQuery } from "@/app/features/Curriculum/Stage/StageApi";
 import { cookieService } from "@/Cookies/CookiesServices";
 import { MultiSelect } from "@/components/MultiSelect";
 import { Info } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   open: boolean;
@@ -33,11 +34,12 @@ export default function CurriculumDialog({
     ...initialData,
     stage_id: initialData?.stage_id ?? [],
   });
+  const { t } = useTranslation("translation");
 
   useEffect(() => {
     if (initialData?.pivot) {
       const ids =
-        initialData.pivot.map((p: any) => p.stage?.id).filter(Boolean) ?? [];
+        initialData.pivot?.map((p: any) => p.stage?.id).filter(Boolean) ?? [];
       setFormData({
         ...initialData,
         stage_id: ids,
@@ -106,11 +108,13 @@ export default function CurriculumDialog({
         lang="ar"
       >
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-primary">
-            {initialData ? "تعديل Curriculum" : "إضافة Curriculum"}
+          <DialogTitle className="text-base font-bold text-primary">
+            {initialData
+              ? t("pages.curriculums.dialogs.edit")
+              : t("pages.curriculums.dialogs.add")}
           </DialogTitle>
-          <DialogDescription className="text-muted-foreground pb-4 border-b border-neutral-200 ">
-            يرجى تعبئة جميع الحقول الخاصة Curriculum.
+          <DialogDescription className="text-neutral-400 pb-4 text-xs border-b border-neutral-200 ">
+            {t("pages.curriculums.dialogs.note")}
           </DialogDescription>
         </DialogHeader>
 
@@ -119,27 +123,27 @@ export default function CurriculumDialog({
           className="grid grid-cols-1 sm:grid-cols-2 gap-4"
         >
           <div className="space-y-2 col-span-2 ">
-            <Label htmlFor="name">
+            <Label htmlFor="name" className="text-xs sm:text-sm">
               {initialData?.name ? (
                 <div className="flex items-center gap-2">
                   <span>
                     <Info
-                      className="text-sm text-neutral-400 my-2 font-light"
+                      className="text-xs sm:text-sm text-neutral-400 my-2 font-light"
                       size={14}
                     />
                   </span>
-                  <span className="text-sm text-neutral-400 my-2 font-light">
-                    لا تستطيع تعديل اسم المنهاج وإنما فقط الصورة والمراحل ويمكن
-                    أيضاً حذفه نهائياً
+                  <span className="text-xs sm:text-sm text-neutral-400 my-2 font-light">
+                    {t("pages.curriculums.dialogs.error")}
                   </span>
                 </div>
               ) : (
-                <span>الاسم</span>
+                <span>{t("pages.curriculums.dialogs.name")}</span>
               )}
             </Label>
 
             <Input
               id="name"
+              className="text-xs sm:text-sm"
               name="name"
               disabled={initialData?.name ? true : false}
               value={formData.name || ""}
@@ -149,8 +153,8 @@ export default function CurriculumDialog({
           </div>
 
           <div className="col-span-2">
-            <Label htmlFor="name" className="my-2">
-              المراحل
+            <Label htmlFor="name" className="my-2 text-xs sm:text-sm">
+              {t("pages.curriculums.dialogs.stages")}
             </Label>
             <MultiSelect
               options={
@@ -166,11 +170,13 @@ export default function CurriculumDialog({
             />
           </div>
           <div className="space-y-2 col-span-2">
-            <Label htmlFor="image">الصورة</Label>
+            <Label htmlFor="image" className="my-2 text-xs sm:text-sm">
+              {t("pages.curriculums.dialogs.image")}
+            </Label>
             <Input
               ref={fileInputRef}
               type="file"
-              className="cursor-pointer bg-neutral-200 shadow-sm"
+              className="cursor-pointer bg-neutral-200 shadow-sm text-xs sm:text-sm"
               accept="image/*"
               onChange={handleFileChange}
             />
@@ -189,11 +195,20 @@ export default function CurriculumDialog({
             )}
           </div>
 
-          <div className="flex justify-end col-span-2 cols gap-2 pt-4 border-t">
-            <Button type="button" variant="outline" onClick={onClose}>
-              إلغاء
+          <div className="flex justify-end  gap-2 pt-4 border-t">
+            <Button
+              type="button"
+              className="text-xs sm:text-sm"
+              variant="outline"
+              onClick={onClose}
+            >
+              {t("pages.curriculums.dialogs.cancel")}
             </Button>
-            <Button type="submit">{initialData ? "تحديث" : "إضافة"}</Button>
+            <Button className="text-xs sm:text-sm" type="submit">
+              {initialData
+                ? t("pages.curriculums.dialogs.edit_button")
+                : t("pages.curriculums.dialogs.add_button")}
+            </Button>
           </div>
         </form>
       </DialogContent>

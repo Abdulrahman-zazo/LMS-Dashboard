@@ -308,22 +308,6 @@
         "code": "Verifying the entered code...",
         "success": "Password changed successfully!"
       }
-    },
-    "pages": {
-      "Home": "H-Platform - Home",
-      "About": "H-Platform - About Us",
-      "Courses": "H-Platform - Courses",
-      "Curriculum": "H-Platform - Curriculum",
-      "offer": "H-Platform - Offers",
-      "terms": "H-Platform - Terms of Use",
-      "privacy": "H-Platform - Privacy Policy",
-      "login": "H-Platform - Login",
-      "Register": "H-Platform - Create Account",
-      "Home_description": "In a rapidly changing world, learning alone is no longer enough—you need to stand out. H-Platform isn’t just a learning tool; it's the bridge that turns your dreams into reality.",
-      "About_description": "H-Platform is a community that leads you toward excellence, equipping you with the tools and knowledge to move forward confidently in a fast-changing world. We create a comprehensive digital learning experience that takes your ambition from idea to achievement.",
-      "Courses_description": "H-Platform isn’t just a learning platform—it’s a smart and inspiring experience that combines cutting-edge technology with expert instructors to offer you truly valuable learning.",
-      "Curriculum_description": "H-Platform offers comprehensive educational programs in core subjects like Arabic, English, Math, and Mental Arithmetic—tailored for every level.",
-      "offer_description": "Take advantage of our carefully designed packages to help you reach your goals flexibly and affordably. Choose the offer that fits your interests and start learning today."
     }
   }
 }

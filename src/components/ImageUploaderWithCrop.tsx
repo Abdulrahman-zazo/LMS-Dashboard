@@ -4,6 +4,7 @@ import { getCroppedFile } from "../lib/cropImage";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "./ui/input";
+import { useTranslation } from "react-i18next";
 
 interface ImageCropperProps {
   imageSrc: string;
@@ -34,7 +35,7 @@ const ImageCropper: FC<ImageCropperProps> = ({
     onCropComplete(file);
     onClose();
   };
-
+  const { t } = useTranslation("translation");
   return (
     <Dialog open={true} onOpenChange={onClose}>
       <DialogContent className="max-w-md h-[450px] py-8" title="Crop image">
@@ -56,6 +57,7 @@ const ImageCropper: FC<ImageCropperProps> = ({
         <div className="mt-0">
           <label>Zoom:</label>
           <Input
+            className="text-xs sm:text-sm"
             type="range"
             min={1}
             max={3}
@@ -65,10 +67,16 @@ const ImageCropper: FC<ImageCropperProps> = ({
           />
         </div>
         <div className="flex justify-end gap-2 ">
-          <Button variant="outline" onClick={onClose}>
-            إلغاء
+          <Button
+            variant="outline"
+            className="text-xs sm:text-sm"
+            onClick={onClose}
+          >
+            {t("pages.courses.dialogs.cancel")}
           </Button>
-          <Button onClick={onDone}>حفظ</Button>
+          <Button className="text-xs sm:text-sm" onClick={onDone}>
+            {t("pages.courses.dialogs.save")}
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

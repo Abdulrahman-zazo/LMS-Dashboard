@@ -12,8 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cookieService } from "@/Cookies/CookiesServices";
 import type { Course, Offers } from "@/types";
-import { Info } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   open: boolean;
@@ -28,6 +28,8 @@ export const DeleteDialog = ({
   onSubmit,
   initialData,
 }: Props) => {
+  const { t, i18n } = useTranslation("translation");
+
   const handleDialogChange = (isOpen: boolean) => {
     if (!isOpen) {
       onClose();
@@ -41,27 +43,46 @@ export const DeleteDialog = ({
   };
 
   return (
-    <Dialog open={open} onOpenChange={handleDialogChange}>
-      <DialogContent title="Delete-Curriculum">
-        <DialogHeader>
-          <DialogTitle>تأكيد حذف Stage</DialogTitle>
-          <DialogDescription>
-            هل أنت متأكد أنك تريد حذف Stage <strong>{initialData?.name}</strong>
-            ؟<br />
-            هذا الإجراء لا يمكن التراجع عنه وسيؤدي إلى إزالة جميع بيانات Stage
-            من النظام.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="flex justify-end gap-2 pt-4">
-          <Button variant="outline" onClick={onClose}>
-            إلغاء
-          </Button>
-          <Button variant="destructive" onClick={handleDelete}>
-            حذف Stage
-          </Button>
-        </div>
-      </DialogContent>
-    </Dialog>
+    <div dir="rtl">
+      <Dialog open={open} onOpenChange={handleDialogChange}>
+        <DialogContent
+          title="Delete-Offers"
+          dir={i18n.language === "ar" ? "rtl" : "ltr"}
+        >
+          <DialogHeader>
+            <DialogTitle className="text-base text-neutral-800">
+              {t("pages.offer.dialogs.delete_title")}
+            </DialogTitle>
+            <DialogDescription className="text-sm text-neutral-600">
+              {t("pages.offer.dialogs.delete_text1")}
+              <span className="mx-2 underline font-semibold">
+                {initialData?.name}
+              </span>
+              <br />
+              <span className="text-xs">
+                {t("pages.offer.dialogs.delete_title2")}
+              </span>
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-end gap-2 pt-4">
+            <Button
+              variant="outline"
+              onClick={onClose}
+              className="text-xs sm:text-sm cursor-pointer"
+            >
+              {t("pages.offer.dialogs.cancel")}
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleDelete}
+              className="text-xs sm:text-sm cursor-pointer"
+            >
+              {t("pages.offer.dialogs.delete_button")}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 };
 
@@ -75,16 +96,17 @@ export default function OffersDialog({
     ...initialData,
     course_id: initialData?.course_id ?? [],
   });
+  const { t } = useTranslation("translation");
 
   const token = cookieService.get("auth_token") || "";
   const { data: Courses } = useGetAllCoursesQuery(token as string);
-  console.log(Courses);
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
 
     if (name === "name" && value.length > 100) return;
+    if (name === "description" && value.length > 150) return;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -107,15 +129,17 @@ export default function OffersDialog({
   return (
     <Dialog open={open} onOpenChange={handleDialogChange}>
       <DialogContent
-        title="add and edit Curriculum"
-        className="p-6 sm:rounded-2xl space-y-0 max-w-3xl"
+        title="add and edit offers"
+        className="p-6 sm:rounded-2xl space-y-0 sm:max-w-xl max-h-screen overflow-y-auto"
       >
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-primary">
-            {initialData ? "تعديل Curriculum" : "إضافة Curriculum"}
+          <DialogTitle className="text-base font-semibold text-primary">
+            {initialData
+              ? t("pages.offer.dialogs.edit")
+              : t("pages.offer.dialogs.add")}
           </DialogTitle>
-          <DialogDescription className="text-muted-foreground pb-4 border-b border-neutral-200 ">
-            يرجى تعبئة جميع الحقول الخاصة Curriculum.
+          <DialogDescription className="text-muted-foreground text-xs pb-4 border-b border-neutral-200">
+            {t("pages.offer.dialogs.note")}
           </DialogDescription>
         </DialogHeader>
 
@@ -124,38 +148,36 @@ export default function OffersDialog({
           className="grid grid-cols-1 sm:grid-cols-2 gap-4"
         >
           <div className="space-y-2 col-span-2 ">
-            <Label htmlFor="name">
-              {initialData?.name ? (
-                <div className="flex items-center gap-2">
-                  <span>
-                    <Info
-                      className="text-sm text-neutral-400 my-2 font-light"
-                      size={14}
-                    />
-                  </span>
-                  <span className="text-sm text-neutral-400 my-2 font-light">
-                    لا تستطيع تعديل اسم المنهاج وإنما فقط الصورة والمراحل ويمكن
-                    أيضاً حذفه نهائياً
-                  </span>
-                </div>
-              ) : (
-                <span>الاسم</span>
-              )}
+            <Label htmlFor="name" className="text-xs">
+              {t("pages.offer.dialogs.name")}
             </Label>
 
             <Input
               id="name"
               name="name"
-              disabled={initialData?.name ? true : false}
               value={formData.name || ""}
+              onChange={handleChange}
+              className="text-xs sm:text-sm"
+              required
+            />
+          </div>
+          <div className="space-y-2 col-span-2 ">
+            <Label htmlFor="description" className="text-xs">
+              {t("pages.offer.dialogs.description")}
+            </Label>
+
+            <Input
+              id="description"
+              name="description"
+              value={formData.description || ""}
               onChange={handleChange}
               required
             />
           </div>
 
           <div className="col-span-2">
-            <Label htmlFor="name" className="my-2">
-              المراحل
+            <Label htmlFor="name" className="my-2 text-xs">
+              {t("pages.offer.dialogs.courses")}
             </Label>
             <MultiSelect
               options={
@@ -172,10 +194,19 @@ export default function OffersDialog({
           </div>
 
           <div className="flex justify-end col-span-2 cols gap-2 pt-4 border-t">
-            <Button type="button" variant="outline" onClick={onClose}>
-              إلغاء
+            <Button
+              type="button"
+              className="text-xs sm:text-sm"
+              variant="outline"
+              onClick={onClose}
+            >
+              {t("pages.offer.dialogs.cancel")}
             </Button>
-            <Button type="submit">{initialData ? "تحديث" : "إضافة"}</Button>
+            <Button className="text-xs sm:text-sm" type="submit">
+              {initialData
+                ? t("pages.offer.dialogs.edit_button")
+                : t("pages.offer.dialogs.add_button")}
+            </Button>
           </div>
         </form>
       </DialogContent>

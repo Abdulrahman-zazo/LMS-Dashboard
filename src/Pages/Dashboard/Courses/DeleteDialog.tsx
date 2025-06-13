@@ -15,7 +15,12 @@ interface Props {
   initialData?: Partial<Course>;
 }
 
-const DeleteDialog = ({ open, onClose, onSubmit, initialData }: Props) => {
+export const DeleteDialog = ({
+  open,
+  onClose,
+  onSubmit,
+  initialData,
+}: Props) => {
   const handleDialogChange = (isOpen: boolean) => {
     if (!isOpen) {
       onClose();
@@ -52,5 +57,3 @@ const DeleteDialog = ({ open, onClose, onSubmit, initialData }: Props) => {
     </Dialog>
   );
 };
-
-export default DeleteDialog;

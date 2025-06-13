@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { Stage } from "@/types";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   open: boolean;
@@ -31,6 +32,8 @@ export const DeleteDialog = ({
   onSubmit,
   initialData,
 }: Props) => {
+  const { t, i18n } = useTranslation("translation");
+
   const handleDialogChange = (isOpen: boolean) => {
     if (!isOpen) {
       onClose();
@@ -44,27 +47,46 @@ export const DeleteDialog = ({
   };
 
   return (
-    <Dialog open={open} onOpenChange={handleDialogChange}>
-      <DialogContent title="Delete-Curriculum">
-        <DialogHeader>
-          <DialogTitle>تأكيد حذف Stage</DialogTitle>
-          <DialogDescription>
-            هل أنت متأكد أنك تريد حذف Stage <strong>{initialData?.name}</strong>
-            ؟<br />
-            هذا الإجراء لا يمكن التراجع عنه وسيؤدي إلى إزالة جميع بيانات Stage
-            من النظام.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="flex justify-end gap-2 pt-4">
-          <Button variant="outline" onClick={onClose}>
-            إلغاء
-          </Button>
-          <Button variant="destructive" onClick={handleDelete}>
-            حذف Stage
-          </Button>
-        </div>
-      </DialogContent>
-    </Dialog>
+    <div dir="rtl">
+      <Dialog open={open} onOpenChange={handleDialogChange}>
+        <DialogContent
+          title="Delete-Stage"
+          dir={i18n.language === "ar" ? "rtl" : "ltr"}
+        >
+          <DialogHeader>
+            <DialogTitle className="text-base text-neutral-800">
+              {t("pages.Stages.dialogs.delete_title")}
+            </DialogTitle>
+            <DialogDescription className="text-sm text-neutral-600">
+              {t("pages.Stages.dialogs.delete_text1")}
+              <span className="mx-2 underline font-semibold">
+                {initialData?.name}
+              </span>
+              <br />
+              <span className="text-xs">
+                {t("pages.Stages.dialogs.delete_text2")}
+              </span>
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-end gap-2 pt-4">
+            <Button
+              variant="outline"
+              onClick={onClose}
+              className="text-xs sm:text-sm cursor-pointer"
+            >
+              {t("pages.Stages.dialogs.cancel")}
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleDelete}
+              className="text-xs sm:text-sm cursor-pointer"
+            >
+              {t("pages.Stages.dialogs.delete_button")}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 };
 
@@ -73,6 +95,7 @@ export function StageDialog({ open, onClose, onSubmit, initialData }: Props) {
   useEffect(() => {
     setFormData({ ...initialData });
   }, [initialData]);
+  const { t } = useTranslation("translation");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -104,11 +127,13 @@ export function StageDialog({ open, onClose, onSubmit, initialData }: Props) {
         className="p-6 sm:rounded-2xl space-y-0 max-w-3xl"
       >
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-primary">
-            {initialData ? "تعديل Stage" : "إضافة Stage"}
+          <DialogTitle className="text-base font-semibold text-primary">
+            {initialData
+              ? t("pages.Stages.dialogs.edit")
+              : t("pages.Stages.dialogs.add")}
           </DialogTitle>
-          <DialogDescription className="text-muted-foreground pb-4 border-b border-neutral-200 ">
-            يرجى تعبئة جميع الحقول الخاصة Stage.
+          <DialogDescription className="text-muted-foreground text-xs pb-4 border-b border-neutral-200">
+            {t("pages.Stages.dialogs.note")}
           </DialogDescription>
         </DialogHeader>
 
@@ -117,22 +142,34 @@ export function StageDialog({ open, onClose, onSubmit, initialData }: Props) {
           className="grid grid-cols-1 sm:grid-cols-2 gap-4"
         >
           <div className="space-y-2 col-span-2 ">
-            <Label htmlFor="name">الاسم</Label>
+            <Label htmlFor="name" className="text-xs">
+              {" "}
+              {t("pages.Stages.dialogs.name")}
+            </Label>
             <Input
               id="name"
               name="name"
-              disabled={initialData?.name ? true : false}
+              className="text-xs sm:text-sm"
               value={formData.name || ""}
               onChange={handleChange}
               required
             />
           </div>
 
-          <div className="flex justify-end col-span-2 cols gap-2 pt-4 border-t">
-            <Button type="button" variant="outline" onClick={onClose}>
-              إلغاء
+          <div className="flex justify-end col-span-2  gap-2 pt-4 border-t">
+            <Button
+              type="button"
+              className="text-xs sm:text-sm"
+              variant="outline"
+              onClick={onClose}
+            >
+              {t("pages.Stages.dialogs.cancel")}
             </Button>
-            <Button type="submit">{initialData ? "تحديث" : "إضافة"}</Button>
+            <Button className="text-xs sm:text-sm" type="submit">
+              {initialData
+                ? t("pages.Stages.dialogs.edit_button")
+                : t("pages.Stages.dialogs.add_button")}
+            </Button>
           </div>
         </form>
       </DialogContent>

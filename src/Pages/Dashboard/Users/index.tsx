@@ -42,14 +42,14 @@ const UsersPage = () => {
           data={data?.user}
           ImageType="circle"
           isloading={isLoading}
-          buttonAdd={t("buttons.userss.add")}
-          title={t("buttons.userss.title")}
-          description={t("buttons.userss.text")}
+          buttonAdd={t("pages.users.add")}
+          title={t("pages.users.title")}
+          description={t("pages.users.text")}
           columns={[
-            { key: "image", header: "الصورة المصغرة" },
-            { key: "name", header: "الاسم " },
-            { key: "phone", header: "الهاتف" },
-            { key: "email", header: "البريد الالكتروني" },
+            { key: "image", header: t("pages.users.table.image") },
+            { key: "name", header: t("pages.users.table.name") },
+            { key: "phone", header: t("pages.users.table.phone") },
+            { key: "email", header: t("pages.users.table.email") },
           ]}
           onMakeAdmin={onMakeAdminClick}
           onDelete={onDeleteClick}

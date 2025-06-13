@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import type { Curriculum, DataCardsProps } from "@/types";
+import { useTranslation } from "react-i18next";
 
 export function CurriculumCards({
   title = "البيانات",
@@ -17,7 +18,8 @@ export function CurriculumCards({
   onView,
 }: DataCardsProps) {
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 5;
+  const rowsPerPage = 6;
+  const { t } = useTranslation("translation");
 
   const totalPages = Math.ceil((data?.length || 0) / rowsPerPage);
   const paginatedData = data?.slice(
@@ -32,15 +34,19 @@ export function CurriculumCards({
   // 1- it's deffirent data table (image style and handling data)
   return (
     <Card className="p-4">
-      <div className="flex justify-between items-center mb-2 ">
+      <div className="flex justify-between items-center mb-2  ">
         <div>
-          <h2 className="text-xl font-bold">{title}</h2>
-          <span className="text-sm text-neutral-400">{description}</span>
+          <h2 className="text-base sm:text-lg font-semibold text-neutral-800">
+            {title}
+          </h2>
+          <span className="text-xs sm:text-sm text-neutral-400">
+            {description}
+          </span>
         </div>
         {onAdd && (
           <Button
             onClick={() => onAdd()}
-            className="text-base"
+            className="text-xs sm:text-sm"
             variant="default"
           >
             {buttonAdd}
@@ -48,90 +54,101 @@ export function CurriculumCards({
         )}
       </div>
 
-      <div className="overflow-auto m-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="overflow-auto m-2 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3  gap-2 sm:gap-6">
         {isloading
           ? Array.from({ length: rowsPerPage }).map((_, i) => (
-              <div key={i} className="border-b border-neutral-200">
+              <div
+                key={i}
+                className="border-b animate-pulse border-neutral-200"
+              >
                 <div className="p-2">
-                  <Skeleton className="h-8 w-16 mx-auto" />
+                  <Skeleton className="h-36 w-full mx-auto" />
                 </div>
               </div>
             ))
-          : paginatedData?.map((row: Curriculum) => (
-              <div
-                key={row.id}
-                className="bg-white rounded-2xl border border-neutral-200 hover:shadow-md transition-shadow p-4 flex flex-col justify-between"
-              >
-                <div className="flex items-center gap-4">
-                  <img
-                    src={row.image}
-                    alt={row.name}
-                    className="h-16 w-16 rounded-full object-cover border"
-                  />
-                  <h3 className="text-lg font-semibold text-neutral-800">
-                    {row.name}
-                  </h3>
-                </div>
+          : paginatedData?.map((row: Curriculum) => {
+              console.log(row);
+              return (
+                <div
+                  key={row.id}
+                  className="bg-white rounded-2xl border border-neutral-200 hover:shadow-md transition-shadow p-4 flex flex-col justify-between"
+                >
+                  <div className="flex items-center gap-2 sm:gap-4">
+                    <img
+                      src={row.image}
+                      alt={row.name}
+                      className="w-10 h-10 sm:h-16 sm:w-16 rounded-full object-cover border"
+                    />
+                    <div className=" gap-2 sm:gap-4">
+                      <h3 className="text-xs sm:text-sm font-semibold text-neutral-800">
+                        {row.name}
+                      </h3>
+                    </div>
+                  </div>
 
-                <div className="flex justify-between items-center mt-6">
-                  {onView && (
-                    <Button
-                      size="sm"
-                      variant="default"
-                      onClick={() => onView(row)}
-                      className="gap-2 cursor-pointer"
-                    >
-                      <Eye className="w-4 h-4" />
-                      عرض التفاصيل
-                    </Button>
-                  )}
-
-                  <div className="flex items-center gap-2">
-                    {onEdit && (
+                  <div className="flex justify-between items-center mt-6">
+                    {onView && (
                       <Button
-                        size="icon"
-                        variant="ghost"
-                        onClick={() => onEdit(row)}
+                        size="sm"
+                        variant="default"
+                        onClick={() => onView(row)}
+                        className="text-xs sm:text-sm gap-2 cursor-pointer"
                       >
-                        <Pencil className="w-4 h-4 text-neutral-700" />
+                        <Eye className="w-4 h-4 hidden sm:inline" />
+                        {t("data_table.details")}
                       </Button>
                     )}
-                    {onDelete && (
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        className="hover:bg-red-500/10"
-                        onClick={() => onDelete(row)}
-                      >
-                        <Trash2 className="w-4 h-4 text-red-500/80 " />
-                      </Button>
-                    )}
+
+                    <div className="flex items-center gap-1">
+                      {onEdit && (
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() => onEdit(row)}
+                        >
+                          <Pencil className="w-4 h-4 text-neutral-700" />
+                        </Button>
+                      )}
+                      {onDelete && (
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          className="hover:bg-red-500/10"
+                          onClick={() => onDelete(row)}
+                        >
+                          <Trash2 className="w-4 h-4 text-red-500/80 " />
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
       </div>
 
       {!isloading && totalPages > 1 && (
-        <div className="flex justify-center items-center gap-4 mt-4">
+        <div className="flex justify-center items-center gap-4 mt-4 text-xs">
           <Button
             variant="outline"
             size="sm"
+            className="text-xs"
             disabled={currentPage === 1}
             onClick={prevPage}
           >
-            السابق
+            {t("data_table.prev")}
           </Button>
           <span>
-            صفحة {currentPage} من {totalPages}
+            {t("data_table.page")} {currentPage} {t("data_table.of")}{" "}
+            {totalPages}
           </span>
           <Button
+            className="text-xs"
             variant="outline"
             size="sm"
             disabled={currentPage === totalPages}
             onClick={nextPage}
           >
-            التالي
+            {t("data_table.next")}
           </Button>
         </div>
       )}
