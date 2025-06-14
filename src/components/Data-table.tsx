@@ -203,7 +203,12 @@ export function DataTable<
                           col.key === "phone"
                             ? "hidden sm:table-cell"
                             : ""
+                        }  ${
+                          col.key === "phone" && i18n.language === "ar"
+                            ? " text-right"
+                            : " "
                         }`}
+                        dir={col.key === "phone" ? "ltr" : ""}
                       >
                         {col.key === "image" ? (
                           <img

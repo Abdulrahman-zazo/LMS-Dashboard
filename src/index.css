@@ -30,7 +30,7 @@ html[lang="ar"] {
 }
 
 html[lang="en"] {
-  font-family: "Inter", sans-serif;
+  font-family: "cairo", sans-serif;
 }
 
 @custom-variant dark (&:is(.dark *));

@@ -31,11 +31,17 @@ const ImageCropper: FC<ImageCropperProps> = ({
 
   const onDone = async () => {
     if (!area) return;
-    const file = await getCroppedFile(imageSrc, area);
+
+    // 👉 تعديل هنا: توليد اسم فريد
+    const uniqueName = `cropped_${Date.now()}.jpg`;
+
+    const file = await getCroppedFile(imageSrc, area, uniqueName);
     onCropComplete(file);
     onClose();
   };
+
   const { t } = useTranslation("translation");
+
   return (
     <Dialog open={true} onOpenChange={onClose}>
       <DialogContent className="max-w-md h-[450px] py-8" title="Crop image">
@@ -66,7 +72,7 @@ const ImageCropper: FC<ImageCropperProps> = ({
             onChange={(e) => setZoom(Number(e.target.value))}
           />
         </div>
-        <div className="flex justify-end gap-2 ">
+        <div className="flex justify-end gap-2">
           <Button
             variant="outline"
             className="text-xs sm:text-sm"

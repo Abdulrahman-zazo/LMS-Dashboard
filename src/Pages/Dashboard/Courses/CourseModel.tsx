@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/select";
 import ImageCropper from "@/components/ImageUploaderWithCrop";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 
 interface Props {
   open: boolean;
@@ -62,6 +63,7 @@ export function CourseDialog({ open, onClose, onSubmit, initialData }: Props) {
 
     if (name === "name" && value.length > 100) return;
     if (name === "description" && value.length > 250) return;
+
     if (name === "summary" && value.length > 200) return;
     if (name === "contents" && value.length > 200) return;
     if (name === "requirements" && value.length > 100) return;
@@ -169,6 +171,7 @@ export function CourseDialog({ open, onClose, onSubmit, initialData }: Props) {
             <Input
               ref={fileInputRef}
               type="file"
+              name="image"
               className="cursor-pointer bg-neutral-200 shadow-sm  text-xs sm:text-sm"
               accept="image/*"
               onChange={handleFileChange}

@@ -102,7 +102,7 @@ const SettingsModal = ({ isOpen, ImageUser, onClose }: Isetting) => {
             onClick={() => setActiveTab("profile")}
             className={`flex items-center gap-2 px-4 py-2 rounded-full transition text-sm ${
               activeTab === "profile"
-                ? "bg-primary/10  text-primary font-semibold"
+                ? "bg-primary/10  text-primary "
                 : "text-gray-500 hover:text-primary"
             }`}
           >
@@ -113,7 +113,7 @@ const SettingsModal = ({ isOpen, ImageUser, onClose }: Isetting) => {
             onClick={() => setActiveTab("password")}
             className={`flex items-center gap-2 px-4 py-2 rounded-full transition text-sm ${
               activeTab === "password"
-                ? "bg-primary/10 text-primary font-semibold"
+                ? "bg-primary/10 text-primary "
                 : "text-gray-500 hover:text-primary"
             }`}
           >

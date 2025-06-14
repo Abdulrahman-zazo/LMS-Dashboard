@@ -1,34 +1,45 @@
+import type { Area } from "react-easy-crop";
+
 export async function getCroppedFile(
   imageSrc: string,
-  crop: { x: number; y: number; width: number; height: number }
+  cropArea: Area,
+  fileName = "cropped.jpg" // ← اسم افتراضي إن ما تم تمريره
 ): Promise<File> {
-  const img = new Image();
-  img.src = imageSrc;
-  await new Promise((res) => (img.onload = res));
+  const createImage = (url: string): Promise<HTMLImageElement> => {
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+      image.crossOrigin = "anonymous"; // مهم إذا كانت الصورة من دومين خارجي
+      image.src = url;
+      image.onload = () => resolve(image);
+      image.onerror = (e) => reject(e);
+    });
+  };
 
+  const image = await createImage(imageSrc);
   const canvas = document.createElement("canvas");
-  canvas.width = crop.width;
-  canvas.height = crop.height;
   const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("ctx failed");
 
-  ctx.drawImage(
-    img,
-    crop.x,
-    crop.y,
-    crop.width,
-    crop.height,
+  canvas.width = cropArea.width;
+  canvas.height = cropArea.height;
+
+  ctx?.drawImage(
+    image,
+    cropArea.x,
+    cropArea.y,
+    cropArea.width,
+    cropArea.height,
     0,
     0,
-    crop.width,
-    crop.height
+    cropArea.width,
+    cropArea.height
   );
 
-  return new Promise((res) => {
+  return new Promise((resolve) => {
     canvas.toBlob((blob) => {
-      if (!blob) throw new Error("Blob failed");
-      const file = new File([blob], "cropped.jpg", { type: "image/jpeg" });
-      res(file);
+      if (!blob) return;
+
+      const file = new File([blob], fileName, { type: "image/jpeg" });
+      resolve(file);
     }, "image/jpeg");
   });
 }
