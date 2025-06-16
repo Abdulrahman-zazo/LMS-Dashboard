@@ -64,6 +64,7 @@ const ImageCropper: FC<ImageCropperProps> = ({
           <label>Zoom:</label>
           <Input
             className="text-xs sm:text-sm"
+            required
             type="range"
             min={1}
             max={3}

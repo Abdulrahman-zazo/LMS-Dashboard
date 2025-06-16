@@ -129,7 +129,7 @@ export default function OffersDialog({
   return (
     <Dialog open={open} onOpenChange={handleDialogChange}>
       <DialogContent
-        title="add and edit offers"
+        title={initialData ? " edit offers" : "add offers"}
         className="p-6 sm:rounded-2xl space-y-0 sm:max-w-xl max-h-screen overflow-y-auto"
       >
         <DialogHeader>

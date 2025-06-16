@@ -25,14 +25,41 @@
   font-style: normal;
   font-display: swap;
 }
+
 html[lang="ar"] {
   font-family: "Alexandria", sans-serif;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+@layer base {
+  html,
+  :host {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
+@layer base {
+  * {
+    -webkit-user-select: auto;
+    user-select: auto;
+  }
 }
 
 html[lang="en"] {
   font-family: "cairo", sans-serif;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
-
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  *,
+  *::before,
+  *::after {
+    forced-color-adjust: auto !important;
+    -ms-high-contrast-adjust: none !important;
+  }
+}
 @custom-variant dark (&:is(.dark *));
 @theme {
   --breakpoint-3xl: 120rem;

@@ -153,7 +153,7 @@ export function SubjectDialog({ open, onClose, onSubmit, initialData }: Props) {
   return (
     <Dialog open={open} onOpenChange={handleDialogChange}>
       <DialogContent
-        title="add and edit subject"
+        title={initialData ? " edit subject" : "add subject"}
         className="p-6 sm:rounded-2xl space-y-0 max-w-3xl"
       >
         <DialogHeader>

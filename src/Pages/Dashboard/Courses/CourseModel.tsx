@@ -20,7 +20,6 @@ import {
 } from "@/components/ui/select";
 import ImageCropper from "@/components/ImageUploaderWithCrop";
 import { useTranslation } from "react-i18next";
-import { toast } from "sonner";
 
 interface Props {
   open: boolean;
@@ -94,7 +93,7 @@ export function CourseDialog({ open, onClose, onSubmit, initialData }: Props) {
   return (
     <Dialog open={open} onOpenChange={handleDialogChange}>
       <DialogContent
-        title="add and edit course"
+        title={initialData ? " edit course" : "add course"}
         className="p-6 sm:rounded-2xl space-y-0 sm:max-w-3xl max-h-screen overflow-y-auto"
       >
         <DialogHeader>

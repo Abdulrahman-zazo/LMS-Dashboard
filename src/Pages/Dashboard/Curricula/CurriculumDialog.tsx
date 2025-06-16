@@ -9,7 +9,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import type { Curriculum, Stage } from "@/types";
+import type { Curriculum, PivotItem, Stage } from "@/types";
 import ImageCropper from "@/components/ImageUploaderWithCrop";
 import { useGetAllStagesQuery } from "@/app/features/Curriculum/Stage/StageApi";
 import { cookieService } from "@/Cookies/CookiesServices";
@@ -39,7 +39,8 @@ export default function CurriculumDialog({
   useEffect(() => {
     if (initialData?.pivot) {
       const ids =
-        initialData.pivot?.map((p: any) => p.stage?.id).filter(Boolean) ?? [];
+        initialData?.pivot.map((p: PivotItem) => p.stage?.id).filter(Boolean) ??
+        [];
       setFormData({
         ...initialData,
         stage_id: ids,
@@ -103,7 +104,7 @@ export default function CurriculumDialog({
   return (
     <Dialog open={open} onOpenChange={handleDialogChange}>
       <DialogContent
-        title="add and edit Curriculum"
+        title={initialData ? " edit Curriculum" : "add Curriculum"}
         className="p-6 sm:rounded-2xl space-y-0 max-w-3xl"
         lang="ar"
       >

@@ -69,14 +69,14 @@ export interface Stage {
   id: number;
 }
 export interface PivotItem {
-  stages: Stage[];
+  stage: Stage;
   subjects: Subject[];
 }
 export interface Curriculum {
   id: number;
   name: string;
   image: string;
-  pivot: PivotItem;
+  pivot: PivotItem[];
   imageFile?: File;
   stage_id?: number[];
 }
