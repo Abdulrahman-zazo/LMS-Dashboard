@@ -38,7 +38,7 @@ export const Reviews = ({ comments }: ReviewsProps) => {
     useDeleteCommentsMutation();
 
   const displayedComments = showAllComments ? comments : comments.slice(0, 1);
-
+  console.log(comments);
   const handleAcceptComment = async (commentId: number) => {
     try {
       await acceptComments({
@@ -72,7 +72,7 @@ export const Reviews = ({ comments }: ReviewsProps) => {
           <span>{t("message.comments.noComment")}</span>
         </div>
       )}
-      {displayedComments?.length > 1 && (
+      {displayedComments.length > 0 && (
         <div className="flex justify-center mb-4">
           <button
             title="Courses_card.showAll"
@@ -103,34 +103,36 @@ export const Reviews = ({ comments }: ReviewsProps) => {
                   <p className="text-xs sm:text-sm text-gray-500">
                     {/* {getTimeAgo(comment.time)} */}
                   </p>
-                  <div className="grid grid-cols-2 items-center ">
+                  <div className="flex justify-center gap-4 items-center ">
                     <button
+                      key={comment.id}
                       type="button"
                       onClick={() => handleDeleteComment(comment.id)}
-                      className="text-red-500 text-xs hover:underline col-span-1 w-full"
+                      className="text-red-500 text-xs hover:underline px-4 py-2 rounded-lg  bg-red-100/20  cursor-pointer col-span-1 w-full"
                       disabled={isloadingDeleteComment}
                     >
                       {isloadingDeleteComment ? (
-                        <span className="w-full">
+                        <div className=" animate-spin px-2 duration-200">
                           <Loader size={16} />
-                        </span>
+                        </div>
                       ) : (
                         "حذف"
                       )}
                     </button>
                     {comment.is_visible === 0 && (
                       <button
+                        key={comment.id}
                         type="button"
                         onClick={() => handleAcceptComment(comment.id)}
-                        className="text-primary font-medium text-xs hover:underline col-span-1 w-full"
+                        className="text-primary font-medium text-xs hover:underline  col-span-1 cursor-pointer px-4 py-2 rounded-lg  bg-primary/20  w-full"
                         disabled={isloadingAcceptComment}
                       >
                         {isloadingAcceptComment ? (
-                          <span className="w-full">
+                          <div className=" animate-spin px-2 duration-200">
                             <Loader size={16} />
-                          </span>
+                          </div>
                         ) : (
-                          "قبول التعليق"
+                          "قبول "
                         )}
                       </button>
                     )}
