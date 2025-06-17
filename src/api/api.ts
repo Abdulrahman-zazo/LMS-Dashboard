@@ -20,7 +20,7 @@ export const GET_ALL_USERS = "/api/allUser";
 
 /* --------------Courses---------------- */
 export const GET_ALL_ADMIN_COURSES = "/api/AdminAllCourse";
-export const GET_COURSE_BY_ID = "/api/getCourseById";
+export const GET_COURSE_BY_ID = "/api/AdminGetCourseById";
 export const UPDATE_COURSE = "/api/updateCourse";
 export const ADD_COURSE = "/api/addCourse";
 export const DELETE_COURSE = "/api/deleteCourse";

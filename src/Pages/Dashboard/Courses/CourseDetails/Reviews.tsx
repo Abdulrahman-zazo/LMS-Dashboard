@@ -4,12 +4,12 @@ import { useTranslation } from "react-i18next";
 
 import { toast } from "sonner";
 import { Loader } from "lucide-react";
+
+import { cookieService } from "@/Cookies/CookiesServices";
 import {
   useAcceptCommentsMutation,
   useDeleteCommentsMutation,
-} from "@/app/features/Comments/CommentsApi";
-
-import { cookieService } from "@/Cookies/CookiesServices";
+} from "@/app/features/Courses/CoursesApi";
 
 // course interface
 export interface IComments {
@@ -30,17 +30,16 @@ interface ReviewsProps {
 export const Reviews = ({ comments }: ReviewsProps) => {
   const { t } = useTranslation("translation");
   const Authtoken: string = cookieService.get("auth_token") || "";
-  const [comment, setComment] = useState<string>("");
   const [showAllComments, setShowAllComments] = useState(false);
 
-  const [acceptComments, { isLoading: isloadingAddComment }] =
+  const [acceptComments, { isLoading: isloadingAcceptComment }] =
     useAcceptCommentsMutation();
   const [deleteComments, { isLoading: isloadingDeleteComment }] =
     useDeleteCommentsMutation();
 
   const displayedComments = showAllComments ? comments : comments.slice(0, 1);
 
-  const handleSubmit = async (commentId: number) => {
+  const handleAcceptComment = async (commentId: number) => {
     try {
       await acceptComments({
         comment_id: commentId,
@@ -48,7 +47,6 @@ export const Reviews = ({ comments }: ReviewsProps) => {
       }).unwrap();
 
       toast.success(t("message.comments.add"));
-      setComment("");
     } catch (err) {
       toast.error(t("message.comments.error"));
       console.error(err);
@@ -69,6 +67,11 @@ export const Reviews = ({ comments }: ReviewsProps) => {
   };
   return (
     <div>
+      {displayedComments?.length === 0 && (
+        <div className="p-8 text-xs text-neutral-400 flex justify-center ">
+          <span>{t("message.comments.noComment")}</span>
+        </div>
+      )}
       {displayedComments?.length > 1 && (
         <div className="flex justify-center mb-4">
           <button
@@ -100,15 +103,38 @@ export const Reviews = ({ comments }: ReviewsProps) => {
                   <p className="text-xs sm:text-sm text-gray-500">
                     {/* {getTimeAgo(comment.time)} */}
                   </p>
-
-                  <button
-                    type="button"
-                    onClick={() => handleDeleteComment(comment.id)}
-                    className="text-red-500 text-xs hover:underline"
-                    disabled={isloadingDeleteComment}
-                  >
-                    {isloadingDeleteComment ? "..." : "حذف"}
-                  </button>
+                  <div className="grid grid-cols-2 items-center ">
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteComment(comment.id)}
+                      className="text-red-500 text-xs hover:underline col-span-1 w-full"
+                      disabled={isloadingDeleteComment}
+                    >
+                      {isloadingDeleteComment ? (
+                        <span className="w-full">
+                          <Loader size={16} />
+                        </span>
+                      ) : (
+                        "حذف"
+                      )}
+                    </button>
+                    {comment.is_visible === 0 && (
+                      <button
+                        type="button"
+                        onClick={() => handleAcceptComment(comment.id)}
+                        className="text-primary font-medium text-xs hover:underline col-span-1 w-full"
+                        disabled={isloadingAcceptComment}
+                      >
+                        {isloadingAcceptComment ? (
+                          <span className="w-full">
+                            <Loader size={16} />
+                          </span>
+                        ) : (
+                          "قبول التعليق"
+                        )}
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
 

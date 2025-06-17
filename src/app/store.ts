@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { userApi } from "./features/Admins/userApi";
 import { CoursesApi } from "./features/Courses/CoursesApi";
 import { CurriculumsApi } from "./features/Curriculum/CurriculumApi";
-import { CommentsApi } from "./features/Comments/CommentsApi";
 import { OfferApi } from "./features/Offer/OfferApi";
 import { ComplaintsApi } from "./features/Complaints/ComplaintsApi";
 import { SubjectsApi } from "./features/Curriculum/Subject/SubjectApi";
@@ -21,7 +20,7 @@ export const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
     [CoursesApi.reducerPath]: CoursesApi.reducer,
     [CurriculumsApi.reducerPath]: CurriculumsApi.reducer,
-    [CommentsApi.reducerPath]: CommentsApi.reducer,
+
     [OfferApi.reducerPath]: OfferApi.reducer,
     [ComplaintsApi.reducerPath]: ComplaintsApi.reducer,
     [SubjectsApi.reducerPath]: SubjectsApi.reducer,
@@ -36,7 +35,7 @@ export const store = configureStore({
       userApi.middleware,
       CoursesApi.middleware,
       CurriculumsApi.middleware,
-      CommentsApi.middleware,
+
       OfferApi.middleware,
       ComplaintsApi.middleware,
       SubjectsApi.middleware,

@@ -26,14 +26,16 @@ import { CourseDialog, DeleteDialog } from "../CourseModel";
 import { Button } from "@/components/ui/button";
 
 const CoursePage = () => {
-  const [activeTab, setActiveTab] = useState<"info" | "reviews">("info");
+  const [activeTab, setActiveTab] = useState<"info" | "reviews">("reviews");
   const token = cookieService.get("auth_token") || "";
 
   const path = useParams();
   const { id } = path;
-  const { data, isLoading, isError } = useGetCourseByIdQuery(Number(id), {
-    refetchOnMountOrArgChange: true,
+  const { data, isLoading, isError } = useGetCourseByIdQuery({
+    token: String(token),
+    course_id: Number(id),
   });
+  console.log(data);
   const [activeCourse, { isLoading: isLaodingActive }] =
     useActiveCourseMutation();
   const Navigate = useNavigate();
@@ -103,12 +105,12 @@ const CoursePage = () => {
   }
 
   const onEditClick = () => {
-    setCurrentCourse(data?.course);
+    setCurrentCourse(data?.Course);
     setOpen(true);
   };
 
   const onDeleteClick = () => {
-    setCurrentCourse(data?.course);
+    setCurrentCourse(data?.Course);
     setOpenDeleteDialog(true);
   };
   return (
@@ -116,10 +118,10 @@ const CoursePage = () => {
       <div className="mx-6 flex  items-start justify-between gap-12">
         <div>
           <h1 className="text-lg sm:text-xl text-neutral-800 mb-2 font-semibold">
-            {data?.course.name}
+            {data?.Course.name}
           </h1>
           <p className="text-sm sm:text-sm text-neutral-500 font-medium">
-            {data?.course.summary}
+            {data?.Course.summary}
           </p>
         </div>
         <Button
@@ -140,7 +142,7 @@ const CoursePage = () => {
           <div className="lg:w-1/2 p-6">
             <img
               loading="lazy"
-              src={data?.course.image}
+              src={data?.Course.image}
               alt="Boy learning web development"
               className="w-full h-auto object-cover rounded-md mb-2"
             />
@@ -168,7 +170,7 @@ const CoursePage = () => {
                       : "border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300"
                   } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-xs sm:text-sm`}
                 >
-                  {t("Courses.comments")}({data?.course.comments.length})
+                  {t("Courses.comments")}({data?.Course.comments.length})
                 </button>
               </nav>
             </div>
@@ -176,11 +178,11 @@ const CoursePage = () => {
             {/* Tab Content */}
             <div className="mt-6">
               {activeTab === "info" ? (
-                <CourseInfo description={data?.course.description} />
+                <CourseInfo description={data?.Course.description} />
               ) : (
                 <Reviews
-                  comments={data?.course.comments}
-                  course_id={data?.course.id}
+                  comments={data?.Course.comments}
+                  course_id={data?.Course.id}
                 />
               )}
             </div>
@@ -192,22 +194,22 @@ const CoursePage = () => {
               {t("Courses.what_we_learn")}
             </h3>
             <ul className="list-disc list-inside text-neutral-800 text-sm  space-y-2 mb-6">
-              <li>{data?.course.contents}</li>
+              <li>{data?.Course.contents}</li>
             </ul>
 
             <h3 className="text-sm   font-semibold text-primary mb-4">
               {t("Courses.content_course")}
             </h3>
             <ul className="list-disc list-inside text-neutral-800 text-sm  space-y-2 mb-6">
-              <li>{data?.course.hours} ساعة.</li>
-              {data?.course.material && <li>{data?.course.material}</li>}
+              <li>{data?.Course.hours} ساعة.</li>
+              {data?.Course.material && <li>{data?.Course.material}</li>}
             </ul>
 
             <h3 className="text-sm   font-semibold text-primary mb-4">
               {t("Courses.requairment")}
             </h3>
             <ul className="list-disc list-inside text-neutral-800 text-sm  space-y-2 mb-6">
-              <li>{data?.course.requirements}</li>
+              <li>{data?.Course.requirements}</li>
             </ul>
             <div className="flex items-center gap-6 justify-between">
               <div className="flex-2">
@@ -218,9 +220,9 @@ const CoursePage = () => {
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <ActiveSwitch
-                        isActive={data?.course.is_active}
+                        isActive={data?.Course.is_active}
                         onToggle={() => {
-                          activeCourse({ course_id: data?.course.id, token });
+                          activeCourse({ course_id: data?.Course.id, token });
                         }}
                       />
                     </TooltipTrigger>

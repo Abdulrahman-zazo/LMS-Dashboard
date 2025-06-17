@@ -1,7 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
+  ACCEPT_COMMINTS,
   ADD_COURSE,
   CHANGE_STATUS_COURSE,
+  DELETE_COMMINTS,
   DELETE_COURSE,
   GET_ALL_ADMIN_COURSES,
   GET_COURSE_BY_ID,
@@ -9,6 +11,10 @@ import {
 } from "../../../api/api";
 import { decryptToken } from "@/Cookies/CryptoServices/crypto";
 import type { Course } from "@/types";
+export interface ICommentsdata {
+  token: string;
+  comment_id: number;
+}
 
 export const CoursesApi = createApi({
   reducerPath: "CoursesApi",
@@ -25,10 +31,13 @@ export const CoursesApi = createApi({
       providesTags: ["Courses"],
     }),
     getCourseById: builder.query({
-      query: (course_id: number) => ({
+      query: ({ token, course_id }: { course_id: number; token: string }) => ({
         url: GET_COURSE_BY_ID,
         method: "POST",
         body: { course_id },
+        headers: {
+          Authorization: `Bearer ${decryptToken(token)}`,
+        },
       }),
       providesTags: ["Courses"],
     }),
@@ -128,6 +137,30 @@ export const CoursesApi = createApi({
       invalidatesTags: (result) =>
         result ? [{ type: "Courses", id: result.id }] : ["Courses"],
     }),
+    acceptComments: builder.mutation({
+      query: ({ comment_id, token }: ICommentsdata) => ({
+        url: ACCEPT_COMMINTS,
+        method: "POST",
+        body: { comment_id },
+        headers: {
+          Authorization: `Bearer ${decryptToken(token)}`,
+        },
+      }),
+      invalidatesTags: (result) =>
+        result ? [{ type: "Courses", id: result.id }] : ["Courses"],
+    }),
+    deleteComments: builder.mutation({
+      query: ({ comment_id, token }: ICommentsdata) => ({
+        url: DELETE_COMMINTS,
+        method: "POST",
+        body: { comment_id },
+        headers: {
+          Authorization: `Bearer ${decryptToken(token)}`,
+        },
+      }),
+      invalidatesTags: (result) =>
+        result ? [{ type: "Courses", id: result.id }] : ["Courses"],
+    }),
   }),
 });
 
@@ -138,4 +171,6 @@ export const {
   useAddcourseMutation,
   useDeleteCourseMutation,
   useUpdateCourseMutation,
+  useAcceptCommentsMutation,
+  useDeleteCommentsMutation,
 } = CoursesApi;

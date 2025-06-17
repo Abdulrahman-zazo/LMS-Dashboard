@@ -378,10 +378,11 @@
     },
     "message": {
       "comments": {
-        "add": "Your comment was submitted successfully! It will be reviewed and published soon.",
+        "add": "The comment has been successfully accepted and will appear to users in the review section.",
         "error": "Failed to send the comment",
         "delete": "Comment deleted successfully",
-        "error_delete": "Failed to delete the comment"
+        "error_delete": "Failed to delete the comment",
+        "noComment": "لا يوجد تعليقات على هذه الدورة. "
       },
       "registration": {
         "error": "Please enter your personal information correctly",
