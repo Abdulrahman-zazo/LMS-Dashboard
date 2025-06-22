@@ -53,7 +53,9 @@ export function AppSidebar() {
     dispatch(changeLangAction(newLang));
   };
   const { data, isLoading } = useGetuserInformationQuery(token as string);
-  const { data: courses } = useGetAllCoursesQuery(token as string);
+  const { data: courses } = useGetAllCoursesQuery(token as string, {
+    refetchOnMountOrArgChange: true,
+  });
 
   const items = [
     {

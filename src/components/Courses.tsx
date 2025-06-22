@@ -19,7 +19,9 @@ interface IcourseCard {
 const CoursesComponent = ({ max }: IcourseMax) => {
   const { t } = useTranslation("translation");
   const token = cookieService.get("auth_token") || "";
-  const { data, isLoading, isError } = useGetAllCoursesQuery(token as string);
+  const { data, isLoading, isError } = useGetAllCoursesQuery(token as string, {
+    refetchOnMountOrArgChange: true,
+  });
 
   if (isLoading) {
     return (

@@ -23,7 +23,9 @@ const CoursesPage = () => {
   const [currentCourse, setCurrentCourse] =
     useState<Partial<Course | undefined>>();
 
-  const { data, isLoading, isError } = useGetAllCoursesQuery(token as string);
+  const { data, isLoading, isError } = useGetAllCoursesQuery(token as string, {
+    refetchOnMountOrArgChange: true,
+  });
 
   const onAddClick = () => {
     setCurrentCourse(undefined);

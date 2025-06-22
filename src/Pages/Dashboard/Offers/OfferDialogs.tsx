@@ -99,7 +99,9 @@ export default function OffersDialog({
   const { t } = useTranslation("translation");
 
   const token = cookieService.get("auth_token") || "";
-  const { data: Courses } = useGetAllCoursesQuery(token as string);
+  const { data: Courses } = useGetAllCoursesQuery(token as string, {
+    refetchOnMountOrArgChange: true,
+  });
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
