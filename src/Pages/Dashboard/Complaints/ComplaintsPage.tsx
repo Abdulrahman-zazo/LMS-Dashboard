@@ -9,7 +9,7 @@ import HandelError from "@/components/HandelError";
 import type { Complaint } from "@/types";
 import ComplaintDetailPanel from "@/components/ComplaintCard";
 import { Skeleton } from "@/components/ui/skeleton";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 
@@ -62,7 +62,7 @@ export default function ComplaintsWithPanel() {
   return (
     <>
       <div className=" m-4">
-        <h1 className="text-base sm:text-lg font-semibold text-neutral-800 ">
+        <h1 className="text-base sm:text-lg mb-2 font-semibold text-neutral-800 ">
           {t("complaints.title1")}
         </h1>
         <p className="text-xs sm:text-sm text-neutral-400 pb-4 border-b">

@@ -22,7 +22,7 @@ const UsersPage = () => {
     useState<Partial<Users | undefined>>();
 
   const { data, isLoading, isError } = useGetAllUsersQuery(token as string);
-  console.log(data);
+
   const onDeleteClick = (users: Users) => {
     setCurrentusers(users);
     setOpenDeleteDialog(true);

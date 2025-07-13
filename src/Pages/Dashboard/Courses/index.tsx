@@ -47,11 +47,11 @@ const CoursesPage = () => {
     return <HandelError />;
   }
 
-  const Courses = !isLoading && data ? [...data.course].reverse() : [];
+  const course = !isLoading && data ? [...data.course].reverse() : [];
   return (
     <div>
       <DataTable<Course>
-        data={Courses}
+        data={course}
         isloading={isLoading}
         ImageType="rectangle"
         buttonAdd={t("pages.courses.add")}

@@ -14,9 +14,10 @@ import {
 } from "@/app/features/Admins/userApi";
 import { useTranslation } from "react-i18next";
 import { GoogleLogin } from "@react-oauth/google";
-import { toast } from "sonner";
+
 import { jwtDecode } from "jwt-decode";
 import { Loader } from "lucide-react";
+import toast from "react-hot-toast";
 
 export function LoginForm({
   className,
@@ -42,28 +43,31 @@ export function LoginForm({
     const password = passwordEntry;
     const toastId = toast.loading(t("message.login_message.loading"));
     try {
-      const result = await login({ email, password }).unwrap();
+      const result = await login({ email, password });
 
-      if (result.user.is_admin === 1) {
+      if (result.data.status && result.data.user.is_admin === 1) {
         toast.success(t("message.login_message.success"), {
           id: toastId,
         });
-        encryptToken(result.authorization.token);
+        encryptToken(result.data.authorization.token);
         navigate("/");
-      } else if (result.user.is_admin === 0) {
-        toast.success(t("message.login_message.NoAccess"), {
+      } else if (result.data.status && result.data.user.is_admin === 0) {
+        toast.error(t("message.login_message.NoAccess"), {
           id: toastId,
         });
       } else {
-        toast.success(t(result.msg), {
+        toast.error(t(result.data.msg), {
           id: toastId,
         });
       }
     } catch (err) {
-      const error = err as { msg?: string };
-      toast.error(error?.msg || "حدث خطأ أثناء التسجيل", {
-        id: toastId,
-      });
+      const error = err as { data?: { message?: string } };
+      toast.error(
+        error.data?.message || t("message.forget_message.error_code"),
+        {
+          id: toastId,
+        }
+      );
     }
   };
   return (
@@ -187,13 +191,17 @@ export function LoginForm({
                   <>{t("auth.Login_account.Login")}</>
                 )}
               </Button>
-
+              {/* 
               <div className="text-center text-sm">
                 {t("auth.Login_account.noAccount")}{" "}
-                <a href="#" className="underline underline-offset-4">
+                <a
+                  href="https://h-platform.online"
+                  target="_blank"
+                  className="underline underline-offset-4"
+                >
                   {t("auth.Login_account.noAccount")}{" "}
                 </a>
-              </div>
+              </div> */}
             </div>
           </form>
           <div className=" relative hidden md:block">
@@ -206,8 +214,15 @@ export function LoginForm({
         </CardContent>
       </Card>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        By clicking continue, you agree to our{" "}
+        <a href="https://www.h-platform.online/h-platform-term">
+          Terms of Service
+        </a>{" "}
+        and{" "}
+        <a href="https://www.h-platform.online/h-platform-privacy-policy">
+          Privacy Policy
+        </a>
+        .
       </div>
     </div>
   );

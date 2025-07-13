@@ -8,7 +8,7 @@ import {
 } from "../../../app/features/Admins/userApi";
 
 import { encryptToken } from "../../../Cookies/CryptoServices/crypto";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 import Logo from "@/components/ui/Logo";
 
 export default function ForgetPassword() {

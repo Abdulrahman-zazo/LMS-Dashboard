@@ -91,8 +91,8 @@ const OffersPage = () => {
           </div>
 
           <div className="space-y-4 w-full  ">
-            {data?.Offers.length > 0 ? (
-              data?.Offers.map((offer: Offers, index: number) => (
+            {data?.offers.length > 0 &&
+              data?.offers.map((offer: Offers, index: number) => (
                 <div
                   key={offer.id}
                   className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:border  hover:border-neutext-neutral-800/50  "
@@ -176,8 +176,8 @@ const OffersPage = () => {
                     )}
                   </AnimatePresence>
                 </div>
-              ))
-            ) : (
+              ))}
+            {data.offers.length === 0 && (
               <div className="flex items-center justify-center h-80">
                 <p className="text-xs   sm:text-sm text-neutral-400 text-center">
                   {t("offer.NoOffer")}

@@ -48,7 +48,7 @@ const ImageCropper: FC<ImageCropperProps> = ({
         <div
           className={`relative ${
             width ? `w-${width}` : "w-full"
-          } h-[250px] bg-neutral-800 mt-4`}
+          } h-[250px] bg-neutral-50 mt-4`}
         >
           <Cropper
             image={imageSrc}

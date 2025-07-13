@@ -5,7 +5,7 @@ import {
 } from "@/app/features/Curriculum/Stage/StageApi";
 import type { Stage } from "@/types";
 import { useTranslation } from "react-i18next";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 
 export const useStageActions = (token: string) => {
   const [addStage] = useAddStageMutation();
@@ -17,7 +17,7 @@ export const useStageActions = (token: string) => {
     const toastId = toast.loading(t("pages.Stages.messages.loading1"));
     try {
       const result = await addStage({ Stage, token }).unwrap();
-      console.log(result);
+
       if (result.status) {
         toast.success(t("pages.Stages.messages.success1"), { id: toastId });
       } else {

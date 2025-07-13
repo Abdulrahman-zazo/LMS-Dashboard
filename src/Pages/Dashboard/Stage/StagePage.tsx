@@ -21,7 +21,7 @@ const StagePage = () => {
     useState<Partial<Stage | undefined>>();
 
   const { data, isLoading, isError } = useGetAllStagesQuery(token as string);
-  console.log(data);
+
   const onAddClick = () => {
     setCurrentStage(undefined);
     setIsEdit(false);
@@ -44,7 +44,7 @@ const StagePage = () => {
   return (
     <div>
       <DataTable<Stage>
-        data={data?.Stages}
+        data={data?.stages}
         isloading={isLoading}
         buttonAdd={t("pages.Stages.add")}
         title={t("pages.Stages.title")}
@@ -73,6 +73,13 @@ const StagePage = () => {
         }}
         initialData={currentStage}
       />
+      {/* {data?.stages.length === 0 && (
+        <div className="flex items-center justify-center h-40">
+          <p className="text-xs   sm:text-sm text-neutral-400 text-center">
+            لا يوجد مراحل دراسية
+          </p>
+        </div>
+      )} */}
     </div>
   );
 };

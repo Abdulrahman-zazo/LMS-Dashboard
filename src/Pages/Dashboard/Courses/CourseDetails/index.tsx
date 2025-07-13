@@ -35,7 +35,7 @@ const CoursePage = () => {
     token: String(token),
     course_id: Number(id),
   });
-  console.log(data);
+
   const [activeCourse, { isLoading: isLaodingActive }] =
     useActiveCourseMutation();
   const Navigate = useNavigate();

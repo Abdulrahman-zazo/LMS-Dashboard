@@ -84,7 +84,7 @@ export default function CurriculumDialog({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ ...formData, imageFile });
+
     onSubmit({ ...formData, imageFile });
     setFormData({});
     setImageFile(undefined);
@@ -159,7 +159,7 @@ export default function CurriculumDialog({
             </Label>
             <MultiSelect
               options={
-                Stages?.Stages.map((s: Stage) => ({
+                Stages?.stages.map((s: Stage) => ({
                   label: s.name,
                   value: s.id,
                 })) || []
@@ -196,7 +196,7 @@ export default function CurriculumDialog({
             )}
           </div>
 
-          <div className="flex justify-end  gap-2 pt-4 border-t">
+          <div className="flex justify-start  gap-2 pt-4 border-t">
             <Button
               type="button"
               className="text-xs sm:text-sm"

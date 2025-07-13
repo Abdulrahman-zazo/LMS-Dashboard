@@ -2,10 +2,11 @@ import "./App.css";
 
 import { RouterProvider } from "react-router-dom";
 import { router } from "./Routes";
-import { Toaster } from "sonner";
+
 import OfflineAlert from "./components/Offline";
 import { useEffect } from "react";
 import { useAppSelector } from "./app/store";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const lang = useAppSelector((state) => state.language.lang);
@@ -18,7 +19,7 @@ function App() {
     <div>
       <OfflineAlert />
       <RouterProvider router={router} />
-      <Toaster icons={{ success: "-" }} position="top-center" />
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 }

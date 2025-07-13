@@ -50,7 +50,7 @@ const DeleteDialog = ({ open, onClose, onSubmit, initialData }: Props) => {
             {t("pages.curriculums.dialogs.delete_text2")}
           </DialogDescription>
         </DialogHeader>
-        <div className="flex justify-end gap-2 pt-4">
+        <div className="flex justify-start gap-2 pt-4">
           <Button
             variant="outline"
             onClick={onClose}

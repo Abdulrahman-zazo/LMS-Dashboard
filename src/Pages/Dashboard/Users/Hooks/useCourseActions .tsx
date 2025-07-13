@@ -3,7 +3,7 @@ import {
   useMakeAdminMutation,
 } from "@/app/features/Users/usersApi";
 import { useTranslation } from "react-i18next";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 
 export const useUsersActions = (token: string) => {
   const [makeAdmin] = useMakeAdminMutation();

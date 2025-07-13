@@ -61,3 +61,8 @@ export const ALL_COMPLAINT = "/api/AllComplaints";
 
 /* --------------- Statistics -------------- */
 export const GET_ALL_STATISTICS = "/api/AllStatistics";
+
+/*--------------- Contacts --------------*/
+
+export const GET_ALL_CONTACTS = "/api/AdminAllContact";
+export const UPDATE_CONTACTS = "/api/AdminUpdateContact";

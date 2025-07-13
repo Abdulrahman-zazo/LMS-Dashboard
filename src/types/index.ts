@@ -7,6 +7,7 @@ export type Column<T> = {
 
 export interface DataTableProps<T> {
   title?: string;
+  noData?: string;
   ImageType?: "circle" | "rectangle";
   buttonAdd?: string;
   isloading: boolean;
@@ -80,6 +81,15 @@ export interface Curriculum {
   imageFile?: File;
   stage_id?: number[];
 }
+
+export interface Contact {
+  facebook_url: string;
+  instagram_url: string;
+  whatsapp_num: string;
+  telegram_url: string;
+  youtube_url: string;
+}
+export type ContactsArray = Contact[];
 
 export interface Offers {
   id: number;

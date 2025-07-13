@@ -5,7 +5,7 @@ import {
 } from "@/app/features/Curriculum/CurriculumApi";
 import type { Curriculum } from "@/types";
 import { useTranslation } from "react-i18next";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 
 export const useCurriculumActions = (token: string) => {
   const [addCurriculum] = useAddCurriculumMutation();

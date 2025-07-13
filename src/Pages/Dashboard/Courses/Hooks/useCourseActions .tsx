@@ -5,7 +5,7 @@ import {
 } from "@/app/features/Courses/CoursesApi";
 import type { Course } from "@/types";
 import { useTranslation } from "react-i18next";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 
 export const useCourseActions = (token: string) => {
   const [addcourse] = useAddcourseMutation();

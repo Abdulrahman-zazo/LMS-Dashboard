@@ -17,21 +17,13 @@ import storage from "redux-persist/lib/storage";
 
 // استيراد الأدوات اللازمة للتخزين الدائم
 import { persistReducer, persistStore } from "redux-persist";
+import { ContactsApi } from "./features/Contacts/ContactsApi";
 
 // إعداد config لـ redux-persist
 const persistConfig = {
   key: "root-dashbord-h-platform",
   storage, // طريقة التخزين (localStorage)
-  whitelist: [
-    CoursesApi.reducerPath,
-    userApi.reducerPath,
-    OfferApi.reducerPath,
-    CurriculumsApi.reducerPath,
-    SubjectsApi.reducerPath,
-    StagesApi.reducerPath,
-    ComplaintsApi.reducerPath,
-    usersApi.reducerPath,
-  ],
+  whitelist: [],
 };
 
 // دمج كل الـ reducers العادية مع RTK Query reducers
@@ -42,12 +34,12 @@ const rootReducer = combineReducers({
   [userApi.reducerPath]: userApi.reducer,
   [CoursesApi.reducerPath]: CoursesApi.reducer,
   [CurriculumsApi.reducerPath]: CurriculumsApi.reducer,
-
   [OfferApi.reducerPath]: OfferApi.reducer,
   [ComplaintsApi.reducerPath]: ComplaintsApi.reducer,
   [SubjectsApi.reducerPath]: SubjectsApi.reducer,
   [StagesApi.reducerPath]: StagesApi.reducer,
   [usersApi.reducerPath]: usersApi.reducer,
+  [ContactsApi.reducerPath]: ContactsApi.reducer,
 });
 
 // تغليف الـ rootReducer بـ persistReducer لنفعّل التخزين الدائم
@@ -59,12 +51,12 @@ export const store = configureStore({
       userApi.middleware,
       CoursesApi.middleware,
       CurriculumsApi.middleware,
-
       OfferApi.middleware,
       ComplaintsApi.middleware,
       SubjectsApi.middleware,
       StagesApi.middleware,
-      usersApi.middleware
+      usersApi.middleware,
+      ContactsApi.middleware
     ),
 });
 // إنشاء persistor يلي مسؤول عن تحميل/تخزين الحالة تلقائيًا

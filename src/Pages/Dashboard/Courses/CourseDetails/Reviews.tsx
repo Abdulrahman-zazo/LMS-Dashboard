@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 import { Loader } from "lucide-react";
 
 import { cookieService } from "@/Cookies/CookiesServices";
@@ -31,29 +31,31 @@ export const Reviews = ({ comments }: ReviewsProps) => {
   const { t } = useTranslation("translation");
   const Authtoken: string = cookieService.get("auth_token") || "";
   const [showAllComments, setShowAllComments] = useState(false);
-
-  const [acceptComments, { isLoading: isloadingAcceptComment }] =
-    useAcceptCommentsMutation();
-  const [deleteComments, { isLoading: isloadingDeleteComment }] =
-    useDeleteCommentsMutation();
+  const [loadingAcceptId, setLoadingAcceptId] = useState<number | null>(null);
+  const [loadingDeleteId, setLoadingDeleteId] = useState<number | null>(null);
+  const [acceptComments] = useAcceptCommentsMutation();
+  const [deleteComments] = useDeleteCommentsMutation();
 
   const displayedComments = showAllComments ? comments : comments.slice(0, 1);
-  console.log(comments);
+
   const handleAcceptComment = async (commentId: number) => {
+    setLoadingAcceptId(commentId);
     try {
       await acceptComments({
         comment_id: commentId,
         token: Authtoken,
       }).unwrap();
-
       toast.success(t("message.comments.add"));
     } catch (err) {
       toast.error(t("message.comments.error"));
       console.error(err);
+    } finally {
+      setLoadingAcceptId(null);
     }
   };
 
   const handleDeleteComment = async (commentId: number) => {
+    setLoadingDeleteId(commentId);
     try {
       await deleteComments({
         comment_id: commentId,
@@ -63,8 +65,11 @@ export const Reviews = ({ comments }: ReviewsProps) => {
     } catch (err) {
       toast.error(t("message.comments.error_delete"));
       console.error(err);
+    } finally {
+      setLoadingDeleteId(null);
     }
   };
+
   return (
     <div>
       {displayedComments?.length === 0 && (
@@ -108,11 +113,11 @@ export const Reviews = ({ comments }: ReviewsProps) => {
                       key={comment.id}
                       type="button"
                       onClick={() => handleDeleteComment(comment.id)}
-                      className="text-red-500 text-xs hover:underline px-4 py-2 rounded-lg  bg-red-100/20  cursor-pointer col-span-1 w-full"
-                      disabled={isloadingDeleteComment}
+                      className="text-red-500 text-xs hover:underline px-4 py-2 rounded-lg bg-red-100/20 cursor-pointer col-span-1 w-full"
+                      disabled={loadingDeleteId === comment.id}
                     >
-                      {isloadingDeleteComment ? (
-                        <div className=" animate-spin px-2 duration-200">
+                      {loadingDeleteId === comment.id ? (
+                        <div className="animate-spin px-2 duration-200">
                           <Loader size={16} />
                         </div>
                       ) : (
@@ -124,15 +129,15 @@ export const Reviews = ({ comments }: ReviewsProps) => {
                         key={comment.id}
                         type="button"
                         onClick={() => handleAcceptComment(comment.id)}
-                        className="text-primary font-medium text-xs hover:underline  col-span-1 cursor-pointer px-4 py-2 rounded-lg  bg-primary/20  w-full"
-                        disabled={isloadingAcceptComment}
+                        className="text-primary font-medium text-xs hover:underline col-span-1 cursor-pointer px-4 py-2 rounded-lg bg-primary/20 w-full"
+                        disabled={loadingAcceptId === comment.id}
                       >
-                        {isloadingAcceptComment ? (
-                          <div className=" animate-spin px-2 duration-200">
+                        {loadingAcceptId === comment.id ? (
+                          <div className="animate-spin px-2 duration-200">
                             <Loader size={16} />
                           </div>
                         ) : (
-                          "قبول "
+                          "قبول"
                         )}
                       </button>
                     )}

@@ -5,7 +5,7 @@ import {
 } from "@/app/features/Curriculum/Subject/SubjectApi";
 import type { Subject } from "@/types";
 import { useTranslation } from "react-i18next";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 
 export const useSubjectsActions = (token: string) => {
   const [addSubject] = useAddSubjectMutation();

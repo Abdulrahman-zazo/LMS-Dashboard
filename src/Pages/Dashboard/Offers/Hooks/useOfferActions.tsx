@@ -6,7 +6,7 @@ import {
 import type { Offers } from "@/types";
 import { useTranslation } from "react-i18next";
 
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 
 export const useOfferActions = (token: string) => {
   const [addOffer] = useAddOfferMutation();

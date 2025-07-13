@@ -66,7 +66,7 @@ export function CurriculumCards({
                 </div>
               </div>
             ))
-          : paginatedData?.map((row: Curriculum) => {
+          : paginatedData.map((row: Curriculum) => {
               return (
                 <div
                   key={row.id}
@@ -124,7 +124,13 @@ export function CurriculumCards({
               );
             })}
       </div>
-
+      {paginatedData?.length === 0 && (
+        <div className="flex items-center justify-center h-40">
+          <p className="text-xs   sm:text-sm text-neutral-400 text-center">
+            لا يوجد مناهج
+          </p>
+        </div>
+      )}
       {!isloading && totalPages > 1 && (
         <div className="flex justify-center items-center gap-4 mt-4 text-xs">
           <Button

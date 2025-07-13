@@ -27,6 +27,7 @@ export function DataTable<
   }
 >({
   columns,
+  noData = "لا يوجد بيانات لعرضها ",
   title = "البيانات",
   description = "",
   ImageType = "rectangle", // Image type rectangle as default to courses
@@ -80,9 +81,9 @@ export function DataTable<
             {description}
           </span>
         </div>
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex  items-center justify-between gap-2 ">
           {typeof data?.[0]?.is_admin !== "undefined" && (
-            <div className="flex gap-1">
+            <div className="flex gap-1 ">
               <Button
                 size="sm"
                 variant={filterType === "all" ? "default" : "outline"}
@@ -105,7 +106,7 @@ export function DataTable<
                 onClick={() => setFilterType("users")}
                 className="text-xs"
               >
-                {t("pages.users.users") || "المستخدمين"}
+                {"المستخدمين"}
               </Button>
             </div>
           )}
@@ -132,7 +133,7 @@ export function DataTable<
       </div>
 
       <div className="overflow-auto">
-        <table className="min-w-full text-sm">
+        <table className=" min-w-full  text-sm">
           <thead className="text-start">
             <tr className="border-b border-neutral-100 text-center">
               {columns.map((col) =>
@@ -146,7 +147,7 @@ export function DataTable<
                 ) : (
                   <th
                     key={col.key as string}
-                    className={`text-start p-4 text-xs sm:text-sm text-neutral-800 font-semibold  ${
+                    className={`text-start sm:p-4 text-xs sm:text-sm text-neutral-800 font-semibold  ${
                       col.key === "summary" ||
                       col.key === "email" ||
                       col.key === "phone"
@@ -197,7 +198,7 @@ export function DataTable<
                     {columns.map((col) => (
                       <td
                         key={col.key as string}
-                        className={`p-2 text-neutral-700 text-xs sm:text-sm${
+                        className={`p-2 text-neutral-700 text-xs sm:text-sm ${
                           col.key === "summary" ||
                           col.key === "email" ||
                           col.key === "phone"
@@ -347,7 +348,13 @@ export function DataTable<
           </tbody>
         </table>
       </div>
-
+      {paginatedData?.length === 0 && (
+        <div className="flex items-center justify-center h-80">
+          <p className="text-xs   sm:text-sm text-neutral-400 text-center">
+            {noData}
+          </p>
+        </div>
+      )}
       {/* Pagination Controls */}
       {!isloading && totalPages > 1 && (
         <div className="flex justify-center items-center gap-4 mt-4 text-xs">

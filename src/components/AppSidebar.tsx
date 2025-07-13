@@ -68,7 +68,7 @@ export function AppSidebar() {
       url: "/courses",
       icon: () => (
         <div className="relative">
-          <LibraryBig />
+          <LibraryBig size={16} />
           {courses?.AllCommentUnRead > 0 && (
             <span
               className={`absolute -top-1 ${
